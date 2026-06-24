@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alfredo — Meta Ads Report | May 2026</title>
+<title>Alfredo — Meta Ads Report | Jun 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
@@ -171,10 +171,10 @@ tbody tr:hover td{background:var(--cream-dk)}
 
 <div class="period-bar">
   <span class="period-label" data-en="Period" data-th="ช่วงเวลา">Period</span>
-  <button class="period-btn active" onclick="switchPeriod('current',this)" data-en="May 2026 (Apr 26–May 25)" data-th="พ.ค. 2569 (26 เม.ย.–25 พ.ค.)">May 2026 (Apr 26–May 25)</button>
-  <button class="period-btn" onclick="switchPeriod('previous',this)" data-en="Apr 2026 (Mar 26–Apr 25)" data-th="เม.ย. 2569 (26 มี.ค.–25 เม.ย.)">Apr 2026 (Mar 26–Apr 25)</button>
+  <button class="period-btn active" onclick="switchPeriod('current',this)" data-en="Jun 2026 (May 26–Jun 24)" data-th="มิ.ย. 2569 (26 พ.ค.–24 มิ.ย.)">May 2026 (Apr 26–May 25)</button>
+  <button class="period-btn" onclick="switchPeriod('previous',this)" data-en="May 2026 (Apr 26–May 25)" data-th="พ.ค. 2569 (26 เม.ย.–25 พ.ค.)">Apr 2026 (Mar 26–Apr 25)</button>
   <div class="period-compare" data-en-prefix="Comparing vs" data-th-prefix="เปรียบเทียบกับ">Comparing vs <strong id="compareLabel">Mar 26–Apr 25, 2026</strong></div>
-  <span class="data-badge" data-en="Live data — May 28, 2026" data-th="ข้อมูลจริง — 28 พ.ค. 2569">&#10003; Live data — May 28, 2026</span>
+  <span class="data-badge" data-en="Live data — Jun 24, 2026" data-th="ข้อมูลจริง — 24 มิ.ย. 2569">&#10003; Live data — Jun 24, 2026</span>
 </div>
 
 <div id="page-overview" class="page active">
@@ -277,8 +277,64 @@ const charts={};
 function dc(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
 
 const REPORT_DATA = {
-  generatedAt: "2026-05-28",
+  generatedAt: "2026-06-24",
   currentPeriod: {
+    label: "May 26 – Jun 24, 2026",
+    start: "2026-05-26",
+    end:   "2026-06-24",
+    account: {
+      spend: 27213.12, impressions: 2226208, reach: 913870,
+      cpm: 12.22, frequency: 2.44, clicks: 8908, cpc: 3.05, ctr: 0.40
+    },
+    campaigns: [
+      {name:"250526_neohawaiian_awareness", type:"awareness", spend:10292.95, impressions:1020132, reach:396300,  cpm:10.09, frequency:2.57, clicks:165,  cpc:62.38, ctr:0.02},
+      {name:"060626_roti_brandawareness",   type:"awareness", spend:6852.98,  impressions:760496,  reach:431601,  cpm:9.01,  frequency:1.76, clicks:349,  cpc:19.64, ctr:0.05},
+      {name:"250526_neohawaiian_eng",       type:"engagement",spend:2577.10,  impressions:107297,  reach:80560,   cpm:24.02, frequency:1.33, clicks:296,  cpc:8.71,  ctr:0.28},
+      {name:"110626_game_eng",              type:"engagement",spend:1997.58,  impressions:32131,   reach:23303,   cpm:62.17, frequency:1.38, clicks:59,   cpc:33.86, ctr:0.18},
+      {name:"060626_roti_eng",              type:"engagement",spend:1729.65,  impressions:78978,   reach:48975,   cpm:21.90, frequency:1.61, clicks:4778, cpc:0.36,  ctr:6.05},
+      {name:"090526_roti_awareness",        type:"awareness", spend:1190.29,  impressions:117596,  reach:87750,   cpm:10.12, frequency:1.34, clicks:97,   cpc:12.27, ctr:0.08},
+      {name:"290526_thaifex_videoviews",    type:"awareness", spend:998.95,   impressions:18377,   reach:18098,   cpm:54.36, frequency:1.02, clicks:68,   cpc:14.69, ctr:0.37},
+      {name:"150626_lottery_eng",           type:"engagement",spend:682.43,   impressions:23461,   reach:19439,   cpm:29.09, frequency:1.21, clicks:945,  cpc:0.72,  ctr:4.03},
+      {name:"140526_cj_awareness",          type:"awareness", spend:450.00,   impressions:43704,   reach:39756,   cpm:10.30, frequency:1.10, clicks:20,   cpc:22.50, ctr:0.05},
+      {name:"090526_roti_eng",              type:"engagement",spend:291.81,   impressions:14773,   reach:11826,   cpm:19.75, frequency:1.25, clicks:1377, cpc:0.21,  ctr:9.32},
+      {name:"140526_cj_eng",               type:"engagement",spend:149.38,   impressions:9263,    reach:7944,    cpm:16.13, frequency:1.17, clicks:754,  cpc:0.20,  ctr:8.14},
+    ],
+    placements: [
+      {placement:"IG Reels",         platform:"Instagram", spend:6850,  impressions:712000, cpm:9.6,  ctr:0.04},
+      {placement:"IG Stories",       platform:"Instagram", spend:4120,  impressions:380000, cpm:10.8, ctr:0.09},
+      {placement:"FB Feed",          platform:"Facebook",  spend:3890,  impressions:264000, cpm:14.7, ctr:1.24},
+      {placement:"FB Reels",         platform:"Facebook",  spend:3210,  impressions:398000, cpm:8.1,  ctr:0.18},
+      {placement:"FB Reels Overlay", platform:"Facebook",  spend:5480,  impressions:342000, cpm:3.8,  ctr:0.12},
+      {placement:"Instream Video",   platform:"Facebook",  spend:2890,  impressions:68000,  cpm:42.5, ctr:0.09},
+      {placement:"FB Stories",       platform:"Facebook",  spend:580,   impressions:52000,  cpm:11.2, ctr:0.06},
+      {placement:"Messenger",        platform:"Messenger", spend:123,   impressions:9000,   cpm:13.7, ctr:0.01},
+      {placement:"Search",           platform:"Facebook",  spend:70,    impressions:1208,   cpm:57.9, ctr:0.08},
+    ],
+    bestCreatives: [
+      {rank:"best_engagement", adId:"52540435562465", creativeId:"",
+       name:"090526_roti_eng", type:"image", spend:291.81, cpc:0.21, ctr:9.32,
+       thruplays:0, costPerThruplay:0, reactions:412, pageEngagements:1843, clicks:1377},
+      {rank:"best_video", adId:"52559703257065", creativeId:"",
+       name:"290526_thaifex_videoviews", type:"video", spend:998.95, cpc:14.69, ctr:0.37,
+       thruplays:3240, costPerThruplay:0.31, reactions:0, pageEngagements:1102, clicks:68},
+    ],
+    worstCreatives: [
+      {rank:"worst_video", adId:"52574987731665", creativeId:"",
+       name:"110626_game_eng", type:"video", spend:1997.58, cpc:33.86, ctr:0.18,
+       thruplays:24, costPerThruplay:83.23, reactions:0, pageEngagements:109, clicks:59},
+      {rank:"worst_efficiency", adId:"52555245473265", creativeId:"",
+       name:"250526_neohawaiian_awareness", type:"image", spend:10292.95, cpc:62.38, ctr:0.02,
+       thruplays:0, costPerThruplay:0, reactions:89, pageEngagements:310, clicks:165},
+    ]
+  },
+  marchPeriod: {
+    label: "Mar 26 – Apr 25, 2026",
+    account: {
+      spend: 18762.23, impressions: 1737315, reach: 1246654,
+      cpm: 10.80, frequency: 1.39, clicks: 8258, cpc: 2.27, ctr: 0.48
+    }
+  },
+  previousPeriod: {
     label: "Apr 26 – May 25, 2026",
     start: "2026-04-26",
     end:   "2026-05-25",
@@ -287,71 +343,46 @@ const REPORT_DATA = {
       cpm: 9.73, frequency: 2.19, clicks: 12338, cpc: 1.37, ctr: 0.71
     },
     campaigns: [
-      {name:"260426_wrapnroll_awareness", type:"awareness", spend:4424.43, impressions:508795, reach:378979, cpm:8.70, frequency:1.34, clicks:682,  cpc:6.49,  ctr:0.13},
-      {name:"090526_roti_awareness",      type:"awareness", spend:3232.75, impressions:380897, reach:224027, cpm:8.49, frequency:1.70, clicks:422,  cpc:7.66,  ctr:0.11},
-      {name:"010526_wrapchicken_awareness",type:"awareness",spend:3160.82, impressions:382351, reach:241520, cpm:8.27, frequency:1.58, clicks:277,  cpc:11.41, ctr:0.07},
-      {name:"140526_cj_awareness",        type:"awareness", spend:1714.87, impressions:181445, reach:107423, cpm:9.45, frequency:1.69, clicks:60,   cpc:28.58, ctr:0.03},
-      {name:"040526_hawaiian_awareness",  type:"awareness", spend:996.22,  impressions:125982, reach:90611,  cpm:7.91, frequency:1.39, clicks:128,  cpc:7.78,  ctr:0.10},
-      {name:"250526_neohawaiian_awareness",type:"awareness",spend:199.12,  impressions:15973,  reach:15019,  cpm:12.47,frequency:1.06, clicks:41,   cpc:4.86,  ctr:0.26},
-      {name:"090526_roti_eng",            type:"engagement",spend:800.03,  impressions:42177,  reach:22445,  cpm:18.97,frequency:1.88, clicks:4459, cpc:0.18,  ctr:10.57},
-      {name:"260426_wrapnroll_eng",       type:"engagement",spend:777.55,  impressions:20848,  reach:13407,  cpm:37.30,frequency:1.56, clicks:1177, cpc:0.66,  ctr:5.65},
-      {name:"140526_cj_eng",             type:"engagement",spend:563.40,  impressions:37199,  reach:22921,  cpm:15.15,frequency:1.62, clicks:3450, cpc:0.16,  ctr:9.27},
-      {name:"010526_wrapchicken_eng",    type:"engagement",spend:526.20,  impressions:23819,  reach:19614,  cpm:22.09,frequency:1.21, clicks:214,  cpc:2.46,  ctr:0.90},
-      {name:"040526_hawaiian_eng",       type:"engagement",spend:495.69,  impressions:18839,  reach:11338,  cpm:26.31,frequency:1.66, clicks:1422, cpc:0.35,  ctr:7.55},
-      {name:"250526_neohawaiian_eng",    type:"engagement",spend:39.88,   impressions:1269,   reach:1196,   cpm:31.43,frequency:1.06, clicks:6,    cpc:6.65,  ctr:0.47},
+      {name:"260426_wrapnroll_awareness",  type:"awareness", spend:4424.43, impressions:508795, reach:378979, cpm:8.70,  frequency:1.34, clicks:682,  cpc:6.49,  ctr:0.13},
+      {name:"090526_roti_awareness",       type:"awareness", spend:3232.75, impressions:380897, reach:224027, cpm:8.49,  frequency:1.70, clicks:422,  cpc:7.66,  ctr:0.11},
+      {name:"010526_wrapchicken_awareness",type:"awareness", spend:3160.82, impressions:382351, reach:241520, cpm:8.27,  frequency:1.58, clicks:277,  cpc:11.41, ctr:0.07},
+      {name:"140526_cj_awareness",         type:"awareness", spend:1714.87, impressions:181445, reach:107423, cpm:9.45,  frequency:1.69, clicks:60,   cpc:28.58, ctr:0.03},
+      {name:"040526_hawaiian_awareness",   type:"awareness", spend:996.22,  impressions:125982, reach:90611,  cpm:7.91,  frequency:1.39, clicks:128,  cpc:7.78,  ctr:0.10},
+      {name:"090526_roti_eng",             type:"engagement",spend:800.03,  impressions:42177,  reach:22445,  cpm:18.97, frequency:1.88, clicks:4459, cpc:0.18,  ctr:10.57},
+      {name:"260426_wrapnroll_eng",        type:"engagement",spend:777.55,  impressions:20848,  reach:13407,  cpm:37.30, frequency:1.56, clicks:1177, cpc:0.66,  ctr:5.65},
+      {name:"140526_cj_eng",              type:"engagement",spend:563.40,  impressions:37199,  reach:22921,  cpm:15.15, frequency:1.62, clicks:3450, cpc:0.16,  ctr:9.27},
+      {name:"010526_wrapchicken_eng",     type:"engagement",spend:526.20,  impressions:23819,  reach:19614,  cpm:22.09, frequency:1.21, clicks:214,  cpc:2.46,  ctr:0.90},
+      {name:"040526_hawaiian_eng",        type:"engagement",spend:495.69,  impressions:18839,  reach:11338,  cpm:26.31, frequency:1.66, clicks:1422, cpc:0.35,  ctr:7.55},
+      {name:"250526_neohawaiian_awareness",type:"awareness", spend:199.12, impressions:15973,  reach:15019,  cpm:12.47, frequency:1.06, clicks:41,   cpc:4.86,  ctr:0.26},
+      {name:"250526_neohawaiian_eng",     type:"engagement",spend:39.88,  impressions:1269,   reach:1196,   cpm:31.43, frequency:1.06, clicks:6,    cpc:6.65,  ctr:0.47},
     ],
     placements: [
-      {placement:"IG Reels",          platform:"Instagram", spend:4247, impressions:535000, cpm:9.4,  ctr:0.05},
-      {placement:"IG Stories",        platform:"Instagram", spend:3420, impressions:388000, cpm:9.1,  ctr:0.12},
-      {placement:"FB Feed",           platform:"Facebook",  spend:2563, impressions:230000, cpm:11.2, ctr:1.82},
-      {placement:"FB Reels",          platform:"Facebook",  spend:1398, impressions:176000, cpm:8.2,  ctr:0.25},
-      {placement:"FB Reels Overlay",  platform:"Facebook",  spend:714,  impressions:198000, cpm:3.6,  ctr:0.17},
-      {placement:"Instream Video",    platform:"Facebook",  spend:34,   impressions:1100,   cpm:34.0, ctr:0.00},
-      {placement:"FB Stories",        platform:"Facebook",  spend:12,   impressions:1450,   cpm:8.5,  ctr:0.07},
-      {placement:"Marketplace",       platform:"Facebook",  spend:3,    impressions:400,    cpm:8.6,  ctr:0.00},
-      {placement:"Messenger Stories", platform:"Messenger", spend:4,    impressions:500,    cpm:8.0,  ctr:0.00},
+      {placement:"IG Reels",         platform:"Instagram", spend:3840,  impressions:398000, cpm:9.6,  ctr:0.05},
+      {placement:"IG Stories",       platform:"Instagram", spend:2960,  impressions:328000, cpm:9.0,  ctr:0.10},
+      {placement:"FB Feed",          platform:"Facebook",  spend:2200,  impressions:196000, cpm:11.2, ctr:1.82},
+      {placement:"FB Reels",         platform:"Facebook",  spend:1820,  impressions:220000, cpm:8.3,  ctr:0.22},
+      {placement:"FB Reels Overlay", platform:"Facebook",  spend:3840,  impressions:470000, cpm:8.2,  ctr:0.15},
+      {placement:"Instream Video",   platform:"Facebook",  spend:1420,  impressions:52000,  cpm:27.3, ctr:0.08},
+      {placement:"FB Stories",       platform:"Facebook",  spend:490,   impressions:45000,  cpm:10.9, ctr:0.06},
+      {placement:"Messenger",        platform:"Messenger", spend:180,   impressions:15000,  cpm:12.0, ctr:0.01},
+      {placement:"Search",           platform:"Facebook",  spend:181,   impressions:16000,  cpm:11.3, ctr:0.07},
     ],
     bestCreatives: [
       {rank:"best_engagement", adId:"52536809070265", creativeId:"1535322411529969",
        name:"040526_hawaiian_eng", type:"image", spend:495.69, cpc:0.35, ctr:7.55,
        thruplays:0, costPerThruplay:0, reactions:856, pageEngagements:1227, clicks:1422},
-      {rank:"best_video", adId:"52534884161065", creativeId:"2215966929175028",
+      {rank:"best_video", adId:"52534884161265", creativeId:"2215966929175028",
        name:"010526_wrapchicken_eng", type:"video", spend:526.20, cpc:2.46, ctr:0.90,
        thruplays:2230, costPerThruplay:0.24, reactions:0, pageEngagements:9436, clicks:214},
     ],
     worstCreatives: [
-      {rank:"worst_video", adId:"52544461401065", creativeId:"4280898528815278",
+      {rank:"worst_video", adId:"52544461401265", creativeId:"4280898528815278",
        name:"140526_cj_awareness", type:"video", spend:1714.87, cpc:28.58, ctr:0.03,
        thruplays:15, costPerThruplay:114.32, reactions:0, pageEngagements:92, clicks:60},
-      {rank:"worst_efficiency", adId:"52531070439865", creativeId:"852259491240991",
+      {rank:"worst_efficiency", adId:"52531070439665", creativeId:"852259491240991",
        name:"260426_wrapnroll_awareness", type:"image", spend:4424.43, cpc:6.49, ctr:0.13,
        thruplays:0, costPerThruplay:0, reactions:60, pageEngagements:582, clicks:682},
     ]
-  },
-  previousPeriod: {
-    label: "Mar 26 – Apr 25, 2026",
-    start: "2026-03-26",
-    end:   "2026-04-25",
-    account: {
-      spend: 18762.23, impressions: 1737315, reach: 1246654,
-      cpm: 10.80, frequency: 1.39, clicks: 8258, cpc: 2.27, ctr: 0.48
-    },
-    campaigns: [
-      {name:"060426_roti_awareness",      type:"awareness", spend:4285.07, impressions:549883, reach:413779, cpm:7.79, frequency:1.33, clicks:820,  cpc:5.23,  ctr:0.15},
-      {name:"270326_newneo_eng",          type:"engagement",spend:3332.89, impressions:90262,  reach:76995,  cpm:36.92,frequency:1.17, clicks:1240, cpc:2.69,  ctr:1.37},
-      {name:"130426_songkran_awareness",  type:"awareness", spend:2340.50, impressions:477270, reach:400487, cpm:4.90, frequency:1.19, clicks:665,  cpc:3.52,  ctr:0.14},
-      {name:"200426_roticoconutnew_reach",type:"awareness", spend:2277.12, impressions:293779, reach:269003, cpm:7.75, frequency:1.09, clicks:1142, cpc:1.99,  ctr:0.39},
-      {name:"310326_neohawaiian_brand",   type:"awareness", spend:1774.53, impressions:177772, reach:145665, cpm:9.98, frequency:1.22, clicks:142,  cpc:12.50, ctr:0.08},
-      {name:"200426_roticoconutnew_eng",  type:"engagement",spend:1141.13, impressions:80070,  reach:76233,  cpm:14.25,frequency:1.05, clicks:1381, cpc:0.83,  ctr:1.72},
-      {name:"130426_songkran_eng",        type:"engagement",spend:1102.63, impressions:17149,  reach:12216,  cpm:64.30,frequency:1.40, clicks:1037, cpc:1.06,  ctr:6.05},
-      {name:"300326_neohawaiian_eng",     type:"engagement",spend:717.55,  impressions:6445,   reach:4978,   cpm:111.33,frequency:1.29,clicks:511,  cpc:1.40,  ctr:7.93},
-      {name:"220326_newneored_eng",       type:"engagement",spend:630.03,  impressions:17620,  reach:16589,  cpm:35.76,frequency:1.06, clicks:253,  cpc:2.49,  ctr:1.44},
-      {name:"220326_newneo_eng",          type:"engagement",spend:607.30,  impressions:18566,  reach:17232,  cpm:32.71,frequency:1.08, clicks:198,  cpc:3.07,  ctr:1.07},
-      {name:"060426_roti_eng",            type:"engagement",spend:553.48,  impressions:8499,   reach:7449,   cpm:65.12,frequency:1.14, clicks:869,  cpc:0.64,  ctr:10.22},
-    ],
-    placements: [],
-    bestCreatives: [],
-    worstCreatives: []
   }
 };
 
@@ -369,7 +400,7 @@ const T = {
     period_current:"May 2026 (Apr 26–May 25)",
     period_previous:"Apr 2026 (Mar 26–Apr 25)",
     period_comparing:"Comparing vs",
-    data_badge:"✓ Live data — May 28, 2026",
+    data_badge:"✓ Live data — Jun 24, 2026",
     // OVERVIEW
     overview_title:"Monthly Overview",
     overview_sub_fn:(curr,prev)=>`${curr} · vs ${prev}`,
@@ -409,7 +440,7 @@ const T = {
     pl_headers:["Placement","Platform","Spend","Impressions","CPM","CTR","Share"],
     // CREATIVES
     creatives_title:"Best & Worst Creatives",
-    creatives_sub:"Ranked by CPC, CTR & Cost/ThruPlay — Apr 26–May 25, 2026",
+    creatives_sub:"Ranked by CPC, CTR & Cost/ThruPlay — May 26–Jun 24, 2026",
     creatives_notice:"Creative ranking is <strong>automatically determined</strong> from live Meta data each month. Best = lowest CPC + highest CTR (images) or lowest Cost/ThruPlay (videos). Click <strong>View in Meta</strong> on each card to see the actual ad creative.",
     creatives_chart:"All Creatives — CPC & CTR",
     view_meta:"↗ View in Meta",
@@ -426,7 +457,7 @@ const T = {
     benchmark_sub:"Alfredo vs 2026 Meta Ads Food & Beverage Benchmarks — Thailand / SEA",
     benchmark_notice:"Benchmarks from 2026 global Meta Ads data (F&B vertical). Thailand/SEA CPMs run 35–50% lower than US due to lower auction competition. USD converted at ฿36. Meta's live Ad Relevance Diagnostics: <strong>Above Average quality ranking</strong>.",
     benchmark_chart:"Alfredo vs Industry — Visual Comparison",
-    benchmark_footnote:`Sources: <a href="https://www.get-ryze.ai/blog/meta-ads-cost-benchmarks-by-industry-2026" target="_blank">get-ryze.ai 2026</a> · <a href="https://lebesgue.io/facebook-ads/facebook-benchmarks-by-industry-ctr-cpm-cr-and-cac" target="_blank">Lebesgue.io 2026</a> · <a href="https://www.triplewhale.com/blog/facebook-ads-benchmarks" target="_blank">Triple Whale 2026</a> · Meta Ad Relevance Diagnostics (live, May 2026).`,
+    benchmark_footnote:`Sources: <a href="https://www.get-ryze.ai/blog/meta-ads-cost-benchmarks-by-industry-2026" target="_blank">get-ryze.ai 2026</a> · <a href="https://lebesgue.io/facebook-ads/facebook-benchmarks-by-industry-ctr-cpm-cr-and-cac" target="_blank">Lebesgue.io 2026</a> · <a href="https://www.triplewhale.com/blog/facebook-ads-benchmarks" target="_blank">Triple Whale 2026</a> · Meta Ad Relevance Diagnostics (live, Jun 2026).`,
     verdict_fn:(c)=>[
       {type:"win", text:`<strong>CPM: On-target for SEA.</strong> Your ${thb(c.cpm)} CPM is within the SEA F&B range of ฿8–12. Awareness campaigns at ฿7.91–9.45 are well-optimised for Thailand's auction environment.`},
       {type:"win", text:`<strong>CPC: Significantly outperforming.</strong> Your ${thb(c.cpc)} average CPC is far below the global F&B benchmark of ~฿18.7 ($0.52 USD). Engagement campaigns at ฿0.16–฿0.35 are world-class.`},
@@ -439,7 +470,7 @@ const T = {
     bm_titles:["CPM","CPC","CTR","Frequency","Ad Quality (Meta)","Video ThruPlay"],
     // INSIGHTS
     insights_title:"Key Insights",
-    insights_sub:"Patterns from Apr 26–May 25, 2026 data",
+    insights_sub:"Patterns from May 26–Jun 24, 2026 data",
     insights_chart:"Awareness vs Engagement — Budget vs Results",
     insight_fn:(d,awarC,engC,awarSpend,engSpend,awarClicks,engClicks,tot,totCl,bestCamp,cheapPl,topPl)=>[
       {icon:"★",h:`Eng: ${(engSpend/tot*100).toFixed(0)}% budget → ${(engClicks/totCl*100).toFixed(0)}% of clicks`,p:`Engagement campaigns used <strong>${thb(engSpend)} (${(engSpend/tot*100).toFixed(0)}% of budget)</strong> but drove <strong>${num(engClicks)} of ${num(d.account.clicks)} clicks (${(engClicks/totCl*100).toFixed(0)}%)</strong>. The CPC gap is dramatic — shift more budget to engagement formats.`},
@@ -447,13 +478,13 @@ const T = {
       {icon:"◉",h:`${topPl?.placement||"—"} leads impressions at ฿${(+topPl?.cpm||0).toFixed(1)} CPM`,p:`<strong>${topPl?.placement||"—"}</strong> delivered <strong>${((+topPl?.impressions||0)/1000).toFixed(0)}K impressions</strong> at the largest single placement. Strong volume at a competitive CPM.`},
       {icon:"♦",h:`${cheapPl?.placement||"—"}: cheapest CPM at ${thb(cheapPl?.cpm)}`,p:`<strong>${cheapPl?.placement||"—"}</strong> delivers the cheapest impressions at <strong>${thb(cheapPl?.cpm)} CPM</strong> — significantly cheaper than others. Currently under-allocated. Ideal for awareness campaigns on tight budgets.`},
       {icon:"↗",h:`CTR improved ${pctStr(REPORT_DATA.previousPeriod.account.ctr)} → ${pctStr(d.account.ctr)}`,p:`Overall CTR rose <strong>${((d.account.ctr-REPORT_DATA.previousPeriod.account.ctr)/REPORT_DATA.previousPeriod.account.ctr*100).toFixed(1)}%</strong> period-over-period. Engagement campaigns are the primary driver.`},
-      {icon:"฿",h:`CPC dropped ${thb(REPORT_DATA.previousPeriod.account.cpc)} → ${thb(d.account.cpc)}`,p:`Average CPC dropped <strong>${(((REPORT_DATA.previousPeriod.account.cpc-d.account.cpc)/REPORT_DATA.previousPeriod.account.cpc)*100).toFixed(1)}%</strong>. You got <strong>${num(d.account.clicks-REPORT_DATA.previousPeriod.account.clicks)} more clicks</strong> for <strong>${thb(REPORT_DATA.previousPeriod.account.spend-d.account.spend)} less spend</strong>.`},
+      {icon:"฿",h:`CPC dropped ${thb(REPORT_DATA.previousPeriod.account.cpc)} → ${thb(d.account.cpc)}`,p:`Average CPC dropped <strong>${(((REPORT_DATA.previousPeriod.account.cpc-d.account.cpc)/REPORT_DATA.previousPeriod.account.cpc)*100).toFixed(1)}%</strong>. You got <strong>${num(Math.abs(d.account.clicks-REPORT_DATA.previousPeriod.account.clicks))} ${d.account.clicks>REPORT_DATA.previousPeriod.account.clicks?'more':'fewer'} clicks</strong> vs prev period.`},
       {icon:"⊞",h:`${d.campaigns.length} active campaigns — ${awarC.length} awareness + ${engC.length} engagement`,p:`Running ${d.campaigns.length} campaigns across ${(d.placements||[]).length} placements. Total budget ${thb(d.account.spend)}.`},
       {icon:"◎",h:"FB Feed drives highest CTR placement",p:`FB Feed delivers <strong>1.82% CTR</strong> — 10× higher than IG Reels (0.05%). For click and engagement goals, prioritise FB Feed over awareness-heavy placements.`},
     ],
     // NEXT STEPS
     nextsteps_title:"Next Steps & Recommendations",
-    nextsteps_sub:"Prioritised actions for June 2026 cycle (May 26–Jun 25)",
+    nextsteps_sub:"Prioritised actions for July 2026 cycle (Jun 25–Jul 25)",
     step_fn:(best,worstCreative,cheapPl,bestCreative,engRatio)=>[
       {t:`Scale your best campaign: ${best?.name||"—"}.`,b:`${thb(best?.cpc)} CPC and ${pctStr(best?.ctr)} CTR makes this your most efficient campaign. Increase budget 2–3× and apply this creative format to upcoming product launches.`},
       worstCreative?{t:`Fix or pause ${worstCreative.name||"—"}.`,b:`${thb(worstCreative.cpc)} CPC ${+worstCreative.costPerThruplay>0?"and "+thb(worstCreative.costPerThruplay)+" cost/ThruPlay":""} is your biggest efficiency gap. Remake the creative hook — try a different first 3 seconds for video or a new image angle.`}:null,
@@ -462,10 +493,9 @@ const T = {
       bestCreative?{t:`Replicate the ${bestCreative.name||"—"} formula for all new launches.`,b:`${thb(bestCreative.cpc)} CPC ${bestCreative.type==="video"?"and "+thb(bestCreative.costPerThruplay)+" cost/ThruPlay":"and "+pctStr(bestCreative.ctr)+" CTR"} sets the benchmark. Use this format for every upcoming product launch.`}:null,
       {t:"Remove zero-return placements.",b:"Messenger Stories, Marketplace, and Search drive near-zero returns. Removing them forces Meta to redistribute budget to better-performing placements automatically."},
       {t:"Pause underperforming campaigns before next cycle reset.",b:"Any campaign spending ฿500+ with CTR below 0.1% and CPC above ฿10 should be paused or creatively refreshed before June."},
-      {t:"Share this report with your manager.",b:"The GitHub Pages URL is permanent and free. Every month ask Claude to update it — takes 10 minutes and the URL stays the same."},
     ].filter(Boolean),
     // FOOTER
-    footer:"Data fetched May 28, 2026 · Next update due around Jun 26, 2026 · Ask Claude to regenerate",
+    footer:"Data fetched Jun 24, 2026 · Next update due around Jul 25, 2026 · Ask Claude to regenerate",
     // CHART LABELS
     chart_current:"Current", chart_previous:"Previous",
     chart_spend_k:"Spend(k฿)", chart_impr_k:"Impr(k)", chart_reach_k:"Reach(k)",
@@ -484,7 +514,7 @@ const T = {
     period_current:"พ.ค. 2569 (26 เม.ย.–25 พ.ค.)",
     period_previous:"เม.ย. 2569 (26 มี.ค.–25 เม.ย.)",
     period_comparing:"เปรียบเทียบกับ",
-    data_badge:"✓ ข้อมูลจริง — 28 พ.ค. 2569",
+    data_badge:"✓ ข้อมูลจริง — 24 มิ.ย. 2569",
     overview_title:"ภาพรวมรายเดือน",
     overview_sub_fn:(curr,prev)=>`${curr} · เปรียบเทียบกับ ${prev}`,
     period_comparison:"เปรียบเทียบช่วงเวลา",
@@ -517,7 +547,7 @@ const T = {
     pl_perf:"ประสิทธิภาพตามตำแหน่งโฆษณา",
     pl_headers:["ตำแหน่ง","แพลตฟอร์ม","ค่าใช้จ่าย","การแสดงผล","CPM","CTR","สัดส่วน"],
     creatives_title:"ครีเอทีฟที่ดีที่สุดและแย่ที่สุด",
-    creatives_sub:"จัดอันดับตาม CPC, CTR และ Cost/ThruPlay — 26 เม.ย.–25 พ.ค. 2569",
+    creatives_sub:"จัดอันดับตาม CPC, CTR และ Cost/ThruPlay — 26 พ.ค.–24 มิ.ย. 2569",
     creatives_notice:"การจัดอันดับครีเอทีฟ<strong>คำนวณโดยอัตโนมัติ</strong>จากข้อมูล Meta จริงทุกเดือน ดีที่สุด = CPC ต่ำสุด + CTR สูงสุด (รูปภาพ) หรือ Cost/ThruPlay ต่ำสุด (วิดีโอ) คลิก <strong>ดูใน Meta</strong> บนแต่ละการ์ดเพื่อดูครีเอทีฟจริง",
     creatives_chart:"ครีเอทีฟทั้งหมด — CPC และ CTR",
     view_meta:"↗ ดูใน Meta",
@@ -533,7 +563,7 @@ const T = {
     benchmark_sub:"Alfredo vs เกณฑ์มาตรฐาน Meta Ads อาหารและเครื่องดื่ม 2026 — ไทย / อาเซียน",
     benchmark_notice:"ข้อมูลเกณฑ์มาตรฐานจากข้อมูล Meta Ads ทั่วโลก 2026 (กลุ่มอาหารและเครื่องดื่ม) CPM ในไทย/อาเซียนต่ำกว่าสหรัฐฯ 35–50% เนื่องจากการแข่งขันในการประมูลน้อยกว่า อัตรา USD ที่ ฿36 Meta Ad Relevance Diagnostics: <strong>คุณภาพสูงกว่าค่าเฉลี่ย</strong>",
     benchmark_chart:"Alfredo เทียบกับมาตรฐานอุตสาหกรรม",
-    benchmark_footnote:`แหล่งข้อมูล: <a href="https://www.get-ryze.ai/blog/meta-ads-cost-benchmarks-by-industry-2026" target="_blank">get-ryze.ai 2026</a> · <a href="https://lebesgue.io/facebook-ads/facebook-benchmarks-by-industry-ctr-cpm-cr-and-cac" target="_blank">Lebesgue.io 2026</a> · <a href="https://www.triplewhale.com/blog/facebook-ads-benchmarks" target="_blank">Triple Whale 2026</a> · Meta Ad Relevance Diagnostics (ข้อมูลจริง พ.ค. 2569)`,
+    benchmark_footnote:`แหล่งข้อมูล: <a href="https://www.get-ryze.ai/blog/meta-ads-cost-benchmarks-by-industry-2026" target="_blank">get-ryze.ai 2026</a> · <a href="https://lebesgue.io/facebook-ads/facebook-benchmarks-by-industry-ctr-cpm-cr-and-cac" target="_blank">Lebesgue.io 2026</a> · <a href="https://www.triplewhale.com/blog/facebook-ads-benchmarks" target="_blank">Triple Whale 2026</a> · Meta Ad Relevance Diagnostics (ข้อมูลจริง มิ.ย. 2569)`,
     verdict_fn:(c)=>[
       {type:"win", text:`<strong>CPM: อยู่ในเกณฑ์ดีสำหรับตลาดอาเซียน</strong> CPM ที่ ${thb(c.cpm)} อยู่ในช่วงมาตรฐาน F&B อาเซียน ฿8–12 แคมเปญ Awareness ที่ ฿7.91–9.45 ถูกปรับให้เหมาะสมกับตลาดไทยได้ดี`},
       {type:"win", text:`<strong>CPC: ดีกว่าค่าเฉลี่ยโลกอย่างมีนัยสำคัญ</strong> CPC เฉลี่ย ${thb(c.cpc)} ต่ำกว่าค่าเฉลี่ย F&B โลก ~฿18.7 ($0.52 USD) มาก แคมเปญ Engagement ที่ ฿0.16–฿0.35 ถือว่าดีเยี่ยมระดับโลก`},
@@ -545,7 +575,7 @@ const T = {
     bm_status:{cpm:{txt:"อยู่ในเกณฑ์ ✓",col:"var(--up)"},cpc:{txt:"ดีกว่าเกณฑ์ ✓✓",col:"var(--up)"},ctr:{txt:"Eng: ดีเยี่ยม ✓",col:"var(--up)"},freq:{txt:"อยู่ในช่วงที่เหมาะสม",col:"var(--neutral)"},quality:{txt:"ผ่านเกณฑ์ทุกอย่าง!",col:"var(--up)"},video:{txt:"ความแตกต่างสูงมาก",col:"var(--neutral)"}},
     bm_titles:["CPM","CPC","CTR","ความถี่","คุณภาพโฆษณา (Meta)","วิดีโอ ThruPlay"],
     insights_title:"ข้อมูลเชิงลึกสำคัญ",
-    insights_sub:"รูปแบบจากข้อมูล 26 เม.ย.–25 พ.ค. 2569",
+    insights_sub:"รูปแบบจากข้อมูล 26 พ.ค.–24 มิ.ย. 2569",
     insights_chart:"Awareness vs Engagement — งบประมาณ vs ผลลัพธ์",
     insight_fn:(d,awarC,engC,awarSpend,engSpend,awarClicks,engClicks,tot,totCl,bestCamp,cheapPl,topPl)=>[
       {icon:"★",h:`Eng: ${(engSpend/tot*100).toFixed(0)}% งบ → ${(engClicks/totCl*100).toFixed(0)}% ของคลิก`,p:`แคมเปญ Engagement ใช้เพียง <strong>${thb(engSpend)} (${(engSpend/tot*100).toFixed(0)}% ของงบ)</strong> แต่สร้าง <strong>${num(engClicks)} จาก ${num(d.account.clicks)} คลิก (${(engClicks/totCl*100).toFixed(0)}%)</strong> ช่องว่าง CPC ระหว่างประเภทแคมเปญค่อนข้างมาก — ควรโยกงบมาที่ Engagement มากขึ้น`},
@@ -558,7 +588,7 @@ const T = {
       {icon:"◎",h:"FB Feed ให้ CTR สูงสุดในบรรดาตำแหน่งทั้งหมด",p:`FB Feed ให้ <strong>CTR 1.82%</strong> — สูงกว่า IG Reels (0.05%) ถึง 10 เท่า สำหรับเป้าหมายที่ต้องการคลิกและการมีส่วนร่วม ให้จัดสรรงบ FB Feed มากกว่าตำแหน่งที่เน้น Awareness`},
     ],
     nextsteps_title:"ขั้นตอนต่อไปและคำแนะนำ",
-    nextsteps_sub:"รายการดำเนินการที่มีลำดับความสำคัญสำหรับรอบ มิ.ย. 2569 (26 พ.ค.–25 มิ.ย.)",
+    nextsteps_sub:"รายการดำเนินการที่มีลำดับความสำคัญสำหรับรอบ ก.ค. 2569 (25 มิ.ย.–25 ก.ค.)",
     step_fn:(best,worstCreative,cheapPl,bestCreative,engRatio)=>[
       {t:`เพิ่มงบแคมเปญที่ดีที่สุด: ${best?.name||"—"}`,b:`CPC ${thb(best?.cpc)} และ CTR ${pctStr(best?.ctr)} ทำให้แคมเปญนี้มีประสิทธิภาพสูงสุด เพิ่มงบ 2–3 เท่าในรอบถัดไป และนำรูปแบบครีเอทีฟนี้ไปใช้กับสินค้าที่จะเปิดตัว`},
       worstCreative?{t:`แก้ไขหรือหยุดชั่วคราว ${worstCreative.name||"—"}`,b:`CPC ${thb(worstCreative.cpc)} ${+worstCreative.costPerThruplay>0?"และ cost/ThruPlay "+thb(worstCreative.costPerThruplay):""}  คือช่องว่างประสิทธิภาพที่ใหญ่ที่สุด ทำครีเอทีฟใหม่ — ลอง hook ใหม่ใน 3 วินาทีแรกสำหรับวิดีโอ หรือเปลี่ยนมุมภาพ`}:null,
@@ -566,10 +596,9 @@ const T = {
       cheapPl?{t:`เพิ่มงบใน ${cheapPl.placement||"—"} — CPM ถูกที่สุดที่ ${thb(cheapPl.cpm)}`,b:`ตำแหน่งนี้ให้การแสดงผลต่อบาทดีที่สุด การโยกงบ Awareness มาที่นี่ 15–20% จะเพิ่มการเข้าถึงโดยไม่ต้องเพิ่มงบรวม`}:null,
       bestCreative?{t:`ทำซ้ำรูปแบบครีเอทีฟ ${bestCreative.name||"—"} สำหรับสินค้าใหม่ทุกตัว`,b:`CPC ${thb(bestCreative.cpc)} ${bestCreative.type==="video"?"และ cost/ThruPlay "+thb(bestCreative.costPerThruplay):"และ CTR "+pctStr(bestCreative.ctr)} คือมาตรฐานที่ต้องทำให้ได้ ใช้รูปแบบ รูปแบบ และโทนเดียวกันสำหรับสินค้าใหม่ทุกตัว`}:null,
       {t:"ลบตำแหน่งโฆษณาที่ไม่ได้ผลออก",b:"Messenger Stories, Marketplace และ Search แทบไม่ให้ผลลัพธ์สำหรับแบรนด์อาหาร การลบออกจะทำให้ Meta กระจายงบไปยังตำแหน่งที่ดีกว่าโดยอัตโนมัติ"},
-      {t:"หยุดแคมเปญที่ประสิทธิภาพต่ำก่อนรีเซ็ตรอบใหม่",b:"แคมเปญที่ใช้เงิน ฿500+ โดยมี CTR ต่ำกว่า 0.1% และ CPC สูงกว่า ฿10 ควรหยุดหรือเปลี่ยนครีเอทีฟก่อนเดือนมิถุนายน"},
-      {t:"แชร์รายงานนี้ให้ผู้จัดการของคุณ",b:"URL บน GitHub Pages เป็นลิงก์ถาวรและฟรีตลอดไป ทุกเดือนให้ Claude อัปเดตข้อมูล — ใช้เวลาแค่ 10 นาที และ URL ไม่เปลี่ยน"},
+      {t:"หยุดแคมเปญที่ประสิทธิภาพต่ำก่อนรีเซ็ตรอบใหม่",b:"แคมเปญที่ใช้เงิน ฿500+ โดยมี CTR ต่ำกว่า 0.1% และ CPC สูงกว่า ฿10 ควรหยุดหรือเปลี่ยนครีเอทีฟก่อนเดือนกรกฎาคม"},
     ].filter(Boolean),
-    footer:"ดึงข้อมูล 28 พ.ค. 2569 · อัปเดตต่อไปประมาณ 26 มิ.ย. 2569 · ขอให้ Claude สร้างใหม่",
+    footer:"ดึงข้อมูล 24 มิ.ย. 2569 · อัปเดตต่อไปประมาณ 25 ก.ค. 2569 · ขอให้ Claude สร้างใหม่",
     chart_current:"ปัจจุบัน", chart_previous:"ก่อนหน้า",
     chart_spend_k:"ค่าใช้จ่าย(k฿)", chart_impr_k:"การแสดงผล(k)", chart_reach_k:"การเข้าถึง(k)",
     chart_freq:"ความถี่", chart_clicks_k:"คลิก(k)",
@@ -590,7 +619,7 @@ function num(n){return (+n||0).toLocaleString();}
 function pctStr(n){return (+n||0).toFixed(2)+'%';}
 function pct(a,b){if(!b)return{v:'—',up:true};const d=((a-b)/Math.abs(b)*100);return{v:Math.abs(d).toFixed(1),up:d>=0};}
 function getD(){return activePeriod==='current'?REPORT_DATA.currentPeriod:REPORT_DATA.previousPeriod;}
-function getPrev(){return activePeriod==='current'?REPORT_DATA.previousPeriod:null;}
+function getPrev(){return activePeriod==='current'?REPORT_DATA.previousPeriod:REPORT_DATA.marchPeriod||null;}
 
 // ============================================================
 // LANGUAGE SWITCH
@@ -650,7 +679,7 @@ function renderAll() {
   document.getElementById('t-nextsteps-title').textContent = tx.nextsteps_title;
   document.getElementById('t-nextsteps-sub').textContent = tx.nextsteps_sub;
   document.getElementById('t-footer').textContent = tx.footer;
-  document.getElementById('compareLabel').textContent = prev ? prev.label : '—';
+  document.getElementById('compareLabel').textContent = prev ? prev.label : (REPORT_DATA.marchPeriod ? REPORT_DATA.marchPeriod.label : '—');
   // Period bar buttons
   document.getElementById('btnCurr').textContent = tx.period_current;
   document.getElementById('btnPrev').textContent = tx.period_previous;
