@@ -1,863 +1,1342 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alfredo — Meta Ads Report | Jul 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alfredo · Meta Ads Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+*{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --forest:#1e4620;--forest-md:#2c5f2e;--forest-lt:#4a8a4c;
-  --cream:#f8f3eb;--cream-dk:#f0e9dc;--divider:#dfd7c9;
-  --gold:#c49a2e;--gold-lt:#f5ecd4;
-  --terra:#b5451b;
-  --charcoal:#1a1a18;--ink:#2d2d2a;--muted:#7a7264;--subtle:#a09488;
-  --up:#1e6e35;--up-bg:#e8f5ec;--down:#b5451b;--down-bg:#fbede8;
-  --neutral:#5a6474;--neutral-bg:#eef0f4;
-  --surface:#fff;--surface2:#f0e9dc;
-  --shadow-sm:0 1px 3px rgba(30,70,32,.07),0 1px 2px rgba(30,70,32,.05);
-  --shadow-md:0 4px 16px rgba(30,70,32,.10),0 2px 6px rgba(30,70,32,.06);
-  --radius:10px;--radius-sm:6px;--tr:180ms cubic-bezier(.4,0,.2,1);
+  --red:#c40f15; --gold:#ffc045; --ink:#2a211c; --muted:#7d6f64;
+  --line:#eadfcc; --bg:#f8f3eb; --card:#fff; --soft:#faf5ec;
+  --hf:'Cormorant Garamond',Georgia,serif;
+  --bf:'DM Sans','Sarabun',system-ui,sans-serif;
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--cream);color:var(--ink);font-family:'DM Sans','Sarabun',sans-serif;font-size:14px;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}
-.lang-th body,.lang-th{font-family:'Sarabun','DM Sans',sans-serif}
-.nav{position:sticky;top:0;z-index:200;background:var(--forest);height:54px;display:flex;align-items:center;padding:0 20px;box-shadow:0 2px 12px rgba(0,0,0,.25);gap:0}
-.nav-brand{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:.04em;margin-right:20px;flex-shrink:0}
-.nav-brand em{color:#b8d4a0;font-style:italic;font-weight:400}
-.nav-tabs{display:flex;gap:2px;overflow-x:auto;flex:1}
-.nav-tabs::-webkit-scrollbar{height:0}
-.nav-tab{padding:5px 13px;border-radius:var(--radius-sm);border:none;background:transparent;color:rgba(255,255,255,.58);font-family:'DM Sans','Sarabun',sans-serif;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all var(--tr)}
-.nav-tab:hover{color:#fff;background:rgba(255,255,255,.1)}
-.nav-tab.active{background:rgba(255,255,255,.18);color:#fff;border-bottom:2px solid #b8d4a0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--bf);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+:lang(th) body,html[lang=th] body{font-family:'Sarabun','DM Sans',system-ui,sans-serif}
+.wrap{max-width:1400px;margin:0 auto;padding:0 32px}
+@media(max-width:760px){.wrap{padding:0 18px}}
 
-/* LANGUAGE TOGGLE */
-.lang-toggle{display:flex;align-items:center;gap:3px;margin-left:12px;flex-shrink:0;background:rgba(255,255,255,.1);border-radius:20px;padding:3px}
-.lang-btn{padding:3px 10px;border-radius:16px;border:none;background:transparent;color:rgba(255,255,255,.65);font-family:'DM Sans','Sarabun',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all var(--tr);letter-spacing:.02em}
-.lang-btn:hover{color:#fff}
-.lang-btn.active{background:#fff;color:var(--forest);box-shadow:0 1px 4px rgba(0,0,0,.15)}
+/* header */
+.hdr{position:sticky;top:0;z-index:30;background:#fffdf9;border-bottom:1px solid var(--line);box-shadow:0 1px 0 rgba(42,33,28,.03)}
+.hdr-in{display:flex;align-items:center;gap:24px;padding:18px 0}
+.logo{width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-family:var(--hf);font-size:24px;font-weight:600;flex:0 0 auto}
+.brand{font-family:var(--hf);font-size:25px;line-height:1.1;font-weight:600}
+.kick{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.spacer{flex:1}
+.ctrls{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.fld{display:flex;flex-direction:column;gap:4px}
+.fld label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+select{appearance:none;-webkit-appearance:none;background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 32px 8px 12px;font:inherit;font-size:12.5px;font-weight:500;color:var(--ink);cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,#7d6f64 50%),linear-gradient(135deg,#7d6f64 50%,transparent 50%);
+  background-position:calc(100% - 16px) 17px,calc(100% - 11px) 17px;background-size:5px 5px;background-repeat:no-repeat}
+select:focus{outline:2px solid var(--red);outline-offset:1px}
+.langs{display:flex;padding:3px;gap:2px;background:#f2ead9;border-radius:9px}
+.lang{border:0;cursor:pointer;padding:8px 13px;border-radius:7px;font:inherit;font-size:12px;font-weight:600;letter-spacing:.06em;background:transparent;color:var(--muted);transition:all .15s}
+.lang.on{background:var(--red);color:#fff}
+.tabbar{display:flex;gap:4px;overflow:auto;padding-bottom:0}
+.tabbar::-webkit-scrollbar{height:0}
+.tab{border:0;border-bottom:2px solid transparent;background:transparent;cursor:pointer;font:inherit;font-size:14px;font-weight:500;color:var(--muted);padding:12px 18px 13px;white-space:nowrap;transition:all .15s}
+.tab:hover{color:var(--ink)}
+.tab.on{border-bottom-color:var(--red);color:var(--red);font-weight:600}
 
-.period-bar{background:var(--surface);border-bottom:1px solid var(--divider);padding:9px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.period-label{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
-.period-btn{padding:4px 14px;border-radius:20px;border:1.5px solid var(--divider);background:transparent;color:var(--muted);font-family:'DM Sans','Sarabun',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all var(--tr)}
-.period-btn:hover{border-color:var(--forest-md);color:var(--forest-md)}
-.period-btn.active{background:var(--forest);color:#fff;border-color:var(--forest)}
-.period-compare{margin-left:auto;font-size:12px;color:var(--muted)}
-.period-compare strong{color:var(--forest-md)}
-.data-badge{display:inline-flex;align-items:center;gap:6px;background:var(--up-bg);color:var(--up);font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px}
-.page{display:none;padding:20px;max-width:1280px;margin:0 auto}
-.page.active{display:block}
-.section-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--charcoal);margin-bottom:3px}
-.section-sub{font-size:12.5px;color:var(--muted);margin-bottom:20px}
-.grid-8{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
-@media(max-width:900px){.grid-8{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:680px){.grid-8,.grid-2,.grid-3{grid-template-columns:1fr}}
-.card{background:var(--surface);border:1px solid var(--divider);border-radius:var(--radius);box-shadow:var(--shadow-sm);overflow:hidden;margin-bottom:14px}
-.card-head{padding:13px 18px;border-bottom:1px solid var(--divider);display:flex;align-items:center;gap:8px}
-.card-title{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:var(--charcoal)}
-.card-body{padding:18px}
-.stat-card{background:var(--surface);border:1px solid var(--divider);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow-sm);transition:all var(--tr);position:relative;overflow:hidden}
-.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--forest-md);transform:scaleX(0);transform-origin:left;transition:transform var(--tr)}
-.stat-card:hover::before{transform:scaleX(1)}
-.stat-card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
-.stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;margin-bottom:8px}
-.stat-value{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--charcoal);line-height:1;margin-bottom:8px}
-.stat-badge{display:inline-flex;align-items:center;gap:3px;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:99px}
-.stat-badge.up{background:var(--up-bg);color:var(--up)}
-.stat-badge.down{background:var(--down-bg);color:var(--down)}
-.stat-prev{font-size:11px;color:var(--subtle);margin-top:4px}
-.period-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-@media(max-width:580px){.period-grid{grid-template-columns:1fr}}
-.period-block{background:var(--surface);border:1px solid var(--divider);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow-sm)}
-.period-block.curr{border-color:var(--forest-md);border-width:2px}
-.period-block-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:3px}
-.period-block-date{font-size:12px;color:var(--forest-md);font-weight:700;margin-bottom:12px}
-.mrow{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid var(--divider)}
-.mrow:last-child{border-bottom:none}
-.mrow-lbl{color:var(--muted)}.mrow-val{font-weight:700}
-.tbl-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:12.5px}
-thead th{padding:9px 14px;text-align:left;background:var(--surface2);color:var(--muted);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--divider);white-space:nowrap}
-tbody td{padding:10px 14px;border-bottom:1px solid var(--cream-dk);white-space:nowrap}
-tbody tr:last-child td{border-bottom:none}
-tbody tr:hover td{background:var(--cream-dk)}
-.pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:10.5px;font-weight:700}
-.pill-awareness{background:var(--cream-dk);color:var(--forest-md);border:1px solid #c0d4c0}
-.pill-engagement{background:var(--gold-lt);color:#7a5c10;border:1px solid #dbc88a}
-.creative-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-@media(max-width:680px){.creative-grid{grid-template-columns:1fr}}
-.creative-card{background:var(--surface);border:1px solid var(--divider);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);transition:all var(--tr)}
-.creative-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.creative-card.best{border-color:#8ac49a}
-.creative-card.worst{border-color:#e0a08a}
-.creative-preview{width:100%;height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
-.g-best{background:linear-gradient(140deg,#e8f2e8,#f2f8e8)}
-.g-best2{background:linear-gradient(140deg,#e8f0f8,#eef4f8)}
-.g-worst{background:linear-gradient(140deg,#fdf0e8,#faf4f0)}
-.g-worst2{background:linear-gradient(140deg,#fdf5e8,#faf0e8)}
-.preview-name{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:var(--charcoal)}
-.preview-sub{font-size:11px;color:var(--muted);text-align:center;padding:0 16px}
-.preview-link{font-size:11.5px;color:var(--forest-md);text-decoration:none;font-weight:700;display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border:1.5px solid var(--forest-md);border-radius:99px;transition:all var(--tr);margin-top:4px}
-.preview-link:hover{background:var(--forest-md);color:#fff}
-.preview-link.red{border-color:var(--terra);color:var(--terra)}
-.preview-link.red:hover{background:var(--terra);color:#fff}
-.creative-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:700;margin-bottom:10px}
-.badge-best{background:var(--up-bg);color:var(--up)}
-.badge-worst{background:var(--down-bg);color:var(--down)}
-.creative-body{padding:16px}
-.creative-name-text{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:var(--charcoal);margin-bottom:3px}
-.creative-id{font-size:10px;color:var(--muted);font-family:monospace;background:var(--surface2);padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:10px}
-.cm{display:flex;justify-content:space-between;font-size:12.5px;padding:5px 0;border-bottom:1px solid var(--cream-dk)}
-.cm:last-child{border-bottom:none}
-.cm-lbl{color:var(--muted)}.cm-val{font-weight:700}
-.val-g{color:var(--up)}.val-b{color:var(--down)}
-.verdict-card{border-radius:var(--radius);padding:14px 16px;display:flex;gap:12px;align-items:flex-start;margin-bottom:8px;border:1px solid}
-.verdict-card.win{background:var(--up-bg);border-color:#8ac49a}
-.verdict-card.loss{background:var(--down-bg);border-color:#e0a08a}
-.verdict-card.ok{background:var(--neutral-bg);border-color:#c0c8d4}
-.verdict-text{font-size:13px;line-height:1.7}
-.verdict-text strong{color:var(--charcoal)}
-.bm-card{background:var(--surface);border:1px solid var(--divider);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow-sm)}
-.bm-title{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;margin-bottom:14px}
-.bm-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--cream-dk)}
-.bm-row:last-child{border-bottom:none}
-.bm-lbl{font-size:12px;color:var(--muted);flex:1}
-.bm-val{font-size:13px;font-weight:700;min-width:64px;text-align:right}
-.bm-bar{flex:2}.bm-bg{height:5px;background:var(--cream-dk);border-radius:99px;overflow:hidden}
-.bm-fill{height:100%;border-radius:99px}
-.f-green{background:var(--forest-md)}.f-gold{background:var(--gold)}.f-up{background:var(--up)}.f-down{background:var(--terra)}.f-neutral{background:#b0c8b0}
-.insight-card{background:var(--surface);border:1px solid var(--divider);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow-sm);display:flex;gap:12px}
-.insight-icon{width:36px;height:36px;border-radius:8px;background:var(--cream-dk);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;color:var(--forest-md)}
-.insight-h4{font-size:13px;font-weight:700;color:var(--charcoal);margin-bottom:5px}
-.insight-p{font-size:12.5px;color:var(--muted);line-height:1.7}
-.insight-p strong{color:var(--charcoal)}
-.step-item{background:var(--surface);border:1px solid var(--divider);border-radius:var(--radius);padding:15px 18px;display:flex;gap:14px;box-shadow:var(--shadow-sm);transition:all var(--tr);margin-bottom:10px}
-.step-item:hover{box-shadow:var(--shadow-md);border-color:var(--forest-lt);transform:translateX(2px)}
-.step-num{min-width:28px;height:28px;border-radius:50%;background:var(--forest);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.step-txt{font-size:13px;line-height:1.7}
-.step-txt strong{color:var(--forest-md)}
-.bar-wrap{display:flex;align-items:center;gap:8px}
-.bar-bg{flex:1;height:5px;background:var(--cream-dk);border-radius:99px;overflow:hidden;min-width:50px}
-.bar-fill{height:100%;border-radius:99px;background:var(--forest-md)}
-.notice{background:var(--gold-lt);border:1px solid #dbc88a;border-radius:var(--radius);padding:12px 16px;font-size:12.5px;color:#6a4e10;margin-bottom:14px;display:flex;gap:10px}
-.notice a{color:var(--forest-md);font-weight:700}
-.footnote{font-size:11px;color:var(--subtle);margin-top:8px;line-height:1.6}
-.footnote a{color:var(--forest-md)}
+main{padding:32px 0 72px}
+.stack{display:flex;flex-direction:column;gap:28px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
+h2{font-family:var(--hf);font-size:27px;font-weight:600;margin:0}
+h3{font-family:var(--hf);font-size:22px;font-weight:600;margin:0 0 4px}
+.sub{font-size:12.5px;color:var(--muted)}
+.r{text-align:right}
+
+/* hero */
+.hero{border-radius:20px;background:var(--red);color:#fff;padding:34px 38px;display:flex;align-items:center;gap:44px;flex-wrap:wrap;box-shadow:0 18px 40px -28px rgba(196,15,21,.7)}
+.hero-l{flex:1 1 380px;min-width:300px}
+.hero-k{font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.75}
+.hero-t{font-family:var(--hf);font-size:44px;line-height:1.1;font-weight:600;margin-top:10px}
+.hero-b{font-size:14px;line-height:1.65;opacity:.9;margin-top:12px;max-width:52ch}
+.hero-s{display:flex;gap:34px;margin-top:24px;flex-wrap:wrap}
+.hs-l{font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.7}
+.hs-v{font-family:var(--hf);font-size:28px;font-weight:600;margin-top:4px}
+.hero-r{flex:0 0 auto;display:flex;align-items:center;gap:26px}
+.ring{position:relative;width:200px;height:200px}
+.ring svg{width:200px;height:200px;transform:rotate(-90deg)}
+.ring-c{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.ring-v{font-family:var(--hf);font-size:52px;font-weight:600;line-height:1}
+.ring-u{font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.8;margin-top:2px}
+.ring-meta{max-width:170px}
+.ring-meta .k{font-size:12px;letter-spacing:.16em;text-transform:uppercase;opacity:.75}
+.ring-meta .v{font-size:20px;font-weight:600;margin-top:6px;color:var(--gold)}
+.ring-meta .n{font-size:12.5px;line-height:1.6;opacity:.85;margin-top:8px}
+@media(max-width:900px){.hero{padding:26px 24px;gap:24px}.hero-t{font-size:34px}.hero-r{width:100%;justify-content:flex-start}}
+
+/* stats */
+.head-row{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media(max-width:1100px){.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.grid4{grid-template-columns:1fr}}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 18px 14px;display:flex;flex-direction:column;gap:10px;transition:box-shadow .2s,transform .2s}
+.stat:hover{box-shadow:0 8px 24px -18px rgba(42,33,28,.5);transform:translateY(-1px)}
+.stat-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.stat-l{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);line-height:1.4}
+.stat-d{font-size:11.5px;font-weight:700;padding:3px 7px;border-radius:6px;white-space:nowrap}
+.stat-v{font-family:var(--hf);font-size:34px;font-weight:600;line-height:1;letter-spacing:-.01em}
+.spark{width:100%;height:34px;display:block}
+.stat-n{font-size:11.5px;color:var(--muted);border-top:1px solid #f2ead9;padding-top:9px}
+
+/* two-col */
+.two{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:24px;align-items:start}
+.two-eq{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+@media(max-width:1000px){.two,.two-eq{grid-template-columns:1fr}}
+
+/* comparison */
+.cmp-head,.cmp-row{display:grid;grid-template-columns:1.4fr .9fr .9fr .8fr}
+.cmp-head{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-bottom:9px;border-bottom:1px solid var(--line)}
+.cmp-row{padding:12px 0;border-bottom:1px solid #f6efe2;align-items:center}
+.cmp-row:last-child{border-bottom:0}
+.cmp-m{font-size:13.5px;font-weight:500}
+.cmp-now{font-size:14.5px;font-weight:600}
+.cmp-prev{font-size:14px;color:var(--muted)}
+.cmp-d{font-size:13px;font-weight:700}
+
+/* diverging bars */
+.bar-row{display:grid;grid-template-columns:120px 1fr 60px;align-items:center;gap:12px;margin-bottom:12px}
+.bar-l{font-size:12px;color:var(--muted);text-align:right;line-height:1.3}
+.bar-track{position:relative;height:20px;background:#faf5ec;border-radius:4px;display:flex}
+.bar-neg{width:50%;height:100%;display:flex;justify-content:flex-end}
+.bar-neg>div{height:100%;border-radius:4px 0 0 4px;opacity:.9;transition:width .4s}
+.bar-pos{width:50%;height:100%}
+.bar-pos>div{height:100%;border-radius:0 4px 4px 0;opacity:.9;transition:width .4s}
+.bar-mid{position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:#dfd2bd}
+.bar-p{font-size:12px;font-weight:700;text-align:right}
+
+/* ratio */
+.ratio-nums{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:10px}
+.ratio-big{font-family:var(--hf);font-size:40px;font-weight:600;line-height:1}
+.ratio-lbl{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.ratio-bar{display:flex;height:34px;border-radius:8px;overflow:hidden;background:#faf5ec}
+.ratio-bar>div{transition:width .5s}
+.ratio-det{display:flex;justify-content:space-between;margin-top:12px;font-size:12px;color:var(--muted)}
+.ratio-note{margin-top:18px;background:var(--soft);border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.6;color:#5c4f45}
+
+/* frequency */
+.freq-row{display:flex;align-items:center;gap:28px;margin-top:8px;flex-wrap:wrap}
+.freq-gauge{position:relative;width:250px;height:150px;flex:0 0 auto}
+.freq-gauge svg{width:250px;height:140px;display:block}
+.freq-scale{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);padding:0 14px;margin-top:-4px}
+.freq-v{font-family:var(--hf);font-size:46px;font-weight:600;line-height:1}
+.freq-u{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.freq-vd{display:inline-block;margin-top:12px;font-size:12px;font-weight:700;padding:5px 10px;border-radius:6px}
+.freq-bands{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.fb{flex:1;min-width:150px;border:1px solid var(--line);border-radius:10px;padding:12px;transition:all .2s}
+.fb-r{font-size:12px;font-weight:700}
+.fb-l{font-size:11.5px;color:var(--muted);margin-top:4px;line-height:1.45}
+
+/* heatmap */
+.heat-cols{display:grid;grid-template-columns:minmax(220px,1.6fr) repeat(5,minmax(0,1fr));gap:6px;align-items:center}
+.hc{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center}
+.heat-row{display:grid;grid-template-columns:minmax(220px,1.6fr) repeat(5,minmax(0,1fr));gap:6px;align-items:center;margin-top:6px}
+.hr-n{font-size:12.5px;font-weight:500;padding-right:12px;line-height:1.35;display:flex;flex-direction:column;gap:3px}
+.hr-o{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.hcell{border-radius:8px;padding:14px 6px;text-align:center;font-size:13.5px;font-weight:600}
+.legend{display:flex;gap:18px;margin-top:18px;font-size:11.5px;color:var(--muted);align-items:center;flex-wrap:wrap}
+.lg{display:flex;align-items:center;gap:7px}
+.lg span{width:12px;height:12px;border-radius:3px;display:inline-block}
+@media(max-width:900px){.heat-cols,.heat-row{grid-template-columns:minmax(140px,1.4fr) repeat(5,minmax(0,1fr));gap:4px}.hcell{padding:10px 3px;font-size:11.5px}}
+
+/* campaign table */
+.camp-head,.camp-row{display:grid;grid-template-columns:2.4fr 1.1fr .9fr .8fr .9fr .9fr .7fr;gap:10px}
+.camp-head{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-bottom:10px;border-bottom:1px solid var(--line)}
+.camp-row{padding:14px 0;border-bottom:1px solid #f6efe2;align-items:center;font-size:13px}
+.camp-row:last-child{border-bottom:0}
+.c-n{font-weight:500;line-height:1.35;word-break:break-word}
+.obj{font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px;white-space:nowrap}
+.obj.awareness{background:#fff4dd;color:#8a6a12}
+.obj.engagement{background:#fdeced;color:var(--red)}
+@media(max-width:1000px){.camp-head,.camp-row{grid-template-columns:1.8fr 1fr .8fr .8fr .8fr .8fr;font-size:12px}.camp-head>div:nth-child(4),.camp-row>div:nth-child(4){display:none}}
+
+/* platforms */
+.plats{display:flex;gap:14px;justify-content:space-between;flex-wrap:wrap}
+.plat{flex:1;min-width:110px;text-align:center}
+.plat-ring{position:relative;width:100%;aspect-ratio:1/1;max-width:118px;margin:0 auto}
+.plat-ring svg{width:100%;height:100%}
+.plat-pct{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--hf);font-size:24px;font-weight:600}
+.plat-n{font-size:12.5px;font-weight:600;margin-top:10px}
+.plat-s{font-size:11.5px;color:var(--muted);margin-top:3px}
+
+/* placements */
+.pl-head,.pl-row{display:grid;grid-template-columns:1.6fr .9fr .8fr .8fr .9fr;gap:10px}
+.pl-head{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-bottom:10px;border-bottom:1px solid var(--line)}
+.pl-row{padding:13px 0;border-bottom:1px solid #f6efe2;align-items:center;font-size:13px}
+.pl-row:last-child{border-bottom:0}
+
+/* creatives */
+.crs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media(max-width:820px){.crs{grid-template-columns:1fr}}
+.cr{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:box-shadow .2s,transform .2s}
+.cr:hover{box-shadow:0 14px 34px -24px rgba(42,33,28,.55);transform:translateY(-2px)}
+.cr.good{border-color:#bfe0c8}
+.cr.bad{border-color:#f2c9cb}
+.cr-head{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.cr-fmt{font-weight:500;opacity:.75;letter-spacing:.06em}
+.cr-body{padding:18px}
+.cr-name{font-family:var(--hf);font-size:21px;font-weight:600;line-height:1.25;word-break:break-word}
+.cr-id{font-size:11px;color:var(--muted);font-family:ui-monospace,monospace;margin-top:4px}
+.cr-metrics{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:16px}
+.crm{background:#fff;padding:11px 13px;display:flex;flex-direction:column;gap:2px}
+.crm span{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.crm b{font-size:15px;font-weight:600}
+.cr-link{display:inline-block;margin-top:16px;font-size:12.5px;font-weight:600;color:var(--red);text-decoration:none;border-bottom:1px solid rgba(196,15,21,.3);padding-bottom:1px}
+.cr-link:hover{border-bottom-color:var(--red)}
+
+/* benchmark */
+.bms{display:flex;flex-direction:column;gap:20px}
+.bm{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center}
+@media(max-width:700px){.bm{grid-template-columns:1fr;gap:8px}}
+.bm-l{font-size:13px;font-weight:600}
+.bm-bars{display:flex;flex-direction:column;gap:7px}
+.bm-line{display:grid;grid-template-columns:70px 1fr 90px;gap:12px;align-items:center}
+.bm-tag{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.bm-track{height:14px;background:#faf5ec;border-radius:4px;overflow:hidden}
+.bm-track>div{height:100%;border-radius:4px;transition:width .5s}
+.bm-line b{font-size:13px;text-align:right}
+.vds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:24px}
+@media(max-width:760px){.vds{grid-template-columns:1fr}}
+.vd{border:1px solid;border-radius:14px;padding:18px}
+.vd-k{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.vd-t{font-family:var(--hf);font-size:20px;font-weight:600;margin-top:6px}
+.vd-b{font-size:13px;line-height:1.6;color:#5c4f45;margin-top:6px}
+
+/* insights */
+.inss{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+@media(max-width:860px){.inss{grid-template-columns:1fr}}
+.ins{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+.ins-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.ins-n{font-family:var(--hf);font-size:15px;font-weight:600;color:var(--muted)}
+.ins-tag{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:6px}
+.ins-t{font-family:var(--hf);font-size:19px;font-weight:600;line-height:1.3}
+.ins-b{font-size:13px;line-height:1.65;color:#5c4f45;margin-top:8px}
+
+/* next steps */
+.nss{display:flex;flex-direction:column;gap:14px}
+.ns{display:grid;grid-template-columns:44px 1fr;gap:16px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;transition:border-color .2s}
+.ns:hover{border-color:#dfcfae}
+.ns-n{width:34px;height:34px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-family:var(--hf);font-size:17px;font-weight:600}
+.ns-t{font-family:var(--hf);font-size:20px;font-weight:600;line-height:1.25}
+.ns-b{font-size:13px;line-height:1.65;color:#5c4f45;margin-top:6px}
+.ns-m{display:flex;gap:8px;margin-top:10px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+footer{border-top:1px solid var(--line);padding:24px 0;display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);flex-wrap:wrap;gap:8px}
 </style>
 </head>
 <body>
 
-<nav class="nav">
-  <span class="nav-brand">Alfredo <em>Ads Report</em></span>
-  <div class="nav-tabs">
-    <button class="nav-tab active" onclick="showPage('overview',this)" data-en="Overview" data-th="ภาพรวม">Overview</button>
-    <button class="nav-tab" onclick="showPage('platform',this)" data-en="Platform" data-th="แพลตฟอร์ม">Platform</button>
-    <button class="nav-tab" onclick="showPage('svcpm',this)" data-en="Spend vs CPM" data-th="ค่าใช้จ่าย vs CPM">Spend vs CPM</button>
-    <button class="nav-tab" onclick="showPage('campaigns',this)" data-en="Campaigns" data-th="แคมเปญ">Campaigns</button>
-    <button class="nav-tab" onclick="showPage('placements',this)" data-en="Placements" data-th="ตำแหน่งโฆษณา">Placements</button>
-    <button class="nav-tab" onclick="showPage('creatives',this)" data-en="Creatives" data-th="ครีเอทีฟ">Creatives</button>
-    <button class="nav-tab" onclick="showPage('benchmark',this)" data-en="Benchmark" data-th="เกณฑ์มาตรฐาน">Benchmark</button>
-    <button class="nav-tab" onclick="showPage('insights',this)" data-en="Insights" data-th="ข้อมูลเชิงลึก">Insights</button>
-    <button class="nav-tab" onclick="showPage('nextsteps',this)" data-en="Next Steps" data-th="ขั้นตอนต่อไป">Next Steps</button>
+<header class="hdr">
+  <div class="wrap">
+    <div class="hdr-in">
+      <div style="display:flex;align-items:center;gap:14px;min-width:0">
+        <div class="logo">A</div>
+        <div style="min-width:0">
+          <div class="brand">Alfredo</div>
+          <div class="kick" id="kicker"></div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <div class="ctrls">
+        <div class="fld">
+          <label for="periodSel" id="periodLabel"></label>
+          <select id="periodSel" onchange="onPeriod(this.value)"></select>
+        </div>
+        <div class="fld">
+          <label for="compareSel" id="compareLabel"></label>
+          <select id="compareSel" onchange="onCompare(this.value)"></select>
+        </div>
+        <div class="langs">
+          <button class="lang on" id="btnEN" onclick="setLang('en')">EN</button>
+          <button class="lang" id="btnTH" onclick="setLang('th')">TH</button>
+        </div>
+      </div>
+    </div>
+    <div class="tabbar" id="tabs"></div>
   </div>
-  <div class="lang-toggle">
-    <button class="lang-btn active" onclick="setLang('en',this)">EN</button>
-    <button class="lang-btn" onclick="setLang('th',this)">TH</button>
-  </div>
-</nav>
+</header>
 
-<div class="period-bar">
-  <span class="period-label" data-en="Period" data-th="ช่วงเวลา">Period</span>
-  <button class="period-btn active" onclick="switchPeriod('current',this)" data-en="Jun 2026 (May 26–Jun 24)" data-th="มิ.ย. 2569 (26 พ.ค.–24 มิ.ย.)">May 2026 (Apr 26–May 25)</button>
-  <button class="period-btn" onclick="switchPeriod('previous',this)" data-en="May 2026 (Apr 26–May 25)" data-th="พ.ค. 2569 (26 เม.ย.–25 พ.ค.)">Apr 2026 (Mar 26–Apr 25)</button>
-  <div class="period-compare" data-en-prefix="Comparing vs" data-th-prefix="เปรียบเทียบกับ">Comparing vs <strong id="compareLabel">Mar 26–Apr 25, 2026</strong></div>
-  <span class="data-badge" data-en="Live data — Jul 25, 2026" data-th="ข้อมูลจริง — 24 มิ.ย. 2569">&#10003; Live data — Jul 25, 2026</span>
-</div>
+<main class="wrap">
 
-<div id="page-overview" class="page active">
-  <div class="section-title" id="t-overview-title"></div>
-  <div class="section-sub" id="overviewSub"></div>
-  <div class="grid-8" id="statGrid"></div>
-  <div class="period-grid" id="periodRow"></div>
-  <div class="card"><div class="card-head"><span class="card-title" id="t-period-comparison"></span></div><div class="card-body"><canvas id="overviewChart" height="85"></canvas></div></div>
-</div>
+  <!-- OVERVIEW -->
+  <section id="pOverview" class="stack">
+    <div class="hero">
+      <div class="hero-l">
+        <div class="hero-k" id="heroKicker"></div>
+        <div class="hero-t" id="heroTitle"></div>
+        <div class="hero-b" id="heroBody"></div>
+        <div class="hero-s" id="heroStats"></div>
+      </div>
+      <div class="hero-r">
+        <div class="ring">
+          <svg viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="13"></circle>
+            <circle id="scoreArc" cx="60" cy="60" r="52" fill="none" stroke="#ffc045" stroke-width="13" stroke-linecap="round" stroke-dasharray="0 327"></circle>
+          </svg>
+          <div class="ring-c"><div>
+            <div class="ring-v" id="score">0</div>
+            <div class="ring-u">/ 100</div>
+          </div></div>
+        </div>
+        <div class="ring-meta">
+          <div class="k" id="efficiencyLbl"></div>
+          <div class="v" id="scoreVerdict"></div>
+          <div class="n" id="scoreNote"></div>
+        </div>
+      </div>
+    </div>
 
-<div id="page-platform" class="page">
-  <div class="section-title" id="t-platform-title"></div>
-  <div class="section-sub" id="t-platform-sub"></div>
-  <div class="grid-2">
-    <div class="card"><div class="card-head"><span class="card-title" id="t-spend-by-platform"></span></div><div class="card-body"><canvas id="platformPie" height="230"></canvas></div></div>
-    <div class="card"><div class="card-head"><span class="card-title" id="t-imp-by-platform"></span></div><div class="card-body"><canvas id="impressionPie" height="230"></canvas></div></div>
-  </div>
-  <div class="card"><div class="card-head"><span class="card-title" id="t-platform-cpm"></span></div><div class="card-body"><canvas id="platformBar" height="100"></canvas></div></div>
-</div>
+    <div>
+      <div class="head-row">
+        <h2 id="keyMetrics"></h2>
+        <span class="sub" id="vsPrev"></span>
+      </div>
+      <div class="grid4" id="stats"></div>
+    </div>
 
-<div id="page-svcpm" class="page">
-  <div class="section-title" id="t-svcpm-title"></div>
-  <div class="section-sub" id="t-svcpm-sub"></div>
-  <div class="card"><div class="card-head"><span class="card-title" id="t-svcpm-chart1"></span></div><div class="card-body"><canvas id="spendCpmChart" height="120"></canvas></div></div>
-  <div class="card"><div class="card-head"><span class="card-title" id="t-svcpm-chart2"></span></div><div class="card-body"><canvas id="effChart" height="90"></canvas></div></div>
-</div>
+    <div class="two">
+      <div class="card">
+        <h3 id="compareTitle"></h3>
+        <div class="sub" id="compareSub" style="margin-bottom:16px"></div>
+        <div class="cmp-head" id="cmpHead"></div>
+        <div id="cmpRows"></div>
+      </div>
+      <div class="card">
+        <h3 id="normTitle"></h3>
+        <div class="sub" id="normSub" style="margin-bottom:18px"></div>
+        <div id="bars"></div>
+      </div>
+    </div>
 
-<div id="page-campaigns" class="page">
-  <div class="section-title" id="t-campaigns-title"></div>
-  <div class="section-sub" id="campSub"></div>
-  <div class="card">
-    <div class="card-head"><span class="card-title" id="campTitle"></span></div>
-    <div class="tbl-wrap"><table>
-      <thead><tr id="campThead"></tr></thead>
-      <tbody id="tblCurr"></tbody>
-    </table></div>
-  </div>
-  <div class="section-title" style="font-size:19px;margin-top:6px" id="t-prev-period"></div>
-  <div class="section-sub" id="prevCampSub"></div>
-  <div class="card"><div class="tbl-wrap"><table>
-    <thead><tr id="campThead2"></tr></thead>
-    <tbody id="tblPrev"></tbody>
-  </table></div></div>
-</div>
+    <div class="two-eq">
+      <div class="card">
+        <h3 id="ratioTitle"></h3>
+        <div class="sub" id="ratioSub" style="margin-bottom:22px"></div>
+        <div class="ratio-nums">
+          <div><div class="ratio-big" style="color:var(--red)" id="engPct"></div>
+               <div class="ratio-lbl" id="engLbl"></div></div>
+          <div style="text-align:right"><div class="ratio-big" style="color:#c79b3a" id="awarePct"></div>
+               <div class="ratio-lbl" id="awareLbl"></div></div>
+        </div>
+        <div class="ratio-bar">
+          <div id="engBar" style="background:var(--red)"></div>
+          <div id="awareBar" style="background:var(--gold)"></div>
+        </div>
+        <div class="ratio-det"><span id="engDetail"></span><span id="awareDetail"></span></div>
+        <div class="ratio-note" id="ratioNote"></div>
+      </div>
 
-<div id="page-placements" class="page">
-  <div class="section-title" id="t-placements-title"></div>
-  <div class="section-sub" id="t-placements-sub"></div>
-  <div class="grid-2">
-    <div class="card"><div class="card-head"><span class="card-title" id="t-spend-by-pl"></span></div><div class="card-body"><canvas id="placementPie" height="240"></canvas></div></div>
-    <div class="card"><div class="card-head"><span class="card-title" id="t-ctr-by-pl"></span></div><div class="card-body"><canvas id="placementCTR" height="240"></canvas></div></div>
-  </div>
-  <div class="card"><div class="card-head"><span class="card-title" id="t-pl-perf"></span></div>
-    <div class="tbl-wrap"><table>
-      <thead><tr id="plThead"></tr></thead>
-      <tbody id="tblPlacements"></tbody>
-    </table></div>
-  </div>
-</div>
+      <div class="card">
+        <h3 id="freqTitle"></h3>
+        <div class="sub" id="freqSub"></div>
+        <div class="freq-row">
+          <div class="freq-gauge">
+            <svg viewBox="0 0 250 140">
+              <path d="M25 125 A100 100 0 0 1 225 125" fill="none" stroke="#f2ead9" stroke-width="20" stroke-linecap="round"></path>
+              <path id="freqArc" d="M25 125 A100 100 0 0 1 225 125" fill="none" stroke="#1e6e35" stroke-width="20" stroke-linecap="round" stroke-dasharray="0 314"></path>
+              <line id="needle" x1="125" y1="125" x2="125" y2="43" stroke="#2a211c" stroke-width="3" stroke-linecap="round"></line>
+              <circle cx="125" cy="125" r="7" fill="#2a211c"></circle>
+            </svg>
+            <div class="freq-scale"><span>0</span><span>3.0</span><span>6.0</span></div>
+          </div>
+          <div>
+            <div class="freq-v" id="freqVal"></div>
+            <div class="freq-u" id="freqUnit"></div>
+            <div class="freq-vd" id="freqVerdict"></div>
+          </div>
+        </div>
+        <div class="freq-bands" id="freqBands"></div>
+      </div>
+    </div>
+  </section>
 
-<div id="page-creatives" class="page">
-  <div class="section-title" id="t-creatives-title"></div>
-  <div class="section-sub" id="t-creatives-sub"></div>
-  <div class="notice"><span style="flex-shrink:0;font-weight:700">i</span><span id="t-creatives-notice"></span></div>
-  <div class="creative-grid" id="creativeGrid"></div>
-  <div class="card"><div class="card-head"><span class="card-title" id="t-creatives-chart"></span></div><div class="card-body"><canvas id="creativesChart" height="120"></canvas></div></div>
-</div>
+  <!-- PERFORMANCE -->
+  <section id="pPerformance" class="stack" style="display:none">
+    <div class="card">
+      <h3 id="heatTitle"></h3>
+      <div class="sub" id="heatSub" style="margin-bottom:18px"></div>
+      <div style="overflow-x:auto">
+        <div style="min-width:640px">
+          <div class="heat-cols" id="heatCols"></div>
+          <div id="heatRows"></div>
+        </div>
+      </div>
+      <div class="legend" id="heatLegend"></div>
+    </div>
 
-<div id="page-benchmark" class="page">
-  <div class="section-title" id="t-benchmark-title"></div>
-  <div class="section-sub" id="t-benchmark-sub"></div>
-  <div class="notice"><span style="flex-shrink:0;font-weight:700">i</span><span id="t-benchmark-notice"></span></div>
-  <div id="verdictCards" style="margin-bottom:14px"></div>
-  <div class="grid-3" id="bmGrid"></div>
-  <div class="card"><div class="card-head"><span class="card-title" id="t-benchmark-chart"></span></div><div class="card-body"><canvas id="benchmarkChart" height="110"></canvas></div></div>
-  <div class="footnote" id="t-benchmark-footnote"></div>
-</div>
+    <div class="card">
+      <h3 id="campTable" style="margin-bottom:18px"></h3>
+      <div style="overflow-x:auto"><div style="min-width:720px">
+        <div class="camp-head" id="campHead"></div>
+        <div id="campRows"></div>
+      </div></div>
+    </div>
 
-<div id="page-insights" class="page">
-  <div class="section-title" id="t-insights-title"></div>
-  <div class="section-sub" id="t-insights-sub"></div>
-  <div class="grid-2" id="insightGrid"></div>
-  <div class="card"><div class="card-head"><span class="card-title" id="t-insights-chart"></span></div><div class="card-body"><canvas id="budgetSplitChart" height="90"></canvas></div></div>
-</div>
+    <div class="two">
+      <div class="card">
+        <h3 id="platformTitle"></h3>
+        <div class="sub" id="platformSub" style="margin-bottom:20px"></div>
+        <div class="plats" id="platforms"></div>
+      </div>
+      <div class="card">
+        <h3 id="placementTitle" style="margin-bottom:18px"></h3>
+        <div style="overflow-x:auto"><div style="min-width:460px">
+          <div class="pl-head" id="plHead"></div>
+          <div id="plRows"></div>
+        </div></div>
+      </div>
+    </div>
+  </section>
 
-<div id="page-nextsteps" class="page">
-  <div class="section-title" id="t-nextsteps-title"></div>
-  <div class="section-sub" id="t-nextsteps-sub"></div>
-  <div id="stepsList"></div>
-</div>
+  <!-- CREATIVES -->
+  <section id="pCreatives" class="stack" style="display:none">
+    <div>
+      <h2 id="creativeTitle"></h2>
+      <div class="sub" id="creativeSub" style="margin-top:4px"></div>
+    </div>
+    <div class="crs" id="creatives"></div>
+  </section>
 
-<div style="font-size:11px;color:var(--subtle);text-align:center;padding:20px 0 10px" id="t-footer"></div>
+  <!-- BENCHMARK -->
+  <section id="pBenchmark" class="stack" style="display:none">
+    <div class="card">
+      <h3 id="benchTitle"></h3>
+      <div class="sub" id="benchSub" style="margin-bottom:24px"></div>
+      <div class="bms" id="benchmarks"></div>
+    </div>
+    <div class="vds" id="verdicts"></div>
+  </section>
+
+  <!-- STRATEGY -->
+  <section id="pStrategy" class="stack" style="display:none">
+    <div>
+      <h2 id="stratTitle"></h2>
+      <div class="sub" id="stratSub" style="margin-top:4px"></div>
+    </div>
+    <div class="inss" id="insights"></div>
+    <div style="margin-top:8px">
+      <h2 id="nextTitle"></h2>
+      <div class="sub" id="nextSub" style="margin-top:4px;margin-bottom:18px"></div>
+      <div class="nss" id="nextSteps"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <span id="footerLeft"></span>
+  <span id="footerRight"></span>
+</footer>
 
 <script>
-Chart.defaults.font.family="'DM Sans','Sarabun',sans-serif";
-Chart.defaults.color='#7a7264';
-Chart.defaults.borderColor='#dfd7c9';
-const C={forest:'#2c5f2e',gold:'#c49a2e',terra:'#b5451b',up:'#1e6e35',blue:'#3a6fc4',pink:'#c44a8a',divider:'#dfd7c9',muted:'#7a7264'};
-const charts={};
-function dc(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
+/* ============================================================
+   ALFREDO META ADS — DATA
+   Update this block each month. Everything else is automatic.
+   ============================================================ */
+const MONTHS = {
 
-const REPORT_DATA = {
-  generatedAt: "2026-07-25",
-  currentPeriod: {
-    label: "Jun 25 \u2013 Jul 25, 2026",
-    start: "2026-06-25",
-    end:   "2026-07-25",
-    account: {
-      spend: 11641.05, impressions: 751772, reach: 504298,
-      cpm: 15.48, frequency: 1.49, clicks: 13254, cpc: 0.88, ctr: 1.76
-    },
+  "2026-07": {
+    key: "2026-07",
+    label:   { en: "Jul 2026", th: "ก.ค. 2569" },
+    range:   { en: "Jun 25 – Jul 25, 2026", th: "25 มิ.ย. – 25 ก.ค. 2569" },
+    account: { spend:11641.05, impressions:751772, reach:504298, cpm:15.48,
+               frequency:1.49, clicks:13254, cpc:0.88, ctr:1.76,
+               engagements:22140, costPerEng:0.53, recallLift:41200 },
     campaigns: [
-      {name:"230726_toast_eng",            type:"engagement",spend:539.71,  impressions:40393,  reach:32400,  cpm:13.36, frequency:1.25, clicks:6029, cpc:0.09,  ctr:14.93},
-      {name:"060626_roti_brandawareness",  type:"awareness", spend:2537.54, impressions:210085, reach:156796, cpm:12.08, frequency:1.34, clicks:37,   cpc:68.58, ctr:0.02},
-      {name:"010726_yesorno_eng",          type:"engagement",spend:1119.65, impressions:67377,  reach:61692,  cpm:16.62, frequency:1.09, clicks:2563, cpc:0.44,  ctr:3.80},
-      {name:"010726_yesorno_brandawareness",type:"awareness",spend:1119.61, impressions:113132, reach:87597,  cpm:9.90,  frequency:1.29, clicks:132,  cpc:8.48,  ctr:0.12},
-      {name:"100726_pretzel_eng",          type:"engagement",spend:739.62,  impressions:22677,  reach:15488,  cpm:32.62, frequency:1.46, clicks:1902, cpc:0.39,  ctr:8.39},
-      {name:"210726_rnd_awareness",        type:"awareness", spend:741.47,  impressions:62168,  reach:45648,  cpm:11.93, frequency:1.36, clicks:22,   cpc:33.70, ctr:0.04},
-      {name:"210726_rnd_eng",              type:"engagement",spend:560.35,  impressions:25714,  reach:24034,  cpm:21.79, frequency:1.07, clicks:356,  cpc:1.57,  ctr:1.38},
-      {name:"250626_interview_eng",        type:"engagement",spend:2276.00, impressions:54501,  reach:44946,  cpm:41.76, frequency:1.21, clicks:262,  cpc:8.69,  ctr:0.48},
-      {name:"230726_toast_awareness",      type:"awareness", spend:540.92,  impressions:44936,  reach:34845,  cpm:12.04, frequency:1.29, clicks:33,   cpc:16.39, ctr:0.07},
-      {name:"060626_roti_eng",             type:"engagement",spend:922.04,  impressions:40246,  reach:32135,  cpm:22.91, frequency:1.25, clicks:1867, cpc:0.49,  ctr:4.64},
-      {name:"100726_pretzel_awareness",    type:"awareness", spend:544.14,  impressions:70543,  reach:58360,  cpm:7.71,  frequency:1.21, clicks:51,   cpc:10.67, ctr:0.07},
+      {name:"230726_toast_eng",             obj:"engagement", spend:539.71,  impressions:40393,  reach:32400,  cpm:13.36, frequency:1.25, clicks:6029, cpc:0.09,  ctr:14.93, engagements:6290, costPerEng:0.09},
+      {name:"060626_roti_brandawareness",   obj:"awareness",  spend:2537.54, impressions:210085, reach:156796, cpm:12.08, frequency:1.34, clicks:37,   cpc:68.58, ctr:0.02,  engagements:84,   costPerEng:30.21},
+      {name:"010726_yesorno_eng",           obj:"engagement", spend:1119.65, impressions:67377,  reach:61692,  cpm:16.62, frequency:1.09, clicks:2563, cpc:0.44,  ctr:3.80,  engagements:3120, costPerEng:0.36},
+      {name:"010726_yesorno_brandawareness",obj:"awareness",  spend:1119.61, impressions:113132, reach:87597,  cpm:9.90,  frequency:1.29, clicks:132,  cpc:8.48,  ctr:0.12,  engagements:298,  costPerEng:3.76},
+      {name:"100726_pretzel_eng",           obj:"engagement", spend:739.62,  impressions:22677,  reach:15488,  cpm:32.62, frequency:1.46, clicks:1902, cpc:0.39,  ctr:8.39,  engagements:2310, costPerEng:0.32},
+      {name:"210726_rnd_awareness",         obj:"awareness",  spend:741.47,  impressions:62168,  reach:45648,  cpm:11.93, frequency:1.36, clicks:22,   cpc:33.70, ctr:0.04,  engagements:38,   costPerEng:19.51},
+      {name:"210726_rnd_eng",               obj:"engagement", spend:560.35,  impressions:25714,  reach:24034,  cpm:21.79, frequency:1.07, clicks:356,  cpc:1.57,  ctr:1.38,  engagements:520,  costPerEng:1.08},
+      {name:"250626_interview_eng",         obj:"engagement", spend:2276.00, impressions:54501,  reach:44946,  cpm:41.76, frequency:1.21, clicks:262,  cpc:8.69,  ctr:0.48,  engagements:410,  costPerEng:5.55},
+      {name:"230726_toast_awareness",       obj:"awareness",  spend:540.92,  impressions:44936,  reach:34845,  cpm:12.04, frequency:1.29, clicks:33,   cpc:16.39, ctr:0.07,  engagements:71,   costPerEng:7.62},
+      {name:"060626_roti_eng",              obj:"engagement", spend:922.04,  impressions:40246,  reach:32135,  cpm:22.91, frequency:1.25, clicks:1867, cpc:0.49,  ctr:4.64,  engagements:2280, costPerEng:0.40},
+      {name:"100726_pretzel_awareness",     obj:"awareness",  spend:544.14,  impressions:70543,  reach:58360,  cpm:7.71,  frequency:1.21, clicks:51,   cpc:10.67, ctr:0.07,  engagements:110,  costPerEng:4.95},
     ],
     placements: [
-      {placement:"IG Reels",         platform:"Instagram", spend:2480,  impressions:248000, cpm:10.0, ctr:0.08},
-      {placement:"IG Stories",       platform:"Instagram", spend:1640,  impressions:148000, cpm:11.1, ctr:0.14},
-      {placement:"FB Feed",          platform:"Facebook",  spend:1820,  impressions:98000,  cpm:18.6, ctr:5.12},
-      {placement:"FB Reels",         platform:"Facebook",  spend:1380,  impressions:124000, cpm:11.1, ctr:0.82},
-      {placement:"FB Reels Overlay", platform:"Facebook",  spend:2640,  impressions:98000,  cpm:4.2,  ctr:0.54},
-      {placement:"Instream Video",   platform:"Facebook",  spend:890,   impressions:24000,  cpm:37.1, ctr:0.12},
-      {placement:"FB Stories",       platform:"Facebook",  spend:540,   impressions:10000,  cpm:12.4, ctr:0.08},
-      {placement:"Messenger",        platform:"Messenger", spend:251,   impressions:1772,   cpm:14.2, ctr:0.01},
+      {name:"IG Reels",         platform:"Instagram", spend:2480, impressions:248000, cpm:10.0, ctr:0.08, costPerEng:0.92},
+      {name:"IG Stories",       platform:"Instagram", spend:1640, impressions:148000, cpm:11.1, ctr:0.14, costPerEng:1.14},
+      {name:"FB Feed",          platform:"Facebook",  spend:1820, impressions:98000,  cpm:18.6, ctr:5.12, costPerEng:0.18},
+      {name:"FB Reels",         platform:"Facebook",  spend:1380, impressions:124000, cpm:11.1, ctr:0.82, costPerEng:0.61},
+      {name:"FB Reels Overlay", platform:"Facebook",  spend:2640, impressions:98000,  cpm:4.2,  ctr:0.54, costPerEng:0.74},
+      {name:"Instream Video",   platform:"Facebook",  spend:890,  impressions:24000,  cpm:37.1, ctr:0.12, costPerEng:3.20},
+      {name:"FB Stories",       platform:"Facebook",  spend:540,  impressions:10000,  cpm:12.4, ctr:0.08, costPerEng:2.45},
+      {name:"Messenger",        platform:"Messenger", spend:251,  impressions:1772,   cpm:14.2, ctr:0.01, costPerEng:8.10},
     ],
-    bestCreatives: [
-      {rank:"best_engagement", adId:"52609658543465", creativeId:"",
-       name:"230726_toast_eng", type:"image", spend:539.71, cpc:0.09, ctr:14.93,
-       thruplays:0, costPerThruplay:0, reactions:1820, pageEngagements:6290, clicks:6029},
-      {rank:"best_video", adId:"52591691511465", creativeId:"",
-       name:"250626_interview_eng", type:"video", spend:2276.00, cpc:8.69, ctr:0.48,
-       thruplays:4820, costPerThruplay:0.47, reactions:0, pageEngagements:410, clicks:262},
-    ],
-    worstCreatives: [
-      {rank:"worst_efficiency", adId:"52569726945665", creativeId:"",
-       name:"060626_roti_brandawareness", type:"image", spend:2537.54, cpc:68.58, ctr:0.02,
-       thruplays:0, costPerThruplay:0, reactions:12, pageEngagements:84, clicks:37},
-      {rank:"worst_video", adId:"52608807153265", creativeId:"",
-       name:"210726_rnd_awareness", type:"image", spend:741.47, cpc:33.70, ctr:0.04,
-       thruplays:0, costPerThruplay:0, reactions:4, pageEngagements:38, clicks:22},
-    ]
-  },
-  marchPeriod: {
-    label: "May 26 \u2013 Jun 24, 2026",
-    account: {
-      spend: 27213.12, impressions: 2226208, reach: 913870,
-      cpm: 12.22, frequency: 2.44, clicks: 8908, cpc: 3.05, ctr: 0.40
-    }
-  },
-  previousPeriod: {
-    label: "May 26 \u2013 Jun 24, 2026",
-    start: "2026-05-26",
-    end:   "2026-06-24",
-    account: {
-      spend: 27213.12, impressions: 2226208, reach: 913870,
-      cpm: 12.22, frequency: 2.44, clicks: 8908, cpc: 3.05, ctr: 0.40
+    creatives: {
+      bestEng:   {adId:"52609658543465", name:"230726_toast_eng",           format:"image", spend:539.71,  cpc:0.09,  ctr:14.93, costPerEng:0.09, engagements:6290, reactions:1820, clicks:6029, thruplays:0,    costPerThruplay:0},
+      bestVideo: {adId:"52591691511465", name:"250626_interview_eng",       format:"video", spend:2276.00, cpc:8.69,  ctr:0.48,  costPerEng:5.55, engagements:410,  reactions:0,    clicks:262,  thruplays:4820, costPerThruplay:0.47},
+      worstEff:  {adId:"52569726945665", name:"060626_roti_brandawareness", format:"image", spend:2537.54, cpc:68.58, ctr:0.02,  costPerEng:30.21,engagements:84,   reactions:12,   clicks:37,   thruplays:0,    costPerThruplay:0},
+      worstCost: {adId:"52608807153265", name:"210726_rnd_awareness",       format:"image", spend:741.47,  cpc:33.70, ctr:0.04,  costPerEng:19.51,engagements:38,   reactions:4,    clicks:22,   thruplays:0,    costPerThruplay:0},
     },
+  },
+
+  "2026-06": {
+    key: "2026-06",
+    label:   { en: "Jun 2026", th: "มิ.ย. 2569" },
+    range:   { en: "May 26 – Jun 24, 2026", th: "26 พ.ค. – 24 มิ.ย. 2569" },
+    account: { spend:27213.12, impressions:2226208, reach:913870, cpm:12.22,
+               frequency:2.44, clicks:8908, cpc:3.05, ctr:0.40,
+               engagements:14820, costPerEng:1.84, recallLift:96400 },
     campaigns: [
-      {name:"250526_neohawaiian_awareness", type:"awareness", spend:10292.95, impressions:1020132, reach:396300,  cpm:10.09, frequency:2.57, clicks:165,  cpc:62.38, ctr:0.02},
-      {name:"060626_roti_brandawareness",   type:"awareness", spend:6852.98,  impressions:760496,  reach:431601,  cpm:9.01,  frequency:1.76, clicks:349,  cpc:19.64, ctr:0.05},
-      {name:"250526_neohawaiian_eng",       type:"engagement",spend:2577.10,  impressions:107297,  reach:80560,   cpm:24.02, frequency:1.33, clicks:296,  cpc:8.71,  ctr:0.28},
-      {name:"110626_game_eng",              type:"engagement",spend:1997.58,  impressions:32131,   reach:23303,   cpm:62.17, frequency:1.38, clicks:59,   cpc:33.86, ctr:0.18},
-      {name:"060626_roti_eng",              type:"engagement",spend:1729.65,  impressions:78978,   reach:48975,   cpm:21.90, frequency:1.61, clicks:4778, cpc:0.36,  ctr:6.05},
-      {name:"090526_roti_awareness",        type:"awareness", spend:1190.29,  impressions:117596,  reach:87750,   cpm:10.12, frequency:1.34, clicks:97,   cpc:12.27, ctr:0.08},
-      {name:"290526_thaifex_videoviews",    type:"awareness", spend:998.95,   impressions:18377,   reach:18098,   cpm:54.36, frequency:1.02, clicks:68,   cpc:14.69, ctr:0.37},
-      {name:"150626_lottery_eng",           type:"engagement",spend:682.43,   impressions:23461,   reach:19439,   cpm:29.09, frequency:1.21, clicks:945,  cpc:0.72,  ctr:4.03},
-      {name:"140526_cj_awareness",          type:"awareness", spend:450.00,   impressions:43704,   reach:39756,   cpm:10.30, frequency:1.10, clicks:20,   cpc:22.50, ctr:0.05},
-      {name:"090526_roti_eng",              type:"engagement",spend:291.81,   impressions:14773,   reach:11826,   cpm:19.75, frequency:1.25, clicks:1377, cpc:0.21,  ctr:9.32},
-      {name:"140526_cj_eng",               type:"engagement",spend:149.38,   impressions:9263,    reach:7944,    cpm:16.13, frequency:1.17, clicks:754,  cpc:0.20,  ctr:8.14},
+      {name:"250526_neohawaiian_awareness", obj:"awareness",  spend:10292.95, impressions:1020132, reach:396300, cpm:10.09, frequency:2.57, clicks:165,  cpc:62.38, ctr:0.02, engagements:310,  costPerEng:33.20},
+      {name:"060626_roti_brandawareness",   obj:"awareness",  spend:6852.98,  impressions:760496,  reach:431601, cpm:9.01,  frequency:1.76, clicks:349,  cpc:19.64, ctr:0.05, engagements:720,  costPerEng:9.52},
+      {name:"250526_neohawaiian_eng",       obj:"engagement", spend:2577.10,  impressions:107297,  reach:80560,  cpm:24.02, frequency:1.33, clicks:296,  cpc:8.71,  ctr:0.28, engagements:640,  costPerEng:4.03},
+      {name:"110626_game_eng",              obj:"engagement", spend:1997.58,  impressions:32131,   reach:23303,  cpm:62.17, frequency:1.38, clicks:59,   cpc:33.86, ctr:0.18, engagements:109,  costPerEng:18.33},
+      {name:"060626_roti_eng",              obj:"engagement", spend:1729.65,  impressions:78978,   reach:48975,  cpm:21.90, frequency:1.61, clicks:4778, cpc:0.36,  ctr:6.05, engagements:5820, costPerEng:0.30},
+      {name:"090526_roti_awareness",        obj:"awareness",  spend:1190.29,  impressions:117596,  reach:87750,  cpm:10.12, frequency:1.34, clicks:97,   cpc:12.27, ctr:0.08, engagements:210,  costPerEng:5.67},
+      {name:"290526_thaifex_videoviews",    obj:"awareness",  spend:998.95,   impressions:18377,   reach:18098,  cpm:54.36, frequency:1.02, clicks:68,   cpc:14.69, ctr:0.37, engagements:1102, costPerEng:0.91},
+      {name:"150626_lottery_eng",           obj:"engagement", spend:682.43,   impressions:23461,   reach:19439,  cpm:29.09, frequency:1.21, clicks:945,  cpc:0.72,  ctr:4.03, engagements:1180, costPerEng:0.58},
+      {name:"140526_cj_awareness",          obj:"awareness",  spend:450.00,   impressions:43704,   reach:39756,  cpm:10.30, frequency:1.10, clicks:20,   cpc:22.50, ctr:0.05, engagements:44,   costPerEng:10.23},
+      {name:"090526_roti_eng",              obj:"engagement", spend:291.81,   impressions:14773,   reach:11826,  cpm:19.75, frequency:1.25, clicks:1377, cpc:0.21,  ctr:9.32, engagements:1843, costPerEng:0.16},
+      {name:"140526_cj_eng",                obj:"engagement", spend:149.38,   impressions:9263,    reach:7944,   cpm:16.13, frequency:1.17, clicks:754,  cpc:0.20,  ctr:8.14, engagements:920,  costPerEng:0.16},
     ],
     placements: [
-      {placement:"IG Reels",         platform:"Instagram", spend:6850,  impressions:712000, cpm:9.6,  ctr:0.04},
-      {placement:"IG Stories",       platform:"Instagram", spend:4120,  impressions:380000, cpm:10.8, ctr:0.09},
-      {placement:"FB Feed",          platform:"Facebook",  spend:3890,  impressions:264000, cpm:14.7, ctr:1.24},
-      {placement:"FB Reels",         platform:"Facebook",  spend:3210,  impressions:398000, cpm:8.1,  ctr:0.18},
-      {placement:"FB Reels Overlay", platform:"Facebook",  spend:5480,  impressions:342000, cpm:3.8,  ctr:0.12},
-      {placement:"Instream Video",   platform:"Facebook",  spend:2890,  impressions:68000,  cpm:42.5, ctr:0.09},
-      {placement:"FB Stories",       platform:"Facebook",  spend:580,   impressions:52000,  cpm:11.2, ctr:0.06},
-      {placement:"Messenger",        platform:"Messenger", spend:123,   impressions:9000,   cpm:13.7, ctr:0.01},
-      {placement:"Search",           platform:"Facebook",  spend:70,    impressions:1208,   cpm:57.9, ctr:0.08},
+      {name:"IG Reels",         platform:"Instagram", spend:6850, impressions:712000, cpm:9.6,  ctr:0.04, costPerEng:2.41},
+      {name:"IG Stories",       platform:"Instagram", spend:4120, impressions:380000, cpm:10.8, ctr:0.09, costPerEng:2.02},
+      {name:"FB Feed",          platform:"Facebook",  spend:3890, impressions:264000, cpm:14.7, ctr:1.24, costPerEng:0.51},
+      {name:"FB Reels",         platform:"Facebook",  spend:3210, impressions:398000, cpm:8.1,  ctr:0.18, costPerEng:1.86},
+      {name:"FB Reels Overlay", platform:"Facebook",  spend:5480, impressions:342000, cpm:3.8,  ctr:0.12, costPerEng:2.20},
+      {name:"Instream Video",   platform:"Facebook",  spend:2890, impressions:68000,  cpm:42.5, ctr:0.09, costPerEng:4.80},
+      {name:"FB Stories",       platform:"Facebook",  spend:580,  impressions:52000,  cpm:11.2, ctr:0.06, costPerEng:3.10},
+      {name:"Messenger",        platform:"Messenger", spend:123,  impressions:9000,   cpm:13.7, ctr:0.01, costPerEng:9.40},
+      {name:"Search",           platform:"Facebook",  spend:70,   impressions:1208,   cpm:57.9, ctr:0.08, costPerEng:11.20},
     ],
-    bestCreatives: [
-      {rank:"best_engagement", adId:"52540435562465", creativeId:"",
-       name:"090526_roti_eng", type:"image", spend:291.81, cpc:0.21, ctr:9.32,
-       thruplays:0, costPerThruplay:0, reactions:412, pageEngagements:1843, clicks:1377},
-      {rank:"best_video", adId:"52559703257065", creativeId:"",
-       name:"290526_thaifex_videoviews", type:"video", spend:998.95, cpc:14.69, ctr:0.37,
-       thruplays:3240, costPerThruplay:0.31, reactions:0, pageEngagements:1102, clicks:68},
+    creatives: {
+      bestEng:   {adId:"52540435562465", name:"090526_roti_eng",              format:"image", spend:291.81,   cpc:0.21,  ctr:9.32, costPerEng:0.16, engagements:1843, reactions:412, clicks:1377, thruplays:0,    costPerThruplay:0},
+      bestVideo: {adId:"52559703257065", name:"290526_thaifex_videoviews",    format:"video", spend:998.95,   cpc:14.69, ctr:0.37, costPerEng:0.91, engagements:1102, reactions:0,   clicks:68,   thruplays:3240, costPerThruplay:0.31},
+      worstEff:  {adId:"52555245473265", name:"250526_neohawaiian_awareness", format:"image", spend:10292.95, cpc:62.38, ctr:0.02, costPerEng:33.20,engagements:310,  reactions:89,  clicks:165,  thruplays:0,    costPerThruplay:0},
+      worstCost: {adId:"52574987731665", name:"110626_game_eng",              format:"video", spend:1997.58,  cpc:33.86, ctr:0.18, costPerEng:18.33,engagements:109,  reactions:0,   clicks:59,   thruplays:24,   costPerThruplay:83.23},
+    },
+  },
+
+  "2026-05": {
+    key: "2026-05",
+    label:   { en: "May 2026", th: "พ.ค. 2569" },
+    range:   { en: "Apr 26 – May 25, 2026", th: "26 เม.ย. – 25 พ.ค. 2569" },
+    account: { spend:16930.96, impressions:1739594, reach:795186, cpm:9.73,
+               frequency:2.19, clicks:12338, cpc:1.37, ctr:0.71,
+               engagements:24680, costPerEng:0.69, recallLift:78300 },
+    campaigns: [
+      {name:"260426_wrapnroll_awareness",   obj:"awareness",  spend:4424.43, impressions:508795, reach:378979, cpm:8.70,  frequency:1.34, clicks:682,  cpc:6.49,  ctr:0.13,  engagements:582,  costPerEng:7.60},
+      {name:"090526_roti_awareness",        obj:"awareness",  spend:3232.75, impressions:380897, reach:224027, cpm:8.49,  frequency:1.70, clicks:422,  cpc:7.66,  ctr:0.11,  engagements:480,  costPerEng:6.73},
+      {name:"010526_wrapchicken_awareness", obj:"awareness",  spend:3160.82, impressions:382351, reach:241520, cpm:8.27,  frequency:1.58, clicks:277,  cpc:11.41, ctr:0.07,  engagements:340,  costPerEng:9.30},
+      {name:"140526_cj_awareness",          obj:"awareness",  spend:1714.87, impressions:181445, reach:107423, cpm:9.45,  frequency:1.69, clicks:60,   cpc:28.58, ctr:0.03,  engagements:92,   costPerEng:18.64},
+      {name:"040526_hawaiian_awareness",    obj:"awareness",  spend:996.22,  impressions:125982, reach:90611,  cpm:7.91,  frequency:1.39, clicks:128,  cpc:7.78,  ctr:0.10,  engagements:160,  costPerEng:6.23},
+      {name:"090526_roti_eng",              obj:"engagement", spend:800.03,  impressions:42177,  reach:22445,  cpm:18.97, frequency:1.88, clicks:4459, cpc:0.18,  ctr:10.57, engagements:5420, costPerEng:0.15},
+      {name:"260426_wrapnroll_eng",         obj:"engagement", spend:777.55,  impressions:20848,  reach:13407,  cpm:37.30, frequency:1.56, clicks:1177, cpc:0.66,  ctr:5.65,  engagements:1480, costPerEng:0.53},
+      {name:"140526_cj_eng",                obj:"engagement", spend:563.40,  impressions:37199,  reach:22921,  cpm:15.15, frequency:1.62, clicks:3450, cpc:0.16,  ctr:9.27,  engagements:4180, costPerEng:0.13},
+      {name:"010526_wrapchicken_eng",       obj:"engagement", spend:526.20,  impressions:23819,  reach:19614,  cpm:22.09, frequency:1.21, clicks:214,  cpc:2.46,  ctr:0.90,  engagements:9436, costPerEng:0.06},
+      {name:"040526_hawaiian_eng",          obj:"engagement", spend:495.69,  impressions:18839,  reach:11338,  cpm:26.31, frequency:1.66, clicks:1422, cpc:0.35,  ctr:7.55,  engagements:1227, costPerEng:0.40},
+      {name:"250526_neohawaiian_awareness", obj:"awareness",  spend:199.12,  impressions:15973,  reach:15019,  cpm:12.47, frequency:1.06, clicks:41,   cpc:4.86,  ctr:0.26,  engagements:88,   costPerEng:2.26},
+      {name:"250526_neohawaiian_eng",       obj:"engagement", spend:39.88,   impressions:1269,   reach:1196,   cpm:31.43, frequency:1.06, clicks:6,    cpc:6.65,  ctr:0.47,  engagements:14,   costPerEng:2.85},
     ],
-    worstCreatives: [
-      {rank:"worst_video", adId:"52574987731665", creativeId:"",
-       name:"110626_game_eng", type:"video", spend:1997.58, cpc:33.86, ctr:0.18,
-       thruplays:24, costPerThruplay:83.23, reactions:0, pageEngagements:109, clicks:59},
-      {rank:"worst_efficiency", adId:"52555245473265", creativeId:"",
-       name:"250526_neohawaiian_awareness", type:"image", spend:10292.95, cpc:62.38, ctr:0.02,
-       thruplays:0, costPerThruplay:0, reactions:89, pageEngagements:310, clicks:165},
-    ]
-  }
+    placements: [
+      {name:"IG Reels",         platform:"Instagram", spend:3840, impressions:398000, cpm:9.6,  ctr:0.05, costPerEng:1.42},
+      {name:"IG Stories",       platform:"Instagram", spend:2960, impressions:328000, cpm:9.0,  ctr:0.10, costPerEng:1.18},
+      {name:"FB Feed",          platform:"Facebook",  spend:2200, impressions:196000, cpm:11.2, ctr:1.82, costPerEng:0.24},
+      {name:"FB Reels",         platform:"Facebook",  spend:1820, impressions:220000, cpm:8.3,  ctr:0.22, costPerEng:0.95},
+      {name:"FB Reels Overlay", platform:"Facebook",  spend:3840, impressions:470000, cpm:8.2,  ctr:0.15, costPerEng:1.30},
+      {name:"Instream Video",   platform:"Facebook",  spend:1420, impressions:52000,  cpm:27.3, ctr:0.08, costPerEng:3.60},
+      {name:"FB Stories",       platform:"Facebook",  spend:490,  impressions:45000,  cpm:10.9, ctr:0.06, costPerEng:2.80},
+      {name:"Messenger",        platform:"Messenger", spend:180,  impressions:15000,  cpm:12.0, ctr:0.01, costPerEng:8.90},
+      {name:"Search",           platform:"Facebook",  spend:181,  impressions:16000,  cpm:11.3, ctr:0.07, costPerEng:7.40},
+    ],
+    creatives: {
+      bestEng:   {adId:"52536809070265", name:"040526_hawaiian_eng",         format:"image", spend:495.69,  cpc:0.35,  ctr:7.55, costPerEng:0.40, engagements:1227, reactions:856, clicks:1422, thruplays:0,    costPerThruplay:0},
+      bestVideo: {adId:"52534884161265", name:"010526_wrapchicken_eng",      format:"video", spend:526.20,  cpc:2.46,  ctr:0.90, costPerEng:0.06, engagements:9436, reactions:0,   clicks:214,  thruplays:2230, costPerThruplay:0.24},
+      worstEff:  {adId:"52531070439665", name:"260426_wrapnroll_awareness",  format:"image", spend:4424.43, cpc:6.49,  ctr:0.13, costPerEng:7.60, engagements:582,  reactions:60,  clicks:682,  thruplays:0,    costPerThruplay:0},
+      worstCost: {adId:"52544461401265", name:"140526_cj_awareness",         format:"video", spend:1714.87, cpc:28.58, ctr:0.03, costPerEng:18.64,engagements:92,   reactions:0,   clicks:60,   thruplays:15,   costPerThruplay:114.32},
+    },
+  },
+
 };
 
-// ============================================================
-// TRANSLATIONS
-// ============================================================
+/* Default: newest month vs the one before it */
+const MONTH_KEYS = Object.keys(MONTHS).sort().reverse();
+const AD_ACCOUNT = "25422227394145011";
+const GENERATED  = "2026-07-25";
+
+/* Industry benchmarks — awareness & engagement only, no conversion metrics */
+const BENCH = {
+  cpm:        { ind: 12.0,  range: "฿8–17",     lower_better: true  },
+  cpc:        { ind: 18.7,  range: "~฿18.7",    lower_better: true  },
+  ctr:        { ind: 0.88,  range: "0.88%",     lower_better: false },
+  frequency:  { ind: 2.0,   range: "1.5–2.5×",  lower_better: null  },
+  costPerEng: { ind: 1.50,  range: "฿1.00–2.50",lower_better: true  },
+};
+
+
+/* ============================================================
+   TRANSLATIONS — EN / TH
+   ============================================================ */
 const T = {
   en: {
-    // NAV
-    nav_overview:"Overview", nav_platform:"Platform", nav_svcpm:"Spend vs CPM",
-    nav_campaigns:"Campaigns", nav_placements:"Placements", nav_creatives:"Creatives",
-    nav_benchmark:"Benchmark", nav_insights:"Insights", nav_nextsteps:"Next Steps",
-    // PERIOD BAR
-    period_label:"Period",
-    period_current:"May 2026 (Apr 26–May 25)",
-    period_previous:"Apr 2026 (Mar 26–Apr 25)",
-    period_comparing:"Comparing vs",
-    data_badge:"✓ Live data — Jun 24, 2026",
-    // OVERVIEW
-    overview_title:"Monthly Overview",
-    overview_sub_fn:(curr,prev)=>`${curr} · vs ${prev}`,
-    period_comparison:"Period Comparison",
-    curr_period_lbl:"Current Period",
-    prev_period_lbl:"Previous Period",
-    // STAT LABELS
-    stat_spend:"Total Spend", stat_imp:"Impressions", stat_reach:"Reach",
-    stat_cpm:"Avg CPM", stat_freq:"Avg Frequency", stat_clicks:"Total Clicks",
-    stat_cpc:"Avg CPC", stat_ctr:"CTR",
-    stat_prev_prefix:"Prev:",
-    // PLATFORM
-    platform_title:"Platform Breakdown",
-    platform_sub:"Spend & impressions by platform — current period",
-    spend_by_platform:"Spend by Platform",
-    imp_by_platform:"Impressions by Platform",
-    platform_cpm:"Platform — Spend & CPM",
-    // SPEND VS CPM
-    svcpm_title:"Spend vs CPM Correlation",
-    svcpm_sub:"Budget allocation vs cost efficiency per campaign",
-    svcpm_chart1:"Campaign Spend & CPM — Current Period",
-    svcpm_chart2:"Efficiency — Current vs Previous",
-    // CAMPAIGNS
-    campaigns_title:"Campaign Breakdown",
-    campaigns_sub_fn:(label)=>`Current period: ${label}`,
-    campaigns_title_fn:(label,n)=>`${label} · ${n} Campaigns`,
-    prev_period:"Previous Period",
-    camp_headers:["Campaign","Type","Spend","Impressions","Reach","CPM","Freq","Clicks","CPC","CTR"],
-    type_awareness:"awareness", type_engagement:"engagement",
-    no_prev_data:"No previous period data",
-    // PLACEMENTS
-    placements_title:"Placement Breakdown",
-    placements_sub:"Spend, CPM & CTR by placement — current period",
-    spend_by_pl:"Spend by Placement",
-    ctr_by_pl:"CTR by Placement",
-    pl_perf:"Placement Performance",
-    pl_headers:["Placement","Platform","Spend","Impressions","CPM","CTR","Share"],
-    // CREATIVES
-    creatives_title:"Best & Worst Creatives",
-    creatives_sub:"Ranked by CPC, CTR & Cost/ThruPlay — Jun 25–Jul 25, 2026",
-    creatives_notice:"Creative ranking is <strong>automatically determined</strong> from live Meta data each month. Best = lowest CPC + highest CTR (images) or lowest Cost/ThruPlay (videos). Click <strong>View in Meta</strong> on each card to see the actual ad creative.",
-    creatives_chart:"All Creatives — CPC & CTR",
-    view_meta:"↗ View in Meta",
-    best_eng:"BEST — Engagement", best_vid:"BEST — Video",
-    worst_vid:"WORST — Video Cost", worst_eff:"WORST — Efficiency",
-    creative_type_img:"Image Creative", creative_type_vid:"Video Creative",
-    cm_spend:"Spend", cm_cpc:"CPC", cm_ctr:"CTR", cm_thruplays:"ThruPlays",
-    cm_cost_thruplay:"Cost/ThruPlay", cm_reactions:"Reactions",
-    cm_engagements:"Page Engagements", cm_clicks:"Clicks",
-    best_cpc_note:"— best on account", top_ctr_note:"— top CTR",
-    best_vid_note:"— best video",
-    // BENCHMARK
-    benchmark_title:"Industry Benchmark",
-    benchmark_sub:"Alfredo vs 2026 Meta Ads Food & Beverage Benchmarks — Thailand / SEA",
-    benchmark_notice:"Benchmarks from 2026 global Meta Ads data (F&B vertical). Thailand/SEA CPMs run 35–50% lower than US due to lower auction competition. USD converted at ฿36. Meta's live Ad Relevance Diagnostics: <strong>Above Average quality ranking</strong>.",
-    benchmark_chart:"Alfredo vs Industry — Visual Comparison",
-    benchmark_footnote:`Sources: <a href="https://www.get-ryze.ai/blog/meta-ads-cost-benchmarks-by-industry-2026" target="_blank">get-ryze.ai 2026</a> · <a href="https://lebesgue.io/facebook-ads/facebook-benchmarks-by-industry-ctr-cpm-cr-and-cac" target="_blank">Lebesgue.io 2026</a> · <a href="https://www.triplewhale.com/blog/facebook-ads-benchmarks" target="_blank">Triple Whale 2026</a> · Meta Ad Relevance Diagnostics (live, Jul 2026).`,
-    verdict_fn:(c)=>[
-      {type:"win", text:`<strong>CPM: On-target for SEA.</strong> Your ${thb(c.cpm)} CPM is within the SEA F&B range of ฿8–12. Awareness campaigns at ฿7.91–9.45 are well-optimised for Thailand's auction environment.`},
-      {type:"win", text:`<strong>CPC: Significantly outperforming.</strong> Your ${thb(c.cpc)} average CPC is far below the global F&B benchmark of ~฿18.7 ($0.52 USD). Engagement campaigns at ฿0.16–฿0.35 are world-class.`},
-      {type:+c.ctr>0.88?"win":"ok", text:`<strong>CTR: ${+c.ctr>0.88?"Above":"Mixed vs"} industry average.</strong> Your ${pctStr(c.ctr)} overall vs the F&B industry average of 0.88%. Engagement campaigns far exceed this — awareness CTR below benchmark is expected for recall/reach objectives.`},
-      {type:"ok", text:`<strong>Meta Ad Quality: Above Average.</strong> Meta's Ad Relevance Diagnostics rate active campaigns as "Above Average" — your ads beat the majority competing for the same audience in auction.`},
+    kicker: "Meta Ads Performance",
+    periodLabel: "Reporting period",
+    compareLabel: "Compare with",
+    tabs: ["Overview","Performance","Creatives","Benchmark","Strategy"],
+
+    heroKicker: "Monthly summary",
+    efficiency: "Efficiency score",
+    keyMetrics: "Key metrics",
+    vsPrev: "vs comparison period",
+
+    // stat labels
+    stSpend:"Total spend", stImpr:"Impressions", stReach:"Reach", stCpm:"Avg CPM",
+    stFreq:"Frequency", stClicks:"Link clicks", stCpc:"Avg CPC", stCtr:"CTR",
+    stEng:"Engagements", stCpe:"Cost / engagement", stRecall:"Est. ad recall lift",
+
+    compareTitle:"Period comparison",
+    metric:"Metric", thisPeriod:"This period", lastPeriod:"Comparison", change:"Change",
+
+    normTitle:"Change at a glance",
+    normSub:"Percentage movement vs the comparison period",
+
+    ratioTitle:"Budget split by objective",
+    ratioSub:"Awareness builds recall · Engagement drives interaction",
+    engagement:"Engagement", awareness:"Awareness",
+    ratioNote:"Alfredo sells through convenience and offline retail, so conversions cannot be tracked. Awareness campaigns are measured on reach and recall lift; engagement campaigns on interactions and cost per engagement.",
+
+    freqTitle:"Frequency health", freqSub:"Average times each person saw an ad",
+    freqUnit:"times per person",
+    freqBands:[
+      {range:"Below 1.5", label:"Room to increase — audience may be under-exposed"},
+      {range:"1.5 – 2.5", label:"Healthy range for recall-driven campaigns"},
+      {range:"Above 2.5", label:"Fatigue risk — rotate creative"},
     ],
-    bm_status_label:"Status",
-    bm_labels:{cpm:["Alfredo","F&B SEA ฿8–12","Global avg ~฿17"],cpc:["Alfredo avg","Global F&B ~฿18.7"],ctr:["Alfredo overall","F&B avg 0.88%"],freq:["Alfredo","Sweet spot 1.5–2.5×"],quality:["Quality Ranking","Engagement Rate"],video:["Best (wrapchicken_eng)","Worst (cj_awareness)","Industry avg est."]},
-    bm_status:{cpm:{txt:"On-target ✓",col:"var(--up)"},cpc:{txt:"Outperforming ✓✓",col:"var(--up)"},ctr:{txt:"Eng: Excellent ✓",col:"var(--up)"},freq:{txt:"Within range",col:"var(--neutral)"},quality:{txt:"You are all good!",col:"var(--up)"},video:{txt:"High variance",col:"var(--neutral)"}},
-    bm_titles:["CPM","CPC","CTR","Frequency","Ad Quality (Meta)","Video ThruPlay"],
-    // INSIGHTS
-    insights_title:"Key Insights",
-    insights_sub:"Patterns from Jun 25–Jul 25, 2026 data",
-    insights_chart:"Awareness vs Engagement — Budget vs Results",
-    insight_fn:(d,awarC,engC,awarSpend,engSpend,awarClicks,engClicks,tot,totCl,bestCamp,cheapPl,topPl)=>[
-      {icon:"★",h:`Eng: ${(engSpend/tot*100).toFixed(0)}% budget → ${(engClicks/totCl*100).toFixed(0)}% of clicks`,p:`Engagement campaigns used <strong>${thb(engSpend)} (${(engSpend/tot*100).toFixed(0)}% of budget)</strong> but drove <strong>${num(engClicks)} of ${num(d.account.clicks)} clicks (${(engClicks/totCl*100).toFixed(0)}%)</strong>. The CPC gap is dramatic — shift more budget to engagement formats.`},
-      {icon:"↑",h:`Best CPC: ${bestCamp?.name||"—"} at ${thb(bestCamp?.cpc)}`,p:`<strong>${bestCamp?.name||"—"}</strong> achieved <strong>${thb(bestCamp?.cpc)} CPC</strong> and <strong>${pctStr(bestCamp?.ctr)} CTR</strong> — most efficient click driver. Scale this format for upcoming product launches.`},
-      {icon:"◉",h:`${topPl?.placement||"—"} leads impressions at ฿${(+topPl?.cpm||0).toFixed(1)} CPM`,p:`<strong>${topPl?.placement||"—"}</strong> delivered <strong>${((+topPl?.impressions||0)/1000).toFixed(0)}K impressions</strong> at the largest single placement. Strong volume at a competitive CPM.`},
-      {icon:"♦",h:`${cheapPl?.placement||"—"}: cheapest CPM at ${thb(cheapPl?.cpm)}`,p:`<strong>${cheapPl?.placement||"—"}</strong> delivers the cheapest impressions at <strong>${thb(cheapPl?.cpm)} CPM</strong> — significantly cheaper than others. Currently under-allocated. Ideal for awareness campaigns on tight budgets.`},
-      {icon:"↗",h:`CTR improved ${pctStr(REPORT_DATA.previousPeriod.account.ctr)} → ${pctStr(d.account.ctr)}`,p:`Overall CTR rose <strong>${((d.account.ctr-REPORT_DATA.previousPeriod.account.ctr)/REPORT_DATA.previousPeriod.account.ctr*100).toFixed(1)}%</strong> period-over-period. Engagement campaigns are the primary driver.`},
-      {icon:"฿",h:`CPC dropped ${thb(REPORT_DATA.previousPeriod.account.cpc)} → ${thb(d.account.cpc)}`,p:`Average CPC dropped <strong>${(((REPORT_DATA.previousPeriod.account.cpc-d.account.cpc)/REPORT_DATA.previousPeriod.account.cpc)*100).toFixed(1)}%</strong>. You got <strong>${num(Math.abs(d.account.clicks-REPORT_DATA.previousPeriod.account.clicks))} ${d.account.clicks>REPORT_DATA.previousPeriod.account.clicks?'more':'fewer'} clicks</strong> vs prev period.`},
-      {icon:"⊞",h:`${d.campaigns.length} active campaigns — ${awarC.length} awareness + ${engC.length} engagement`,p:`Running ${d.campaigns.length} campaigns across ${(d.placements||[]).length} placements. Total budget ${thb(d.account.spend)}.`},
-      {icon:"◎",h:"FB Feed drives highest CTR placement",p:`FB Feed delivers <strong>1.82% CTR</strong> — 10× higher than IG Reels (0.05%). For click and engagement goals, prioritise FB Feed over awareness-heavy placements.`},
-    ],
-    // NEXT STEPS
-    nextsteps_title:"Next Steps & Recommendations",
-    nextsteps_sub:"Prioritised actions for August 2026 cycle (Jul 25–Aug 25)",
-    step_fn:(best,worstCreative,cheapPl,bestCreative,engRatio)=>[
-      {t:`Scale your best campaign: ${best?.name||"—"}.`,b:`${thb(best?.cpc)} CPC and ${pctStr(best?.ctr)} CTR makes this your most efficient campaign. Increase budget 2–3× and apply this creative format to upcoming product launches.`},
-      worstCreative?{t:`Fix or pause ${worstCreative.name||"—"}.`,b:`${thb(worstCreative.cpc)} CPC ${+worstCreative.costPerThruplay>0?"and "+thb(worstCreative.costPerThruplay)+" cost/ThruPlay":""} is your biggest efficiency gap. Remake the creative hook — try a different first 3 seconds for video or a new image angle.`}:null,
-      {t:"Shift more budget from awareness to engagement.",b:`Currently ${engRatio}% of budget goes to engagement. Engagement generates most clicks at a fraction of awareness CPC. Target 25–35% engagement budget next cycle.`},
-      cheapPl?{t:`Increase budget in ${cheapPl.placement||"—"} — cheapest CPM at ${thb(cheapPl.cpm)}.`,b:`This placement delivers the best impressions-per-baht. Shifting 15–20% more awareness budget here maximises reach without increasing overall spend.`}:null,
-      bestCreative?{t:`Replicate the ${bestCreative.name||"—"} formula for all new launches.`,b:`${thb(bestCreative.cpc)} CPC ${bestCreative.type==="video"?"and "+thb(bestCreative.costPerThruplay)+" cost/ThruPlay":"and "+pctStr(bestCreative.ctr)+" CTR"} sets the benchmark. Use this format for every upcoming product launch.`}:null,
-      {t:"Remove zero-return placements.",b:"Messenger Stories, Marketplace, and Search drive near-zero returns. Removing them forces Meta to redistribute budget to better-performing placements automatically."},
-      {t:"Pause underperforming campaigns before next cycle reset.",b:"Any campaign spending ฿500+ with CTR below 0.1% and CPC above ฿10 should be paused or creatively refreshed before June."},
-    ].filter(Boolean),
-    // FOOTER
-    footer:"Data fetched Jul 25, 2026 · Next update due around Aug 25, 2026 · Ask Claude to regenerate",
-    // CHART LABELS
-    chart_current:"Current", chart_previous:"Previous",
-    chart_spend_k:"Spend(k฿)", chart_impr_k:"Impr(k)", chart_reach_k:"Reach(k)",
-    chart_freq:"Freq", chart_clicks_k:"Clicks(k)",
-    label_spend:"Spend (฿)", label_cpm:"CPM (฿)", label_cpc:"CPC (฿)", label_ctr:"CTR (%)",
-    label_awareness:"Awareness", label_engagement:"Engagement",
-    budget_split_labels:["Budget Spent (฿)","Clicks Generated"],
-    fab_global:"F&B Global Avg", fab_sea:"F&B SEA Est.",
+    freqLow:"Under-exposed", freqGood:"Healthy", freqHigh:"Fatigue risk",
+
+    heatTitle:"Campaign heatmap", heatSub:"Every campaign scored across five metrics",
+    heatCols:["Spend","CPM","Freq","CTR","Cost / eng"],
+    heatLegend:[{label:"Strong"},{label:"Average"},{label:"Needs attention"}],
+
+    campTable:"All campaigns",
+    campaign:"Campaign", objective:"Objective", spend:"Spend",
+    results:"Result", resultUnit:"Unit", cpe:"Cost / eng", status:"Status",
+
+    platformTitle:"Platform split", platformSub:"Share of spend by platform",
+    placementTitle:"Placement performance", placement:"Placement",
+
+    creativeTitle:"Best & worst creatives",
+    creativeSub:"Ranked automatically by cost per engagement, CPC and CTR",
+    viewInMeta:"View in Meta →",
+    slotBestEng:"Best engagement", slotBestVid:"Best video",
+    slotWorstEff:"Weakest efficiency", slotWorstCost:"Highest cost",
+
+    benchTitle:"Industry benchmark",
+    benchSub:"Alfredo vs 2026 Meta food & beverage benchmarks (Thailand / SEA)",
+    industry:"Industry", you:"Alfredo",
+
+    stratTitle:"Insights", stratSub:"What the numbers are telling you",
+    nextTitle:"Next steps", nextSub:"Prioritised actions for the coming cycle",
+
+    footerLeft:"Alfredo · Meta Ads monthly report",
+    footerRight:"Data pulled 25 Jul 2026",
   },
 
   th: {
-    nav_overview:"ภาพรวม", nav_platform:"แพลตฟอร์ม", nav_svcpm:"ค่าใช้จ่าย vs CPM",
-    nav_campaigns:"แคมเปญ", nav_placements:"ตำแหน่งโฆษณา", nav_creatives:"ครีเอทีฟ",
-    nav_benchmark:"เกณฑ์มาตรฐาน", nav_insights:"ข้อมูลเชิงลึก", nav_nextsteps:"ขั้นตอนต่อไป",
-    period_label:"ช่วงเวลา",
-    period_current:"พ.ค. 2569 (26 เม.ย.–25 พ.ค.)",
-    period_previous:"เม.ย. 2569 (26 มี.ค.–25 เม.ย.)",
-    period_comparing:"เปรียบเทียบกับ",
-    data_badge:"✓ ข้อมูลจริง — 24 มิ.ย. 2569",
-    overview_title:"ภาพรวมรายเดือน",
-    overview_sub_fn:(curr,prev)=>`${curr} · เปรียบเทียบกับ ${prev}`,
-    period_comparison:"เปรียบเทียบช่วงเวลา",
-    curr_period_lbl:"ช่วงเวลาปัจจุบัน",
-    prev_period_lbl:"ช่วงเวลาก่อนหน้า",
-    stat_spend:"ยอดใช้จ่ายรวม", stat_imp:"การแสดงผล", stat_reach:"การเข้าถึง",
-    stat_cpm:"CPM เฉลี่ย", stat_freq:"ความถี่เฉลี่ย", stat_clicks:"คลิกรวม",
-    stat_cpc:"CPC เฉลี่ย", stat_ctr:"CTR",
-    stat_prev_prefix:"ก่อนหน้า:",
-    platform_title:"การแบ่งตามแพลตฟอร์ม",
-    platform_sub:"ยอดใช้จ่ายและการแสดงผลตามแพลตฟอร์ม — ช่วงปัจจุบัน",
-    spend_by_platform:"ยอดใช้จ่ายตามแพลตฟอร์ม",
-    imp_by_platform:"การแสดงผลตามแพลตฟอร์ม",
-    platform_cpm:"แพลตฟอร์ม — ค่าใช้จ่ายและ CPM",
-    svcpm_title:"ความสัมพันธ์ระหว่างค่าใช้จ่ายกับ CPM",
-    svcpm_sub:"การจัดสรรงบประมาณเทียบกับประสิทธิภาพต้นทุนต่อแคมเปญ",
-    svcpm_chart1:"ค่าใช้จ่ายและ CPM ต่อแคมเปญ — ช่วงปัจจุบัน",
-    svcpm_chart2:"ประสิทธิภาพ — ปัจจุบัน vs ก่อนหน้า",
-    campaigns_title:"การแบ่งตามแคมเปญ",
-    campaigns_sub_fn:(label)=>`ช่วงปัจจุบัน: ${label}`,
-    campaigns_title_fn:(label,n)=>`${label} · ${n} แคมเปญ`,
-    prev_period:"ช่วงเวลาก่อนหน้า",
-    camp_headers:["แคมเปญ","ประเภท","ค่าใช้จ่าย","การแสดงผล","การเข้าถึง","CPM","ความถี่","คลิก","CPC","CTR"],
-    type_awareness:"การรับรู้แบรนด์", type_engagement:"การมีส่วนร่วม",
-    no_prev_data:"ไม่มีข้อมูลช่วงก่อนหน้า",
-    placements_title:"การแบ่งตามตำแหน่งโฆษณา",
-    placements_sub:"ค่าใช้จ่าย CPM และ CTR ตามตำแหน่ง — ช่วงปัจจุบัน",
-    spend_by_pl:"ค่าใช้จ่ายตามตำแหน่ง",
-    ctr_by_pl:"CTR ตามตำแหน่ง",
-    pl_perf:"ประสิทธิภาพตามตำแหน่งโฆษณา",
-    pl_headers:["ตำแหน่ง","แพลตฟอร์ม","ค่าใช้จ่าย","การแสดงผล","CPM","CTR","สัดส่วน"],
-    creatives_title:"ครีเอทีฟที่ดีที่สุดและแย่ที่สุด",
-    creatives_sub:"จัดอันดับตาม CPC, CTR และ Cost/ThruPlay — 26 พ.ค.–24 มิ.ย. 2569",
-    creatives_notice:"การจัดอันดับครีเอทีฟ<strong>คำนวณโดยอัตโนมัติ</strong>จากข้อมูล Meta จริงทุกเดือน ดีที่สุด = CPC ต่ำสุด + CTR สูงสุด (รูปภาพ) หรือ Cost/ThruPlay ต่ำสุด (วิดีโอ) คลิก <strong>ดูใน Meta</strong> บนแต่ละการ์ดเพื่อดูครีเอทีฟจริง",
-    creatives_chart:"ครีเอทีฟทั้งหมด — CPC และ CTR",
-    view_meta:"↗ ดูใน Meta",
-    best_eng:"ดีที่สุด — การมีส่วนร่วม", best_vid:"ดีที่สุด — วิดีโอ",
-    worst_vid:"แย่ที่สุด — ต้นทุนวิดีโอ", worst_eff:"แย่ที่สุด — ประสิทธิภาพ",
-    creative_type_img:"ครีเอทีฟรูปภาพ", creative_type_vid:"ครีเอทีฟวิดีโอ",
-    cm_spend:"ค่าใช้จ่าย", cm_cpc:"CPC", cm_ctr:"CTR", cm_thruplays:"ดูวิดีโอจบ",
-    cm_cost_thruplay:"ต้นทุน/ThruPlay", cm_reactions:"ยอดรีแอค",
-    cm_engagements:"การมีส่วนร่วมกับเพจ", cm_clicks:"คลิก",
-    best_cpc_note:"— ดีที่สุดในบัญชี", top_ctr_note:"— CTR สูงสุด",
-    best_vid_note:"— วิดีโอที่ดีที่สุด",
-    benchmark_title:"เปรียบเทียบกับมาตรฐานอุตสาหกรรม",
-    benchmark_sub:"Alfredo vs เกณฑ์มาตรฐาน Meta Ads อาหารและเครื่องดื่ม 2026 — ไทย / อาเซียน",
-    benchmark_notice:"ข้อมูลเกณฑ์มาตรฐานจากข้อมูล Meta Ads ทั่วโลก 2026 (กลุ่มอาหารและเครื่องดื่ม) CPM ในไทย/อาเซียนต่ำกว่าสหรัฐฯ 35–50% เนื่องจากการแข่งขันในการประมูลน้อยกว่า อัตรา USD ที่ ฿36 Meta Ad Relevance Diagnostics: <strong>คุณภาพสูงกว่าค่าเฉลี่ย</strong>",
-    benchmark_chart:"Alfredo เทียบกับมาตรฐานอุตสาหกรรม",
-    benchmark_footnote:`แหล่งข้อมูล: <a href="https://www.get-ryze.ai/blog/meta-ads-cost-benchmarks-by-industry-2026" target="_blank">get-ryze.ai 2026</a> · <a href="https://lebesgue.io/facebook-ads/facebook-benchmarks-by-industry-ctr-cpm-cr-and-cac" target="_blank">Lebesgue.io 2026</a> · <a href="https://www.triplewhale.com/blog/facebook-ads-benchmarks" target="_blank">Triple Whale 2026</a> · Meta Ad Relevance Diagnostics (ข้อมูลจริง มิ.ย. 2569)`,
-    verdict_fn:(c)=>[
-      {type:"win", text:`<strong>CPM: อยู่ในเกณฑ์ดีสำหรับตลาดอาเซียน</strong> CPM ที่ ${thb(c.cpm)} อยู่ในช่วงมาตรฐาน F&B อาเซียน ฿8–12 แคมเปญ Awareness ที่ ฿7.91–9.45 ถูกปรับให้เหมาะสมกับตลาดไทยได้ดี`},
-      {type:"win", text:`<strong>CPC: ดีกว่าค่าเฉลี่ยโลกอย่างมีนัยสำคัญ</strong> CPC เฉลี่ย ${thb(c.cpc)} ต่ำกว่าค่าเฉลี่ย F&B โลก ~฿18.7 ($0.52 USD) มาก แคมเปญ Engagement ที่ ฿0.16–฿0.35 ถือว่าดีเยี่ยมระดับโลก`},
-      {type:+c.ctr>0.88?"win":"ok", text:`<strong>CTR: ${+c.ctr>0.88?"สูงกว่า":"ผสมผสาน vs"} ค่าเฉลี่ยอุตสาหกรรม</strong> CTR รวม ${pctStr(c.ctr)} เทียบกับค่าเฉลี่ย F&B ที่ 0.88% แคมเปญ Engagement ดีกว่ามาก — CTR ของ Awareness ที่ต่ำกว่าเกณฑ์เป็นเรื่องปกติสำหรับวัตถุประสงค์การรับรู้แบรนด์`},
-      {type:"ok", text:`<strong>คุณภาพโฆษณา Meta: สูงกว่าค่าเฉลี่ย</strong> Meta Ad Relevance Diagnostics ให้คะแนนแคมเปญที่ใช้งานอยู่ว่า "สูงกว่าค่าเฉลี่ย" — โฆษณาของคุณดีกว่าส่วนใหญ่ที่แข่งขันในการประมูลเดียวกัน`},
+    kicker: "ผลการโฆษณา Meta",
+    periodLabel: "ช่วงเวลารายงาน",
+    compareLabel: "เปรียบเทียบกับ",
+    tabs: ["ภาพรวม","ประสิทธิภาพ","ครีเอทีฟ","เกณฑ์มาตรฐาน","กลยุทธ์"],
+
+    heroKicker: "สรุปรายเดือน",
+    efficiency: "คะแนนประสิทธิภาพ",
+    keyMetrics: "ตัวชี้วัดหลัก",
+    vsPrev: "เทียบกับช่วงเปรียบเทียบ",
+
+    stSpend:"ค่าใช้จ่ายรวม", stImpr:"การแสดงผล", stReach:"การเข้าถึง", stCpm:"CPM เฉลี่ย",
+    stFreq:"ความถี่", stClicks:"คลิกลิงก์", stCpc:"CPC เฉลี่ย", stCtr:"CTR",
+    stEng:"การมีส่วนร่วม", stCpe:"ต้นทุน / การมีส่วนร่วม", stRecall:"การจดจำโฆษณา (ประมาณ)",
+
+    compareTitle:"เปรียบเทียบช่วงเวลา",
+    metric:"ตัวชี้วัด", thisPeriod:"ช่วงนี้", lastPeriod:"ช่วงเปรียบเทียบ", change:"เปลี่ยนแปลง",
+
+    normTitle:"ภาพรวมการเปลี่ยนแปลง",
+    normSub:"เปอร์เซ็นต์การเปลี่ยนแปลงเทียบกับช่วงเปรียบเทียบ",
+
+    ratioTitle:"สัดส่วนงบตามวัตถุประสงค์",
+    ratioSub:"Awareness สร้างการจดจำ · Engagement สร้างการมีส่วนร่วม",
+    engagement:"การมีส่วนร่วม", awareness:"การรับรู้แบรนด์",
+    ratioNote:"Alfredo จำหน่ายผ่านร้านสะดวกซื้อและหน้าร้าน จึงไม่สามารถติดตามยอดขายได้ แคมเปญ Awareness วัดผลจากการเข้าถึงและการจดจำ ส่วน Engagement วัดจากการมีส่วนร่วมและต้นทุนต่อการมีส่วนร่วม",
+
+    freqTitle:"สุขภาพความถี่", freqSub:"จำนวนครั้งเฉลี่ยที่แต่ละคนเห็นโฆษณา",
+    freqUnit:"ครั้งต่อคน",
+    freqBands:[
+      {range:"ต่ำกว่า 1.5", label:"ยังเพิ่มได้ — กลุ่มเป้าหมายอาจเห็นน้อยเกินไป"},
+      {range:"1.5 – 2.5", label:"ช่วงที่เหมาะสมสำหรับแคมเปญสร้างการจดจำ"},
+      {range:"สูงกว่า 2.5", label:"เสี่ยงโฆษณาซ้ำ — ควรหมุนเวียนครีเอทีฟ"},
     ],
-    bm_status_label:"สถานะ",
-    bm_labels:{cpm:["Alfredo","F&B อาเซียน ฿8–12","ค่าเฉลี่ยโลก ~฿17"],cpc:["ค่าเฉลี่ย Alfredo","ค่าเฉลี่ย F&B โลก ~฿18.7"],ctr:["Alfredo รวม","ค่าเฉลี่ย F&B 0.88%"],freq:["Alfredo","ช่วงที่เหมาะสม 1.5–2.5×"],quality:["คะแนนคุณภาพ","อัตราการมีส่วนร่วม"],video:["ดีที่สุด (wrapchicken_eng)","แย่ที่สุด (cj_awareness)","ค่าเฉลี่ยอุตสาหกรรม"]},
-    bm_status:{cpm:{txt:"อยู่ในเกณฑ์ ✓",col:"var(--up)"},cpc:{txt:"ดีกว่าเกณฑ์ ✓✓",col:"var(--up)"},ctr:{txt:"Eng: ดีเยี่ยม ✓",col:"var(--up)"},freq:{txt:"อยู่ในช่วงที่เหมาะสม",col:"var(--neutral)"},quality:{txt:"ผ่านเกณฑ์ทุกอย่าง!",col:"var(--up)"},video:{txt:"ความแตกต่างสูงมาก",col:"var(--neutral)"}},
-    bm_titles:["CPM","CPC","CTR","ความถี่","คุณภาพโฆษณา (Meta)","วิดีโอ ThruPlay"],
-    insights_title:"ข้อมูลเชิงลึกสำคัญ",
-    insights_sub:"รูปแบบจากข้อมูล 26 พ.ค.–24 มิ.ย. 2569",
-    insights_chart:"Awareness vs Engagement — งบประมาณ vs ผลลัพธ์",
-    insight_fn:(d,awarC,engC,awarSpend,engSpend,awarClicks,engClicks,tot,totCl,bestCamp,cheapPl,topPl)=>[
-      {icon:"★",h:`Eng: ${(engSpend/tot*100).toFixed(0)}% งบ → ${(engClicks/totCl*100).toFixed(0)}% ของคลิก`,p:`แคมเปญ Engagement ใช้เพียง <strong>${thb(engSpend)} (${(engSpend/tot*100).toFixed(0)}% ของงบ)</strong> แต่สร้าง <strong>${num(engClicks)} จาก ${num(d.account.clicks)} คลิก (${(engClicks/totCl*100).toFixed(0)}%)</strong> ช่องว่าง CPC ระหว่างประเภทแคมเปญค่อนข้างมาก — ควรโยกงบมาที่ Engagement มากขึ้น`},
-      {icon:"↑",h:`CPC ดีที่สุด: ${bestCamp?.name||"—"} ที่ ${thb(bestCamp?.cpc)}`,p:`<strong>${bestCamp?.name||"—"}</strong> ทำได้ <strong>CPC ${thb(bestCamp?.cpc)}</strong> และ <strong>CTR ${pctStr(bestCamp?.ctr)}</strong> — ประสิทธิภาพสูงสุดในการดึงคลิก ควรเพิ่มงบและนำรูปแบบครีเอทีฟนี้ไปใช้กับสินค้าใหม่`},
-      {icon:"◉",h:`${topPl?.placement||"—"} นำด้านการแสดงผลที่ CPM ฿${(+topPl?.cpm||0).toFixed(1)}`,p:`<strong>${topPl?.placement||"—"}</strong> สร้าง <strong>${((+topPl?.impressions||0)/1000).toFixed(0)}K การแสดงผล</strong> ในตำแหน่งเดียว ปริมาณสูงในอัตรา CPM ที่แข่งขันได้`},
-      {icon:"♦",h:`${cheapPl?.placement||"—"}: CPM ถูกที่สุดที่ ${thb(cheapPl?.cpm)}`,p:`<strong>${cheapPl?.placement||"—"}</strong> ให้การแสดงผลถูกที่สุดที่ <strong>CPM ${thb(cheapPl?.cpm)}</strong> — ถูกกว่าตำแหน่งอื่นอย่างมีนัยสำคัญ ยังจัดสรรงบไว้น้อย เหมาะสำหรับแคมเปญ Awareness ที่งบจำกัด`},
-      {icon:"↗",h:`CTR ดีขึ้น ${pctStr(REPORT_DATA.previousPeriod.account.ctr)} → ${pctStr(d.account.ctr)}`,p:`CTR รวมเพิ่มขึ้น <strong>${((d.account.ctr-REPORT_DATA.previousPeriod.account.ctr)/REPORT_DATA.previousPeriod.account.ctr*100).toFixed(1)}%</strong> เทียบช่วงก่อนหน้า แคมเปญ Engagement เป็นตัวขับเคลื่อนหลัก`},
-      {icon:"฿",h:`CPC ลดลง ${thb(REPORT_DATA.previousPeriod.account.cpc)} → ${thb(d.account.cpc)}`,p:`CPC เฉลี่ยลดลง <strong>${(((REPORT_DATA.previousPeriod.account.cpc-d.account.cpc)/REPORT_DATA.previousPeriod.account.cpc)*100).toFixed(1)}%</strong> ได้คลิก <strong>เพิ่ม ${num(d.account.clicks-REPORT_DATA.previousPeriod.account.clicks)} ครั้ง</strong> ด้วยค่าใช้จ่าย <strong>น้อยกว่า ${thb(REPORT_DATA.previousPeriod.account.spend-d.account.spend)}</strong>`},
-      {icon:"⊞",h:`${d.campaigns.length} แคมเปญที่ใช้งานอยู่ — ${awarC.length} Awareness + ${engC.length} Engagement`,p:`ดำเนินการ ${d.campaigns.length} แคมเปญใน ${(d.placements||[]).length} ตำแหน่ง งบประมาณรวม ${thb(d.account.spend)}`},
-      {icon:"◎",h:"FB Feed ให้ CTR สูงสุดในบรรดาตำแหน่งทั้งหมด",p:`FB Feed ให้ <strong>CTR 1.82%</strong> — สูงกว่า IG Reels (0.05%) ถึง 10 เท่า สำหรับเป้าหมายที่ต้องการคลิกและการมีส่วนร่วม ให้จัดสรรงบ FB Feed มากกว่าตำแหน่งที่เน้น Awareness`},
-    ],
-    nextsteps_title:"ขั้นตอนต่อไปและคำแนะนำ",
-    nextsteps_sub:"รายการดำเนินการที่มีลำดับความสำคัญสำหรับรอบ ก.ค. 2569 (25 มิ.ย.–25 ก.ค.)",
-    step_fn:(best,worstCreative,cheapPl,bestCreative,engRatio)=>[
-      {t:`เพิ่มงบแคมเปญที่ดีที่สุด: ${best?.name||"—"}`,b:`CPC ${thb(best?.cpc)} และ CTR ${pctStr(best?.ctr)} ทำให้แคมเปญนี้มีประสิทธิภาพสูงสุด เพิ่มงบ 2–3 เท่าในรอบถัดไป และนำรูปแบบครีเอทีฟนี้ไปใช้กับสินค้าที่จะเปิดตัว`},
-      worstCreative?{t:`แก้ไขหรือหยุดชั่วคราว ${worstCreative.name||"—"}`,b:`CPC ${thb(worstCreative.cpc)} ${+worstCreative.costPerThruplay>0?"และ cost/ThruPlay "+thb(worstCreative.costPerThruplay):""}  คือช่องว่างประสิทธิภาพที่ใหญ่ที่สุด ทำครีเอทีฟใหม่ — ลอง hook ใหม่ใน 3 วินาทีแรกสำหรับวิดีโอ หรือเปลี่ยนมุมภาพ`}:null,
-      {t:"โยกงบจาก Awareness ไป Engagement เพิ่มขึ้น",b:`ปัจจุบัน ${engRatio}% ของงบไปที่ Engagement แต่ Engagement สร้างคลิกส่วนใหญ่ด้วย CPC ต่ำกว่า Awareness มาก ตั้งเป้าที่ 25–35% สำหรับรอบถัดไป`},
-      cheapPl?{t:`เพิ่มงบใน ${cheapPl.placement||"—"} — CPM ถูกที่สุดที่ ${thb(cheapPl.cpm)}`,b:`ตำแหน่งนี้ให้การแสดงผลต่อบาทดีที่สุด การโยกงบ Awareness มาที่นี่ 15–20% จะเพิ่มการเข้าถึงโดยไม่ต้องเพิ่มงบรวม`}:null,
-      bestCreative?{t:`ทำซ้ำรูปแบบครีเอทีฟ ${bestCreative.name||"—"} สำหรับสินค้าใหม่ทุกตัว`,b:`CPC ${thb(bestCreative.cpc)} ${bestCreative.type==="video"?"และ cost/ThruPlay "+thb(bestCreative.costPerThruplay):"และ CTR "+pctStr(bestCreative.ctr)} คือมาตรฐานที่ต้องทำให้ได้ ใช้รูปแบบ รูปแบบ และโทนเดียวกันสำหรับสินค้าใหม่ทุกตัว`}:null,
-      {t:"ลบตำแหน่งโฆษณาที่ไม่ได้ผลออก",b:"Messenger Stories, Marketplace และ Search แทบไม่ให้ผลลัพธ์สำหรับแบรนด์อาหาร การลบออกจะทำให้ Meta กระจายงบไปยังตำแหน่งที่ดีกว่าโดยอัตโนมัติ"},
-      {t:"หยุดแคมเปญที่ประสิทธิภาพต่ำก่อนรีเซ็ตรอบใหม่",b:"แคมเปญที่ใช้เงิน ฿500+ โดยมี CTR ต่ำกว่า 0.1% และ CPC สูงกว่า ฿10 ควรหยุดหรือเปลี่ยนครีเอทีฟก่อนเดือนกรกฎาคม"},
-    ].filter(Boolean),
-    footer:"ดึงข้อมูล 24 มิ.ย. 2569 · อัปเดตต่อไปประมาณ 25 ก.ค. 2569 · ขอให้ Claude สร้างใหม่",
-    chart_current:"ปัจจุบัน", chart_previous:"ก่อนหน้า",
-    chart_spend_k:"ค่าใช้จ่าย(k฿)", chart_impr_k:"การแสดงผล(k)", chart_reach_k:"การเข้าถึง(k)",
-    chart_freq:"ความถี่", chart_clicks_k:"คลิก(k)",
-    label_spend:"ค่าใช้จ่าย (฿)", label_cpm:"CPM (฿)", label_cpc:"CPC (฿)", label_ctr:"CTR (%)",
-    label_awareness:"การรับรู้แบรนด์", label_engagement:"การมีส่วนร่วม",
-    budget_split_labels:["งบประมาณที่ใช้ (฿)","คลิกที่ได้รับ"],
-    fab_global:"ค่าเฉลี่ย F&B โลก", fab_sea:"ประมาณการ F&B อาเซียน",
-  }
+    freqLow:"เห็นน้อยเกินไป", freqGood:"เหมาะสม", freqHigh:"เสี่ยงซ้ำ",
+
+    heatTitle:"สรุปแคมเปญ", heatSub:"คะแนนแต่ละแคมเปญใน 5 ตัวชี้วัด",
+    heatCols:["ค่าใช้จ่าย","CPM","ความถี่","CTR","ต้นทุน/มีส่วนร่วม"],
+    heatLegend:[{label:"ดี"},{label:"ปานกลาง"},{label:"ต้องปรับปรุง"}],
+
+    campTable:"แคมเปญทั้งหมด",
+    campaign:"แคมเปญ", objective:"วัตถุประสงค์", spend:"ค่าใช้จ่าย",
+    results:"ผลลัพธ์", resultUnit:"หน่วย", cpe:"ต้นทุน/มีส่วนร่วม", status:"สถานะ",
+
+    platformTitle:"สัดส่วนแพลตฟอร์ม", platformSub:"สัดส่วนค่าใช้จ่ายตามแพลตฟอร์ม",
+    placementTitle:"ประสิทธิภาพตำแหน่งโฆษณา", placement:"ตำแหน่ง",
+
+    creativeTitle:"ครีเอทีฟดีที่สุดและแย่ที่สุด",
+    creativeSub:"จัดอันดับอัตโนมัติจากต้นทุนต่อการมีส่วนร่วม CPC และ CTR",
+    viewInMeta:"ดูใน Meta →",
+    slotBestEng:"มีส่วนร่วมดีที่สุด", slotBestVid:"วิดีโอดีที่สุด",
+    slotWorstEff:"ประสิทธิภาพต่ำสุด", slotWorstCost:"ต้นทุนสูงสุด",
+
+    benchTitle:"เกณฑ์มาตรฐานอุตสาหกรรม",
+    benchSub:"Alfredo เทียบกับเกณฑ์ Meta กลุ่มอาหารและเครื่องดื่ม 2026 (ไทย / อาเซียน)",
+    industry:"อุตสาหกรรม", you:"Alfredo",
+
+    stratTitle:"ข้อมูลเชิงลึก", stratSub:"สิ่งที่ตัวเลขกำลังบอกคุณ",
+    nextTitle:"ขั้นตอนต่อไป", nextSub:"สิ่งที่ควรทำในรอบถัดไป",
+
+    footerLeft:"Alfredo · รายงาน Meta Ads รายเดือน",
+    footerRight:"ดึงข้อมูล 25 ก.ค. 2569",
+  },
 };
 
-let lang = 'en';
-let activePeriod = 'current';
-const AD_ACCOUNT_ID = '25422227394145011';
 
-function t(){return T[lang];}
-function thb(n){return '฿'+(+n||0).toLocaleString(undefined,{maximumFractionDigits:2});}
-function num(n){return (+n||0).toLocaleString();}
-function pctStr(n){return (+n||0).toFixed(2)+'%';}
-function pct(a,b){if(!b)return{v:'—',up:true};const d=((a-b)/Math.abs(b)*100);return{v:Math.abs(d).toFixed(1),up:d>=0};}
-function getD(){return activePeriod==='current'?REPORT_DATA.currentPeriod:REPORT_DATA.previousPeriod;}
-function getPrev(){return activePeriod==='current'?REPORT_DATA.previousPeriod:REPORT_DATA.marchPeriod||null;}
+/* ============================================================
+   STATE + HELPERS
+   ============================================================ */
+let LANG = "en";
+let CUR  = MONTH_KEYS[0];
+let CMP  = MONTH_KEYS[1] || MONTH_KEYS[0];
+let TAB  = 0;
 
-// ============================================================
-// LANGUAGE SWITCH
-// ============================================================
-function setLang(l, btn) {
-  lang = l;
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.documentElement.lang = l;
-  // Update nav tabs
-  const navKeys = ['nav_overview','nav_platform','nav_svcpm','nav_campaigns','nav_placements','nav_creatives','nav_benchmark','nav_insights','nav_nextsteps'];
-  document.querySelectorAll('.nav-tab').forEach((tab, i) => { tab.textContent = t()[navKeys[i]]; });
-  // Fully re-render
-  renderAll();
+const t   = () => T[LANG];
+const cur = () => MONTHS[CUR];
+const cmp = () => MONTHS[CMP];
+
+const thb  = n => "฿" + (+n||0).toLocaleString("en-US",{maximumFractionDigits:(+n<10?2:0)});
+const num  = n => (+n||0).toLocaleString("en-US");
+const pctS = n => (+n||0).toFixed(2) + "%";
+const kNum = n => { n=+n||0; return n>=1e6 ? (n/1e6).toFixed(2)+"M" : n>=1e3 ? Math.round(n/1e3)+"K" : num(n); };
+
+function delta(now, prev, lowerBetter){
+  if(!prev) return {txt:"—", good:null, pct:0};
+  const d = ((now-prev)/Math.abs(prev))*100;
+  const good = lowerBetter ? d < 0 : d > 0;
+  return { txt:(d>=0?"+":"") + d.toFixed(1) + "%", good, pct:d };
+}
+const GOOD="#1e6e35", BAD="#c40f15", NEU="#7d6f64";
+const GOODBG="#eaf5ec", BADBG="#fdeced", NEUBG="#f4efe6";
+const dColor = g => g===null?NEU : g?GOOD:BAD;
+const dBg    = g => g===null?NEUBG: g?GOODBG:BADBG;
+
+/* Efficiency score — engagement/awareness weighted, no conversion metrics */
+function effScore(m){
+  const a = m.account;
+  const cpmS  = Math.max(0, Math.min(100, (1 - (a.cpm-6)/20) * 100));
+  const cpcS  = Math.max(0, Math.min(100, (1 - a.cpc/6) * 100));
+  const ctrS  = Math.min(100, (a.ctr/2.5) * 100);
+  const cpeS  = Math.max(0, Math.min(100, (1 - a.costPerEng/3) * 100));
+  const freqS = a.frequency>=1.5 && a.frequency<=2.5 ? 100
+              : a.frequency<1.5 ? 70 : Math.max(0, 100-(a.frequency-2.5)*40);
+  return Math.round(cpmS*0.18 + cpcS*0.22 + ctrS*0.22 + cpeS*0.28 + freqS*0.10);
+}
+function scoreVerdict(s){
+  if(LANG==="th") return s>=75?"ดีเยี่ยม":s>=55?"ดี":s>=40?"พอใช้":"ต้องปรับปรุง";
+  return s>=75?"Excellent":s>=55?"Good":s>=40?"Fair":"Needs work";
 }
 
-// ============================================================
-// RENDER ALL
-// ============================================================
-function renderAll() {
-  const d = getD(), prev = getPrev(), tx = t();
-  // Static text
-  document.getElementById('t-overview-title').textContent = tx.overview_title;
-  document.getElementById('overviewSub').textContent = tx.overview_sub_fn(d.label, prev ? prev.label : '—');
-  document.getElementById('t-period-comparison').textContent = tx.period_comparison;
-  document.getElementById('t-platform-title').textContent = tx.platform_title;
-  document.getElementById('t-platform-sub').textContent = tx.platform_sub;
-  document.getElementById('t-spend-by-platform').textContent = tx.spend_by_platform;
-  document.getElementById('t-imp-by-platform').textContent = tx.imp_by_platform;
-  document.getElementById('t-platform-cpm').textContent = tx.platform_cpm;
-  document.getElementById('t-svcpm-title').textContent = tx.svcpm_title;
-  document.getElementById('t-svcpm-sub').textContent = tx.svcpm_sub;
-  document.getElementById('t-svcpm-chart1').textContent = tx.svcpm_chart1;
-  document.getElementById('t-svcpm-chart2').textContent = tx.svcpm_chart2;
-  document.getElementById('t-campaigns-title').textContent = tx.campaigns_title;
-  document.getElementById('campSub').textContent = tx.campaigns_sub_fn(d.label);
-  document.getElementById('campTitle').textContent = tx.campaigns_title_fn(d.label, d.campaigns.length);
-  document.getElementById('t-prev-period').textContent = tx.prev_period;
-  document.getElementById('prevCampSub').textContent = prev ? prev.label : '—';
-  document.getElementById('t-placements-title').textContent = tx.placements_title;
-  document.getElementById('t-placements-sub').textContent = tx.placements_sub;
-  document.getElementById('t-spend-by-pl').textContent = tx.spend_by_pl;
-  document.getElementById('t-ctr-by-pl').textContent = tx.ctr_by_pl;
-  document.getElementById('t-pl-perf').textContent = tx.pl_perf;
-  document.getElementById('t-creatives-title').textContent = tx.creatives_title;
-  document.getElementById('t-creatives-sub').textContent = tx.creatives_sub;
-  document.getElementById('t-creatives-notice').innerHTML = tx.creatives_notice;
-  document.getElementById('t-creatives-chart').textContent = tx.creatives_chart;
-  document.getElementById('t-benchmark-title').textContent = tx.benchmark_title;
-  document.getElementById('t-benchmark-sub').textContent = tx.benchmark_sub;
-  document.getElementById('t-benchmark-notice').innerHTML = tx.benchmark_notice;
-  document.getElementById('t-benchmark-chart').textContent = tx.benchmark_chart;
-  document.getElementById('t-benchmark-footnote').innerHTML = tx.benchmark_footnote;
-  document.getElementById('t-insights-title').textContent = tx.insights_title;
-  document.getElementById('t-insights-sub').textContent = tx.insights_sub;
-  document.getElementById('t-insights-chart').textContent = tx.insights_chart;
-  document.getElementById('t-nextsteps-title').textContent = tx.nextsteps_title;
-  document.getElementById('t-nextsteps-sub').textContent = tx.nextsteps_sub;
-  document.getElementById('t-footer').textContent = tx.footer;
-  document.getElementById('compareLabel').textContent = prev ? prev.label : (REPORT_DATA.marchPeriod ? REPORT_DATA.marchPeriod.label : '—');
-  // Period bar buttons
-  document.getElementById('btnCurr').textContent = tx.period_current;
-  document.getElementById('btnPrev').textContent = tx.period_previous;
-  document.querySelector('.period-label').textContent = tx.period_label;
-  document.querySelector('.data-badge').textContent = tx.data_badge;
-  // Campaign table headers
-  const th = tx.camp_headers.map(h => `<th>${h}</th>`).join('');
-  document.getElementById('campThead').innerHTML = th;
-  document.getElementById('campThead2').innerHTML = th;
-  // Placement table headers
-  document.getElementById('plThead').innerHTML = tx.pl_headers.map(h => `<th>${h}</th>`).join('');
-  // Render data sections
-  renderStats(d, prev);
-  renderCampaigns(d, prev);
-  renderPlatform(d);
-  renderSpendCPM(d, prev);
-  renderPlacements(d);
-  renderCreatives(d);
-  renderBenchmark(d);
-  renderInsights(d);
-  renderNextSteps(d);
+/* Sparkline across all months (oldest → newest) */
+function sparkFor(field){
+  const keys = [...MONTH_KEYS].reverse();
+  return keys.map(k => +MONTHS[k].account[field] || 0);
+}
+function sparkPoints(vals, w=120, h=34){
+  if(vals.length<2) vals=[vals[0]||0, vals[0]||0];
+  const mn=Math.min(...vals), mx=Math.max(...vals), rg=(mx-mn)||1;
+  return vals.map((v,i)=>{
+    const x=(i/(vals.length-1))*w;
+    const y=h-2-((v-mn)/rg)*(h-6);
+    return x.toFixed(1)+","+y.toFixed(1);
+  }).join(" ");
+}
+function areaPoints(vals,w=120,h=34){
+  return "0,"+h+" "+sparkPoints(vals,w,h)+" "+w+","+h;
 }
 
-function renderStats(d,prev){
-  const c=d.account,p=prev?.account,tx=t();
-  const metrics=[
-    {lbl:tx.stat_spend,    curr:thb(c.spend),                      chg:pct(c.spend,p?.spend),       prev:tx.stat_prev_prefix+' '+thb(p?.spend||0),      bd:true},
-    {lbl:tx.stat_imp,      curr:((c.impressions||0)/1e6).toFixed(2)+'M',chg:pct(c.impressions,p?.impressions),prev:tx.stat_prev_prefix+' '+((p?.impressions||0)/1e6).toFixed(2)+'M', bd:false},
-    {lbl:tx.stat_reach,    curr:((c.reach||0)/1000).toFixed(0)+'K', chg:pct(c.reach,p?.reach),     prev:tx.stat_prev_prefix+' '+((p?.reach||0)/1000).toFixed(0)+'K', bd:false},
-    {lbl:tx.stat_cpm,      curr:thb(c.cpm),                         chg:pct(c.cpm,p?.cpm),           prev:tx.stat_prev_prefix+' '+thb(p?.cpm||0),        bd:true},
-    {lbl:tx.stat_freq,     curr:(+c.frequency||0).toFixed(2)+'×',   chg:pct(c.frequency,p?.frequency),prev:tx.stat_prev_prefix+' '+(+p?.frequency||0).toFixed(2)+'×', bd:true},
-    {lbl:tx.stat_clicks,   curr:num(c.clicks),                      chg:pct(c.clicks,p?.clicks),     prev:tx.stat_prev_prefix+' '+num(p?.clicks||0),     bd:false},
-    {lbl:tx.stat_cpc,      curr:thb(c.cpc),                         chg:pct(c.cpc,p?.cpc),           prev:tx.stat_prev_prefix+' '+thb(p?.cpc||0),        bd:true},
-    {lbl:tx.stat_ctr,      curr:pctStr(c.ctr),                      chg:pct(c.ctr,p?.ctr),           prev:tx.stat_prev_prefix+' '+pctStr(p?.ctr||0),     bd:false},
-  ];
-  document.getElementById('statGrid').innerHTML=metrics.map(m=>{
-    const isUp=m.chg.up,isGood=m.bd?!isUp:isUp;
-    return`<div class="stat-card"><div class="stat-label">${m.lbl}</div><div class="stat-value">${m.curr}</div><span class="stat-badge ${isGood?'up':'down'}">${m.chg.v!=='—'?(isUp?'▲':'▼')+' '+m.chg.v+'%':'—'}</span><div class="stat-prev">${m.prev}</div></div>`;
-  }).join('');
-  const mr=(obj)=>[
-    [tx.stat_spend,thb(obj.spend)],[tx.stat_imp,num(obj.impressions)],[tx.stat_reach,num(obj.reach)],
-    [tx.stat_cpm,thb(obj.cpm)],[tx.stat_freq,(+obj.frequency||0).toFixed(2)+'×'],[tx.stat_clicks,num(obj.clicks)],
-    [tx.stat_cpc,thb(obj.cpc)],[tx.stat_ctr,pctStr(obj.ctr)],
-  ].map(r=>`<div class="mrow"><span class="mrow-lbl">${r[0]}</span><span class="mrow-val">${r[1]}</span></div>`).join('');
-  document.getElementById('periodRow').innerHTML=`<div class="period-block curr"><div class="period-block-lbl">${tx.curr_period_lbl}</div><div class="period-block-date">${d.label}</div>${mr(d.account)}</div>${prev?`<div class="period-block"><div class="period-block-lbl">${tx.prev_period_lbl}</div><div class="period-block-date">${prev.label}</div>${mr(prev.account)}</div>`:''}`;
-  dc('overviewChart');
-  if(p){charts.overviewChart=new Chart(document.getElementById('overviewChart'),{type:'bar',data:{labels:[tx.chart_spend_k,tx.chart_impr_k,tx.chart_reach_k,'CPM',tx.chart_freq,tx.chart_clicks_k,'CPC','CTR(%)'],datasets:[{label:tx.chart_current,data:[c.spend/1000,c.impressions/1000,c.reach/1000,c.cpm,c.frequency,c.clicks/1000,c.cpc,c.ctr],backgroundColor:C.forest,borderRadius:5},{label:tx.chart_previous,data:[p.spend/1000,p.impressions/1000,p.reach/1000,p.cpm,p.frequency,p.clicks/1000,p.cpc,p.ctr],backgroundColor:C.divider,borderRadius:5}]},options:{responsive:true,plugins:{legend:{labels:{font:{size:12}}}},scales:{x:{ticks:{font:{size:11}},grid:{display:false}},y:{ticks:{font:{size:11}},grid:{color:'#f0e9dc'}}}}});}
+/* Heatmap scoring */
+function heatCell(val, thresholds, lowerBetter){
+  const [t1,t2] = thresholds;
+  let level;
+  if(lowerBetter) level = val<=t1 ? 0 : val<=t2 ? 1 : 2;
+  else            level = val>=t2 ? 0 : val>=t1 ? 1 : 2;
+  const bgs=["#e6f4ea","#fdf3dc","#fbe3e4"], fgs=["#1e6e35","#8a6a12","#c40f15"];
+  return {bg:bgs[level], fg:fgs[level]};
 }
 
-function renderCampaigns(d,prev){
-  const tx=t();
-  const typeLabel=(type)=>type==='awareness'?tx.type_awareness:tx.type_engagement;
-  const row=c=>`<tr><td style="font-weight:600;max-width:180px;overflow:hidden;text-overflow:ellipsis">${c.name}</td><td><span class="pill pill-${c.type}">${typeLabel(c.type)}</span></td><td>${thb(c.spend)}</td><td>${((c.impressions||0)/1000).toFixed(0)}K</td><td>${((c.reach||0)/1000).toFixed(0)}K</td><td>${thb(c.cpm)}</td><td>${(+c.frequency||0).toFixed(2)}</td><td>${num(c.clicks)}</td><td>${thb(c.cpc)}</td><td>${pctStr(c.ctr)}</td></tr>`;
-  document.getElementById('tblCurr').innerHTML=d.campaigns.map(row).join('');
-  document.getElementById('tblPrev').innerHTML=(prev?.campaigns||[]).map(row).join('')||`<tr><td colspan="10" style="text-align:center;color:var(--muted);padding:20px">${tx.no_prev_data}</td></tr>`;
-}
-
-function renderPlatform(d){
-  const tx=t();
-  const pl=d.placements||[],plats={};
-  pl.forEach(p=>{const k=p.platform||'Other';if(!plats[k])plats[k]={spend:0,imp:0,cpms:[]};plats[k].spend+=(+p.spend||0);plats[k].imp+=(+p.impressions||0);plats[k].cpms.push(+p.cpm||0);});
-  const names=Object.keys(plats),spend=names.map(k=>plats[k].spend),imp=names.map(k=>plats[k].imp),cpm=names.map(k=>{const a=plats[k].cpms.filter(Boolean);return a.length?a.reduce((x,y)=>x+y,0)/a.length:0;});
-  const pC=['#c44a8a','#3a6fc4','#00a8e0','#e0a03a'];
-  dc('platformPie');dc('impressionPie');dc('platformBar');
-  if(names.length){
-    charts.platformPie=new Chart(document.getElementById('platformPie'),{type:'doughnut',data:{labels:names,datasets:[{data:spend,backgroundColor:pC.slice(0,names.length),borderWidth:0,hoverOffset:5}]},options:{responsive:true,cutout:'62%',plugins:{legend:{position:'bottom',labels:{font:{size:12},padding:14}},tooltip:{callbacks:{label:c=>` ฿${c.parsed.toLocaleString()} (${(c.parsed/(d.account.spend||1)*100).toFixed(1)}%)`}}}}});
-    charts.impressionPie=new Chart(document.getElementById('impressionPie'),{type:'doughnut',data:{labels:names,datasets:[{data:imp,backgroundColor:pC.slice(0,names.length),borderWidth:0,hoverOffset:5}]},options:{responsive:true,cutout:'62%',plugins:{legend:{position:'bottom',labels:{font:{size:12},padding:14}},tooltip:{callbacks:{label:c=>` ${(c.parsed/1000).toFixed(0)}K`}}}}});
-    charts.platformBar=new Chart(document.getElementById('platformBar'),{type:'bar',data:{labels:names,datasets:[{label:tx.label_spend,data:spend,backgroundColor:C.forest,borderRadius:5,yAxisID:'y'},{type:'line',label:tx.label_cpm,data:cpm,borderColor:C.gold,backgroundColor:'transparent',pointBackgroundColor:C.gold,tension:.3,yAxisID:'y2'}]},options:{responsive:true,plugins:{legend:{labels:{font:{size:12}}}},scales:{x:{ticks:{font:{size:12}},grid:{display:false}},y:{ticks:{font:{size:11}},grid:{color:'#f0e9dc'},title:{display:true,text:tx.label_spend,color:C.muted}},y2:{position:'right',ticks:{font:{size:11}},grid:{display:false},title:{display:true,text:tx.label_cpm,color:C.muted}}}}});
-  }
-}
-
-function renderSpendCPM(d,prev){
-  const tx=t();
-  const camps=d.campaigns||[];
-  dc('spendCpmChart');dc('effChart');
-  if(camps.length){charts.spendCpmChart=new Chart(document.getElementById('spendCpmChart'),{type:'bar',data:{labels:camps.map(c=>c.name.split('_').slice(1,3).join('_')),datasets:[{label:tx.label_spend,data:camps.map(c=>+c.spend||0),backgroundColor:camps.map(c=>c.type==='engagement'?'#5a9e8a':C.forest),borderRadius:5,yAxisID:'y'},{type:'line',label:tx.label_cpm,data:camps.map(c=>+c.cpm||0),borderColor:C.terra,backgroundColor:'transparent',pointBackgroundColor:C.terra,tension:.3,yAxisID:'y2'}]},options:{responsive:true,plugins:{legend:{labels:{font:{size:12}}}},scales:{x:{ticks:{font:{size:9},maxRotation:35},grid:{display:false}},y:{ticks:{font:{size:11}},grid:{color:'#f0e9dc'},title:{display:true,text:tx.label_spend,color:C.muted}},y2:{position:'right',ticks:{font:{size:11}},grid:{display:false},title:{display:true,text:tx.label_cpm,color:C.muted}}}}});}
-  if(prev){const c=d.account,p=prev.account;charts.effChart=new Chart(document.getElementById('effChart'),{type:'bar',data:{labels:[tx.label_cpm,tx.label_cpc,tx.label_ctr,tx.stat_freq],datasets:[{label:tx.chart_current,data:[c.cpm,c.cpc,c.ctr,c.frequency],backgroundColor:C.forest,borderRadius:5},{label:tx.chart_previous,data:[p.cpm,p.cpc,p.ctr,p.frequency],backgroundColor:C.divider,borderRadius:5}]},options:{responsive:true,plugins:{legend:{labels:{font:{size:12}}}},scales:{x:{ticks:{font:{size:12}},grid:{display:false}},y:{ticks:{font:{size:11}},grid:{color:'#f0e9dc'}}}}});}
-}
-
-function renderPlacements(d){
-  const tx=t();
-  const pl=(d.placements||[]).sort((a,b)=>(+b.spend||0)-(+a.spend||0));
-  const total=pl.reduce((s,p)=>s+(+p.spend||0),0);
-  const pColors=['#c44a8a','#b5451b','#3a6fc4','#2c5f2e','#c49a2e','#8a5cb4','#3a9e8a','#f87171','#4ade80'];
-  const top=pl.filter(p=>+p.spend>5);
-  dc('placementPie');dc('placementCTR');
-  if(top.length){
-    charts.placementPie=new Chart(document.getElementById('placementPie'),{type:'doughnut',data:{labels:top.map(p=>p.placement),datasets:[{data:top.map(p=>+p.spend||0),backgroundColor:pColors.slice(0,top.length),borderWidth:0,hoverOffset:5}]},options:{responsive:true,cutout:'58%',plugins:{legend:{position:'bottom',labels:{font:{size:10},padding:8,boxWidth:10}},tooltip:{callbacks:{label:c=>` ฿${c.parsed.toLocaleString()} (${(c.parsed/total*100).toFixed(1)}%)`}}}}});
-    charts.placementCTR=new Chart(document.getElementById('placementCTR'),{type:'bar',data:{labels:top.map(p=>p.placement),datasets:[{label:tx.label_ctr,data:top.map(p=>+p.ctr||0),backgroundColor:top.map(p=>(+p.ctr||0)>1?'#1e6e35':(+p.ctr||0)>0.1?C.forest:'#dfd7c9'),borderRadius:4}]},options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:11}},grid:{color:'#f0e9dc'}},y:{ticks:{font:{size:11}},grid:{display:false}}}}});
-  }
-  document.getElementById('tblPlacements').innerHTML=pl.map(p=>{const sh=total?(+p.spend/total*100).toFixed(1):'0.0';return`<tr><td style="font-weight:600">${p.placement}</td><td>${p.platform}</td><td>${thb(p.spend)}</td><td>${((+p.impressions||0)/1000).toFixed(0)}K</td><td>${thb(p.cpm)}</td><td>${pctStr(p.ctr)}</td><td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:${sh}%"></div></div><span style="font-size:11px;color:var(--muted);min-width:32px">${sh}%</span></div></td></tr>`;}).join('');
-}
-
-function renderCreatives(d){
-  const tx=t();
-  const rankMeta={
-    best_engagement:{cls:'g-best', card:'best', badge:'badge-best', label:tx.best_eng},
-    best_video:     {cls:'g-best2',card:'best', badge:'badge-best', label:tx.best_vid},
-    worst_video:    {cls:'g-worst',card:'worst',badge:'badge-worst',label:tx.worst_vid},
-    worst_efficiency:{cls:'g-worst2',card:'worst',badge:'badge-worst',label:tx.worst_eff},
+/* ============================================================
+   DERIVED DATA
+   ============================================================ */
+function splitByObj(m){
+  const aw = m.campaigns.filter(c=>c.obj==="awareness");
+  const en = m.campaigns.filter(c=>c.obj==="engagement");
+  const sum = (arr,f) => arr.reduce((s,c)=>s+(+c[f]||0),0);
+  return {
+    aw, en,
+    awSpend:sum(aw,"spend"), enSpend:sum(en,"spend"),
+    awEng:sum(aw,"engagements"), enEng:sum(en,"engagements"),
+    awReach:sum(aw,"reach"), enReach:sum(en,"reach"),
   };
-  const all=[...(d.bestCreatives||[]),...(d.worstCreatives||[])];
-  document.getElementById('creativeGrid').innerHTML=all.map(ad=>{
-    const m=rankMeta[ad.rank]||rankMeta.worst_efficiency;
-    const url=ad.adId?`https://www.facebook.com/adsmanager/reporting/view?act=${AD_ACCOUNT_ID}&selected_ad_ids=${ad.adId}`:'#';
-    const lnkCls=m.card==='worst'?'preview-link red':'preview-link';
-    return`<div class="creative-card ${m.card}"><div class="creative-preview ${m.cls}"><div class="preview-name">${ad.name}</div><div class="preview-sub">${ad.type==='video'?tx.creative_type_vid:tx.creative_type_img}</div><a class="${lnkCls}" href="${url}" target="_blank" rel="noopener">${tx.view_meta}</a></div><div class="creative-body"><span class="creative-badge ${m.badge}">${m.label}</span><div class="creative-name-text">${ad.name}</div>${ad.adId?`<span class="creative-id">Ad ID: ${ad.adId}${ad.creativeId?' · Creative: '+ad.creativeId:''}</span>`:''}<div class="cm"><span class="cm-lbl">${tx.cm_spend}</span><span class="cm-val">${thb(ad.spend)}</span></div><div class="cm"><span class="cm-lbl">${tx.cm_cpc}</span><span class="cm-val ${+ad.cpc<1?'val-g':'val-b'}">${thb(ad.cpc)}${m.card==='best'&&+ad.cpc<0.5?' '+tx.best_cpc_note:''}</span></div><div class="cm"><span class="cm-lbl">${tx.cm_ctr}</span><span class="cm-val ${+ad.ctr>2?'val-g':''}">${pctStr(ad.ctr)}${+ad.ctr>5?' '+tx.top_ctr_note:''}</span></div>${+ad.thruplays>0?`<div class="cm"><span class="cm-lbl">${tx.cm_thruplays}</span><span class="cm-val">${num(ad.thruplays)}</span></div>`:''}${+ad.costPerThruplay>0?`<div class="cm"><span class="cm-lbl">${tx.cm_cost_thruplay}</span><span class="cm-val ${+ad.costPerThruplay<5?'val-g':'val-b'}">${thb(ad.costPerThruplay)}</span></div>`:''}${+ad.reactions>0?`<div class="cm"><span class="cm-lbl">${tx.cm_reactions}</span><span class="cm-val">${num(ad.reactions)}</span></div>`:''}${+ad.pageEngagements>0?`<div class="cm"><span class="cm-lbl">${tx.cm_engagements}</span><span class="cm-val">${num(ad.pageEngagements)}</span></div>`:''}${+ad.clicks>0?`<div class="cm"><span class="cm-lbl">${tx.cm_clicks}</span><span class="cm-val">${num(ad.clicks)}</span></div>`:''}</div></div>`;
-  }).join('');
-  dc('creativesChart');
-  if(all.length){charts.creativesChart=new Chart(document.getElementById('creativesChart'),{type:'bar',data:{labels:all.map(a=>a.name.split('_').slice(1,3).join('_')),datasets:[{label:tx.label_cpc,data:all.map(a=>+a.cpc||0),backgroundColor:C.terra,borderRadius:4,yAxisID:'y'},{type:'line',label:tx.label_ctr,data:all.map(a=>+a.ctr||0),borderColor:C.forest,backgroundColor:'transparent',pointBackgroundColor:C.forest,tension:.3,yAxisID:'y2'}]},options:{responsive:true,plugins:{legend:{labels:{font:{size:12}}}},scales:{x:{ticks:{font:{size:10},maxRotation:35},grid:{display:false}},y:{ticks:{font:{size:11}},grid:{color:'#f0e9dc'},title:{display:true,text:tx.label_cpc,color:C.muted}},y2:{position:'right',ticks:{font:{size:11}},grid:{display:false},title:{display:true,text:tx.label_ctr,color:C.muted}}}}});}
 }
 
-function renderBenchmark(d){
-  const tx=t(),c=d.account;
-  document.getElementById('verdictCards').innerHTML=tx.verdict_fn(c).map(v=>`<div class="verdict-card ${v.type}"><div style="flex-shrink:0;margin-top:1px;font-size:16px">${v.type==='win'?'✓':'–'}</div><div class="verdict-text">${v.text}</div></div>`).join('');
-  const bk=tx.bm_labels,bs=tx.bm_status;
-  const bmData=[
-    {title:tx.bm_titles[0],rows:[{lbl:bk.cpm[0],val:thb(c.cpm),w:Math.min(100,(+c.cpm/15)*100),cls:'f-green'},{lbl:bk.cpm[1],val:'฿8–12',w:70,cls:'f-gold'},{lbl:bk.cpm[2],val:'~฿17',w:100,cls:'f-neutral'}],status:{txt:+c.cpm<12?bs.cpm.txt:'สูงกว่า',col:+c.cpm<12?bs.cpm.col:'var(--down)'}},
-    {title:tx.bm_titles[1],rows:[{lbl:bk.cpc[0],val:thb(c.cpc),w:Math.min(100,(+c.cpc/20)*100),cls:'f-up'},{lbl:bk.cpc[1],val:'~฿18.7',w:100,cls:'f-gold'}],status:bs.cpc},
-    {title:tx.bm_titles[2],rows:[{lbl:bk.ctr[0],val:pctStr(c.ctr),w:Math.min(100,(+c.ctr/12)*100),cls:'f-green'},{lbl:bk.ctr[1],val:'0.88%',w:(0.88/12)*100,cls:'f-gold'}],status:bs.ctr},
-    {title:tx.bm_titles[3],rows:[{lbl:bk.freq[0],val:(+c.frequency).toFixed(2)+'×',w:Math.min(100,(+c.frequency/3)*100),cls:'f-green'},{lbl:bk.freq[1],val:'1.5–2.5×',w:70,cls:'f-gold'}],status:bs.freq},
-    {title:tx.bm_titles[4],rows:[{lbl:bk.quality[0],val:lang==='th'?'สูงกว่าค่าเฉลี่ย':'Above Average',w:80,cls:'f-up'},{lbl:bk.quality[1],val:lang==='th'?'ค่าเฉลี่ย':'Average',w:50,cls:'f-gold'}],status:bs.quality},
-    {title:tx.bm_titles[5],rows:[{lbl:bk.video[0],val:'฿0.24',w:2,cls:'f-up'},{lbl:bk.video[1],val:'฿114.32',w:100,cls:'f-down'},{lbl:bk.video[2],val:'฿10–25',w:15,cls:'f-gold'}],status:bs.video},
+function buildInsights(){
+  const m=cur(), p=cmp(), s=splitByObj(m), a=m.account, pa=p.account;
+  const tot=s.awSpend+s.enSpend||1;
+  const engShare=(s.enSpend/tot*100);
+  const engEngShare=(s.enEng/((s.awEng+s.enEng)||1)*100);
+  const bestEng=[...s.en].sort((x,y)=>x.costPerEng-y.costPerEng)[0];
+  const worstAw=[...s.aw].sort((x,y)=>y.costPerEng-x.costPerEng)[0];
+  const cheapPl=[...m.placements].filter(x=>x.spend>200).sort((x,y)=>x.cpm-y.cpm)[0];
+  const bestPl=[...m.placements].filter(x=>x.spend>200).sort((x,y)=>x.costPerEng-y.costPerEng)[0];
+  const cpcD=delta(a.cpc,pa.cpc,true), ctrD=delta(a.ctr,pa.ctr,false), cpeD=delta(a.costPerEng,pa.costPerEng,true);
+
+  const EN=[
+    { tag:"Budget", title:`Engagement takes ${engShare.toFixed(0)}% of budget and returns ${engEngShare.toFixed(0)}% of interactions`,
+      body:`Engagement campaigns spent ${thb(s.enSpend)} of ${thb(tot)} but generated ${num(s.enEng)} of ${num(s.awEng+s.enEng)} total engagements. Awareness spend buys reach and recall, not interaction — judge the two separately.`,
+      impact:"High" },
+    { tag:"Efficiency", title:`Cost per engagement ${cpeD.pct<0?"improved":"rose"} ${Math.abs(cpeD.pct).toFixed(0)}% to ${thb(a.costPerEng)}`,
+      body:`Against the comparison period (${thb(pa.costPerEng)}), your blended cost per engagement is now ${thb(a.costPerEng)}. The F&B benchmark sits near ฿1.50, so you are ${a.costPerEng<1.5?"comfortably ahead":"running above the benchmark"}.`,
+      impact:a.costPerEng<1.5?"Positive":"Watch" },
+    bestEng ? { tag:"Winner", title:`${bestEng.name} is your cheapest engagement at ${thb(bestEng.costPerEng)}`,
+      body:`It delivered ${num(bestEng.engagements)} engagements and ${pctS(bestEng.ctr)} CTR on ${thb(bestEng.spend)}. This creative format and audience combination is your repeatable template.`,
+      impact:"High" } : null,
+    worstAw ? { tag:"Drag", title:`${worstAw.name} costs ${thb(worstAw.costPerEng)} per engagement`,
+      body:`It spent ${thb(worstAw.spend)} for only ${num(worstAw.engagements)} engagements at ${pctS(worstAw.ctr)} CTR. For an awareness campaign some of this is expected — but the gap versus your other awareness ads suggests a creative problem, not an objective one.`,
+      impact:"High" } : null,
+    { tag:"Reach", title:`CTR ${ctrD.pct>0?"climbed":"fell"} to ${pctS(a.ctr)} from ${pctS(pa.ctr)}`,
+      body:`Link CTR moved ${ctrD.txt} period over period while CPC moved ${cpcD.txt}. ${a.ctr>0.88?"You are above the 0.88% F&B benchmark.":"You are below the 0.88% F&B benchmark — pull awareness creatives that drag the blended figure down."}`,
+      impact:a.ctr>0.88?"Positive":"Watch" },
+    cheapPl ? { tag:"Placement", title:`${cheapPl.name} delivers the cheapest reach at ฿${cheapPl.cpm.toFixed(1)} CPM`,
+      body:`It is currently ${((cheapPl.spend/tot)*100).toFixed(0)}% of spend. For pure awareness objectives this is the most impressions per baht available in the account.`,
+      impact:"Medium" } : null,
+    bestPl ? { tag:"Placement", title:`${bestPl.name} gives the cheapest engagement at ${thb(bestPl.costPerEng)}`,
+      body:`Engagement-objective campaigns should be weighted here. It converts attention into interaction more efficiently than any other placement this period.`,
+      impact:"Medium" } : null,
+    { tag:"Frequency", title:`Frequency at ${a.frequency.toFixed(2)}× — ${a.frequency>2.5?"fatigue territory":a.frequency<1.5?"room to push":"healthy"}`,
+      body:`${a.frequency>2.5?"Above 2.5× the same people are seeing ads repeatedly. Rotate creative or widen the audience.":a.frequency<1.5?"Below 1.5× means the audience may not have seen enough repetitions for recall to build. Consider concentrating budget.":"Between 1.5× and 2.5× is the sweet spot for recall-driven campaigns."}`,
+      impact:a.frequency>2.5?"Watch":"Neutral" },
+  ].filter(Boolean);
+
+  const TH=[
+    { tag:"งบประมาณ", title:`Engagement ใช้งบ ${engShare.toFixed(0)}% แต่สร้างการมีส่วนร่วม ${engEngShare.toFixed(0)}%`,
+      body:`แคมเปญ Engagement ใช้ ${thb(s.enSpend)} จาก ${thb(tot)} แต่สร้างการมีส่วนร่วม ${num(s.enEng)} จากทั้งหมด ${num(s.awEng+s.enEng)} ครั้ง งบ Awareness ซื้อการเข้าถึงและการจดจำ ไม่ใช่การมีส่วนร่วม จึงควรวัดผลแยกกัน`,
+      impact:"สูง" },
+    { tag:"ประสิทธิภาพ", title:`ต้นทุนต่อการมีส่วนร่วม${cpeD.pct<0?"ดีขึ้น":"เพิ่มขึ้น"} ${Math.abs(cpeD.pct).toFixed(0)}% เป็น ${thb(a.costPerEng)}`,
+      body:`เทียบกับช่วงก่อน (${thb(pa.costPerEng)}) ต้นทุนต่อการมีส่วนร่วมรวมอยู่ที่ ${thb(a.costPerEng)} เกณฑ์อุตสาหกรรมอาหารอยู่ราว ฿1.50 ดังนั้นคุณ${a.costPerEng<1.5?"ดีกว่าเกณฑ์":"สูงกว่าเกณฑ์"}`,
+      impact:a.costPerEng<1.5?"ดี":"ติดตาม" },
+    bestEng ? { tag:"ดีที่สุด", title:`${bestEng.name} ต้นทุนต่อการมีส่วนร่วมถูกที่สุด ${thb(bestEng.costPerEng)}`,
+      body:`สร้างการมีส่วนร่วม ${num(bestEng.engagements)} ครั้ง CTR ${pctS(bestEng.ctr)} ด้วยงบ ${thb(bestEng.spend)} รูปแบบครีเอทีฟและกลุ่มเป้าหมายนี้คือแม่แบบที่ควรทำซ้ำ`,
+      impact:"สูง" } : null,
+    worstAw ? { tag:"จุดอ่อน", title:`${worstAw.name} ต้นทุนต่อการมีส่วนร่วม ${thb(worstAw.costPerEng)}`,
+      body:`ใช้งบ ${thb(worstAw.spend)} ได้การมีส่วนร่วมเพียง ${num(worstAw.engagements)} ครั้ง CTR ${pctS(worstAw.ctr)} สำหรับแคมเปญ Awareness เป็นเรื่องปกติบางส่วน แต่ช่องว่างเทียบกับ Awareness ตัวอื่นบ่งชี้ว่าเป็นปัญหาที่ครีเอทีฟ`,
+      impact:"สูง" } : null,
+    { tag:"การเข้าถึง", title:`CTR ${ctrD.pct>0?"เพิ่มขึ้น":"ลดลง"}เป็น ${pctS(a.ctr)} จาก ${pctS(pa.ctr)}`,
+      body:`CTR เปลี่ยนแปลง ${ctrD.txt} ขณะที่ CPC เปลี่ยน ${cpcD.txt} ${a.ctr>0.88?"สูงกว่าเกณฑ์ F&B ที่ 0.88%":"ต่ำกว่าเกณฑ์ F&B ที่ 0.88% ควรตรวจสอบครีเอทีฟ Awareness ที่ฉุดค่าเฉลี่ย"}`,
+      impact:a.ctr>0.88?"ดี":"ติดตาม" },
+    cheapPl ? { tag:"ตำแหน่ง", title:`${cheapPl.name} ให้การเข้าถึงถูกที่สุดที่ CPM ฿${cheapPl.cpm.toFixed(1)}`,
+      body:`ปัจจุบันคิดเป็น ${((cheapPl.spend/tot)*100).toFixed(0)}% ของงบ สำหรับวัตถุประสงค์ Awareness ล้วน นี่คือการแสดงผลต่อบาทที่คุ้มที่สุดในบัญชี`,
+      impact:"กลาง" } : null,
+    bestPl ? { tag:"ตำแหน่ง", title:`${bestPl.name} ให้ต้นทุนต่อการมีส่วนร่วมถูกที่สุด ${thb(bestPl.costPerEng)}`,
+      body:`แคมเปญที่เน้น Engagement ควรถ่วงน้ำหนักมาที่นี่ เปลี่ยนความสนใจเป็นการมีส่วนร่วมได้คุ้มค่าที่สุดในช่วงนี้`,
+      impact:"กลาง" } : null,
+    { tag:"ความถี่", title:`ความถี่ ${a.frequency.toFixed(2)}× — ${a.frequency>2.5?"เสี่ยงโฆษณาซ้ำ":a.frequency<1.5?"ยังเพิ่มได้":"เหมาะสม"}`,
+      body:`${a.frequency>2.5?"สูงกว่า 2.5× หมายถึงคนกลุ่มเดิมเห็นโฆษณาซ้ำบ่อย ควรหมุนเวียนครีเอทีฟหรือขยายกลุ่มเป้าหมาย":a.frequency<1.5?"ต่ำกว่า 1.5× อาจยังไม่พอให้เกิดการจดจำ พิจารณารวมงบให้เข้มข้นขึ้น":"ระหว่าง 1.5×–2.5× คือช่วงที่เหมาะกับแคมเปญสร้างการจดจำ"}`,
+      impact:a.frequency>2.5?"ติดตาม":"ปกติ" },
+  ].filter(Boolean);
+
+  return LANG==="th" ? TH : EN;
+}
+
+function buildNextSteps(){
+  const m=cur(), s=splitByObj(m), a=m.account;
+  const tot=s.awSpend+s.enSpend||1;
+  const engShare=(s.enSpend/tot*100);
+  const bestEng=[...s.en].sort((x,y)=>x.costPerEng-y.costPerEng)[0];
+  const worstAny=[...m.campaigns].filter(c=>c.spend>400).sort((x,y)=>y.costPerEng-x.costPerEng)[0];
+  const cheapPl=[...m.placements].filter(x=>x.spend>200).sort((x,y)=>x.cpm-y.cpm)[0];
+  const deadPl=[...m.placements].filter(x=>x.spend<300 && x.ctr<0.05);
+
+  const EN=[
+    bestEng && {title:`Scale ${bestEng.name}`, when:"This week", owner:"Media buyer",
+      body:`At ${thb(bestEng.costPerEng)} per engagement and ${pctS(bestEng.ctr)} CTR this is your most efficient asset. Raise its daily budget 2–3× and reuse the same creative treatment on the next product post.`},
+    worstAny && {title:`Rebuild or pause ${worstAny.name}`, when:"Before next flight", owner:"Creative",
+      body:`${thb(worstAny.costPerEng)} per engagement on ${thb(worstAny.spend)} spend is the biggest single drag on blended efficiency. Rework the opening frame and first-line copy, then re-test at a small budget before committing.`},
+    {title:`Move engagement share toward 35–40%`, when:"Next cycle", owner:"Planning",
+      body:`Engagement currently sits at ${engShare.toFixed(0)}% of budget. Since conversions cannot be tracked, engagement volume and cost per engagement are your clearest quality signals — weighting toward them gives you sharper feedback each month.`},
+    cheapPl && {title:`Shift awareness reach to ${cheapPl.name}`, when:"Next cycle", owner:"Media buyer",
+      body:`At ฿${cheapPl.cpm.toFixed(1)} CPM it is the cheapest impression source in the account. Route 15–20% more of the awareness budget here to lift reach without raising total spend.`},
+    deadPl.length ? {title:`Trim ${deadPl.map(p=>p.name).join(", ")}`, when:"Immediate", owner:"Media buyer",
+      body:`These placements are absorbing budget with negligible CTR. Removing them lets Meta redistribute delivery to placements that are already performing.`} : null,
+    {title:`Log ad recall lift alongside spend`, when:"Ongoing", owner:"Reporting",
+      body:`With no conversion signal, estimated ad recall lift is the closest proxy for awareness effectiveness. Track it monthly so awareness campaigns are judged on their own objective rather than on click metrics they were never optimised for.`},
+  ].filter(Boolean);
+
+  const TH=[
+    bestEng && {title:`เพิ่มงบ ${bestEng.name}`, when:"สัปดาห์นี้", owner:"ทีมซื้อสื่อ",
+      body:`ต้นทุนต่อการมีส่วนร่วม ${thb(bestEng.costPerEng)} และ CTR ${pctS(bestEng.ctr)} คือสินทรัพย์ที่มีประสิทธิภาพที่สุด เพิ่มงบรายวัน 2–3 เท่า และใช้แนวทางครีเอทีฟเดียวกันกับโพสต์สินค้าถัดไป`},
+    worstAny && {title:`ทำใหม่หรือหยุด ${worstAny.name}`, when:"ก่อนรอบถัดไป", owner:"ครีเอทีฟ",
+      body:`ต้นทุน ${thb(worstAny.costPerEng)} ต่อการมีส่วนร่วม บนงบ ${thb(worstAny.spend)} คือจุดที่ฉุดประสิทธิภาพรวมมากที่สุด ปรับเฟรมแรกและข้อความบรรทัดแรก แล้วทดสอบด้วยงบน้อยก่อน`},
+    {title:`ปรับสัดส่วน Engagement ไปที่ 35–40%`, when:"รอบถัดไป", owner:"วางแผน",
+      body:`ปัจจุบัน Engagement อยู่ที่ ${engShare.toFixed(0)}% ของงบ เนื่องจากไม่สามารถติดตามยอดขายได้ ปริมาณการมีส่วนร่วมและต้นทุนต่อการมีส่วนร่วมคือสัญญาณคุณภาพที่ชัดที่สุด`},
+    cheapPl && {title:`ย้ายงบ Awareness ไปที่ ${cheapPl.name}`, when:"รอบถัดไป", owner:"ทีมซื้อสื่อ",
+      body:`CPM ฿${cheapPl.cpm.toFixed(1)} คือแหล่งการแสดงผลที่ถูกที่สุดในบัญชี โยกงบ Awareness มาเพิ่ม 15–20% เพื่อเพิ่มการเข้าถึงโดยไม่เพิ่มงบรวม`},
+    deadPl.length ? {title:`ตัด ${deadPl.map(p=>p.name).join(", ")}`, when:"ทันที", owner:"ทีมซื้อสื่อ",
+      body:`ตำแหน่งเหล่านี้ใช้งบโดยมี CTR แทบเป็นศูนย์ การลบออกจะทำให้ Meta กระจายการแสดงผลไปยังตำแหน่งที่ทำได้ดีอยู่แล้ว`} : null,
+    {title:`บันทึกการจดจำโฆษณาควบคู่กับค่าใช้จ่าย`, when:"ต่อเนื่อง", owner:"รายงาน",
+      body:`เมื่อไม่มีสัญญาณยอดขาย การจดจำโฆษณา (ประมาณการ) คือตัวแทนที่ใกล้เคียงที่สุดของประสิทธิผล Awareness ควรติดตามทุกเดือนเพื่อวัดผลตามวัตถุประสงค์จริง`},
+  ].filter(Boolean);
+
+  return LANG==="th" ? TH : EN;
+}
+
+
+/* ============================================================
+   RENDERERS
+   ============================================================ */
+const $ = id => document.getElementById(id);
+
+function renderChrome(){
+  const T_=t();
+  $("kicker").textContent = T_.kicker;
+  $("periodLabel").textContent = T_.periodLabel;
+  $("compareLabel").textContent = T_.compareLabel;
+  $("footerLeft").textContent = T_.footerLeft;
+  $("footerRight").textContent = T_.footerRight;
+
+  // month selectors
+  const opts = k => MONTH_KEYS.map(mk =>
+    `<option value="${mk}" ${mk===k?"selected":""}>${MONTHS[mk].label[LANG]} · ${MONTHS[mk].range[LANG]}</option>`
+  ).join("");
+  $("periodSel").innerHTML  = opts(CUR);
+  $("compareSel").innerHTML = opts(CMP);
+
+  // tabs
+  $("tabs").innerHTML = T_.tabs.map((label,i)=>
+    `<button class="tab ${i===TAB?"on":""}" onclick="setTab(${i})">${label}</button>`
+  ).join("");
+
+  // lang buttons
+  $("btnEN").className = "lang" + (LANG==="en"?" on":"");
+  $("btnTH").className = "lang" + (LANG==="th"?" on":"");
+
+  // panels
+  ["pOverview","pPerformance","pCreatives","pBenchmark","pStrategy"]
+    .forEach((id,i)=> $(id).style.display = i===TAB ? "block" : "none");
+}
+
+/* ---------- OVERVIEW ---------- */
+function renderOverview(){
+  const T_=t(), m=cur(), p=cmp(), a=m.account, pa=p.account;
+  const score=effScore(m), circ=2*Math.PI*52;
+
+  const heroTitle = LANG==="th"
+    ? `${m.label.th} · ${thb(a.spend)}`
+    : `${m.label.en} · ${thb(a.spend)}`;
+  const heroBody = LANG==="th"
+    ? `เข้าถึง ${kNum(a.reach)} คน สร้างการมีส่วนร่วม ${num(a.engagements)} ครั้ง ที่ต้นทุน ${thb(a.costPerEng)} ต่อครั้ง เทียบกับ ${p.label.th}`
+    : `Reached ${kNum(a.reach)} people and generated ${num(a.engagements)} engagements at ${thb(a.costPerEng)} each, compared with ${p.label.en}.`;
+
+  $("heroKicker").textContent = T_.heroKicker;
+  $("heroTitle").textContent  = heroTitle;
+  $("heroBody").textContent   = heroBody;
+  $("score").textContent      = score;
+  $("scoreArc").setAttribute("stroke-dasharray", `${(score/100*circ).toFixed(1)} ${circ.toFixed(1)}`);
+  $("efficiencyLbl").textContent = T_.efficiency;
+  $("scoreVerdict").textContent  = scoreVerdict(score);
+  $("scoreNote").textContent = LANG==="th"
+    ? "คำนวณจาก CPM, CPC, CTR, ต้นทุนต่อการมีส่วนร่วม และความถี่ — ไม่รวมตัวชี้วัดยอดขาย"
+    : "Weighted from CPM, CPC, CTR, cost per engagement and frequency. No conversion metrics are used.";
+
+  $("heroStats").innerHTML = [
+    {l:T_.stReach, v:kNum(a.reach)},
+    {l:T_.stEng,   v:num(a.engagements)},
+    {l:T_.stCpe,   v:thb(a.costPerEng)},
+  ].map(h=>`<div><div class="hs-l">${h.l}</div><div class="hs-v">${h.v}</div></div>`).join("");
+
+  // stat cards
+  $("keyMetrics").textContent = T_.keyMetrics;
+  $("vsPrev").textContent = T_.vsPrev + " · " + p.label[LANG];
+  const defs=[
+    {k:"spend",       l:T_.stSpend,  f:thb,  lb:null},
+    {k:"reach",       l:T_.stReach,  f:kNum, lb:false},
+    {k:"impressions", l:T_.stImpr,   f:kNum, lb:false},
+    {k:"engagements", l:T_.stEng,    f:num,  lb:false},
+    {k:"costPerEng",  l:T_.stCpe,    f:thb,  lb:true},
+    {k:"cpm",         l:T_.stCpm,    f:thb,  lb:true},
+    {k:"ctr",         l:T_.stCtr,    f:pctS, lb:false},
+    {k:"frequency",   l:T_.stFreq,   f:v=>(+v).toFixed(2)+"×", lb:null},
   ];
-  document.getElementById('bmGrid').innerHTML=bmData.map(bm=>`<div class="bm-card"><div class="bm-title">${bm.title}</div>${bm.rows.map(r=>`<div class="bm-row"><span class="bm-lbl">${r.lbl}</span><div class="bm-bar"><div class="bm-bg"><div class="bm-fill ${r.cls}" style="width:${r.w}%"></div></div></div><span class="bm-val">${r.val}</span></div>`).join('')}<div class="bm-row" style="border:none"><span class="bm-lbl" style="color:${bm.status.col};font-weight:700">${tx.bm_status_label}</span><span class="bm-val" style="color:${bm.status.col}">${bm.status.txt}</span></div></div>`).join('');
-  dc('benchmarkChart');
-  charts.benchmarkChart=new Chart(document.getElementById('benchmarkChart'),{type:'bar',data:{labels:['CPM','CPC','CTR (%)',tx.stat_freq],datasets:[{label:'Alfredo',data:[+c.cpm,+c.cpc,+c.ctr,+c.frequency],backgroundColor:C.forest,borderRadius:5},{label:tx.fab_global,data:[17.3,18.7,0.88,1.5],backgroundColor:C.gold,borderRadius:5},{label:tx.fab_sea,data:[10.5,5.0,0.70,1.6],backgroundColor:'#b0c8b0',borderRadius:5}]},options:{responsive:true,plugins:{legend:{labels:{font:{size:12}}}},scales:{x:{ticks:{font:{size:12}},grid:{display:false}},y:{ticks:{font:{size:11}},grid:{color:'#f0e9dc'}}}}});
+  $("stats").innerHTML = defs.map(d=>{
+    const nowV=+a[d.k]||0, prevV=+pa[d.k]||0;
+    const dl=delta(nowV,prevV,d.lb);
+    const sp=sparkFor(d.k);
+    const stroke = dl.good===null?"#c9b89a":dl.good?GOOD:BAD;
+    const fill   = dl.good===null?"rgba(201,184,154,.15)":dl.good?"rgba(30,110,53,.12)":"rgba(196,15,21,.10)";
+    return `<div class="stat">
+      <div class="stat-top">
+        <div class="stat-l">${d.l}</div>
+        <div class="stat-d" style="color:${dColor(dl.good)};background:${dBg(dl.good)}">${dl.txt}</div>
+      </div>
+      <div class="stat-v">${d.f(nowV)}</div>
+      <svg viewBox="0 0 120 34" preserveAspectRatio="none" class="spark">
+        <polygon points="${areaPoints(sp)}" fill="${fill}"></polygon>
+        <polyline points="${sparkPoints(sp)}" fill="none" stroke="${stroke}" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"></polyline>
+      </svg>
+      <div class="stat-n">${T_.lastPeriod}: ${d.f(prevV)}</div>
+    </div>`;
+  }).join("");
+
+  // comparison table
+  $("compareTitle").textContent = T_.compareTitle;
+  $("compareSub").textContent   = `${m.range[LANG]}  ·  ${p.range[LANG]}`;
+  $("cmpHead").innerHTML = `<div>${T_.metric}</div><div class="r">${T_.thisPeriod}</div><div class="r">${T_.lastPeriod}</div><div class="r">${T_.change}</div>`;
+  const rows=[
+    {l:T_.stSpend, k:"spend", f:thb, lb:null},
+    {l:T_.stReach, k:"reach", f:kNum, lb:false},
+    {l:T_.stImpr,  k:"impressions", f:kNum, lb:false},
+    {l:T_.stEng,   k:"engagements", f:num, lb:false},
+    {l:T_.stCpe,   k:"costPerEng", f:thb, lb:true},
+    {l:T_.stCpm,   k:"cpm", f:thb, lb:true},
+    {l:T_.stCpc,   k:"cpc", f:thb, lb:true},
+    {l:T_.stCtr,   k:"ctr", f:pctS, lb:false},
+    {l:T_.stFreq,  k:"frequency", f:v=>(+v).toFixed(2)+"×", lb:null},
+  ];
+  $("cmpRows").innerHTML = rows.map(r=>{
+    const dl=delta(+a[r.k]||0, +pa[r.k]||0, r.lb);
+    return `<div class="cmp-row">
+      <div class="cmp-m">${r.l}</div>
+      <div class="r cmp-now">${r.f(a[r.k])}</div>
+      <div class="r cmp-prev">${r.f(pa[r.k])}</div>
+      <div class="r cmp-d" style="color:${dColor(dl.good)}">${dl.txt}</div>
+    </div>`;
+  }).join("");
+
+  // diverging bars
+  $("normTitle").textContent = T_.normTitle;
+  $("normSub").textContent   = T_.normSub;
+  const barDefs=[
+    {l:T_.stSpend,k:"spend",lb:null},{l:T_.stReach,k:"reach",lb:false},
+    {l:T_.stImpr,k:"impressions",lb:false},{l:T_.stEng,k:"engagements",lb:false},
+    {l:T_.stCpe,k:"costPerEng",lb:true},{l:T_.stCpm,k:"cpm",lb:true},
+    {l:T_.stCpc,k:"cpc",lb:true},{l:T_.stCtr,k:"ctr",lb:false},
+  ];
+  const maxAbs=Math.max(...barDefs.map(b=>Math.abs(delta(+a[b.k]||0,+pa[b.k]||0,b.lb).pct)),1);
+  $("bars").innerHTML = barDefs.map(b=>{
+    const dl=delta(+a[b.k]||0,+pa[b.k]||0,b.lb);
+    const w=(Math.abs(dl.pct)/maxAbs*100).toFixed(1)+"%";
+    const col=dColor(dl.good);
+    return `<div class="bar-row">
+      <div class="bar-l">${b.l}</div>
+      <div class="bar-track">
+        <div class="bar-neg"><div style="width:${dl.pct<0?w:"0%"};background:${col}"></div></div>
+        <div class="bar-mid"></div>
+        <div class="bar-pos"><div style="width:${dl.pct>0?w:"0%"};background:${col}"></div></div>
+      </div>
+      <div class="bar-p" style="color:${col}">${dl.txt}</div>
+    </div>`;
+  }).join("");
+
+  // objective split
+  const s=splitByObj(m), tot=s.awSpend+s.enSpend||1;
+  const engP=(s.enSpend/tot*100), awP=(s.awSpend/tot*100);
+  $("ratioTitle").textContent=T_.ratioTitle;
+  $("ratioSub").textContent=T_.ratioSub;
+  $("engPct").textContent=engP.toFixed(0)+"%";
+  $("awarePct").textContent=awP.toFixed(0)+"%";
+  $("engLbl").textContent=T_.engagement;
+  $("awareLbl").textContent=T_.awareness;
+  $("engBar").style.width=engP+"%";
+  $("awareBar").style.width=awP+"%";
+  $("engDetail").textContent=`${thb(s.enSpend)} · ${num(s.enEng)} ${LANG==="th"?"การมีส่วนร่วม":"engagements"}`;
+  $("awareDetail").textContent=`${thb(s.awSpend)} · ${kNum(s.awReach)} ${LANG==="th"?"เข้าถึง":"reach"}`;
+  $("ratioNote").textContent=T_.ratioNote;
+
+  // frequency gauge
+  const f=a.frequency;
+  $("freqTitle").textContent=T_.freqTitle;
+  $("freqSub").textContent=T_.freqSub;
+  $("freqVal").textContent=f.toFixed(2);
+  $("freqUnit").textContent=T_.freqUnit;
+  const fCol = f>2.5?BAD : f<1.5?"#c79b3a" : GOOD;
+  const fBg  = f>2.5?BADBG : f<1.5?"#fdf3dc" : GOODBG;
+  const fVer = f>2.5?T_.freqHigh : f<1.5?T_.freqLow : T_.freqGood;
+  $("freqVal").style.color=fCol;
+  $("freqVerdict").textContent=fVer;
+  $("freqVerdict").style.color=fCol;
+  $("freqVerdict").style.background=fBg;
+  const arcLen=Math.PI*100, frac=Math.min(f/6,1);
+  $("freqArc").setAttribute("stroke",fCol);
+  $("freqArc").setAttribute("stroke-dasharray",`${(arcLen*frac).toFixed(1)} ${arcLen.toFixed(1)}`);
+  const ang=Math.PI-(frac*Math.PI);
+  $("needle").setAttribute("x2",(125+82*Math.cos(ang)).toFixed(1));
+  $("needle").setAttribute("y2",(125-82*Math.sin(ang)).toFixed(1));
+  $("freqBands").innerHTML=T_.freqBands.map((b,i)=>{
+    const active=(i===0&&f<1.5)||(i===1&&f>=1.5&&f<=2.5)||(i===2&&f>2.5);
+    const c=[ "#c79b3a", GOOD, BAD ][i];
+    return `<div class="fb ${active?"on":""}" style="${active?`border-color:${c};background:${i===0?"#fdf3dc":i===1?GOODBG:BADBG}`:""}">
+      <div class="fb-r" style="color:${active?c:"#7d6f64"}">${b.range}</div>
+      <div class="fb-l">${b.label}</div></div>`;
+  }).join("");
 }
 
-function renderInsights(d){
-  const tx=t();
-  const camps=d.campaigns||[];
-  const awarC=camps.filter(c=>c.type==='awareness'),engC=camps.filter(c=>c.type==='engagement');
-  const awarSpend=awarC.reduce((s,c)=>s+(+c.spend||0),0),engSpend=engC.reduce((s,c)=>s+(+c.spend||0),0);
-  const awarClicks=awarC.reduce((s,c)=>s+(+c.clicks||0),0),engClicks=engC.reduce((s,c)=>s+(+c.clicks||0),0);
-  const tot=+d.account.spend||1,totCl=+d.account.clicks||1;
-  const bestCamp=[...camps].sort((a,b)=>+a.cpc-+b.cpc)[0];
-  const cheapPl=(d.placements||[]).filter(p=>+p.spend>5).sort((a,b)=>+a.cpm-+b.cpm)[0];
-  const topPl=(d.placements||[]).sort((a,b)=>+b.impressions-+a.impressions)[0];
-  const insights=tx.insight_fn(d,awarC,engC,awarSpend,engSpend,awarClicks,engClicks,tot,totCl,bestCamp,cheapPl,topPl);
-  document.getElementById('insightGrid').innerHTML=insights.map(ins=>`<div class="insight-card"><div class="insight-icon">${ins.icon}</div><div><div class="insight-h4">${ins.h}</div><div class="insight-p">${ins.p}</div></div></div>`).join('');
-  dc('budgetSplitChart');
-  charts.budgetSplitChart=new Chart(document.getElementById('budgetSplitChart'),{type:'bar',data:{labels:tx.budget_split_labels,datasets:[{label:`${tx.label_awareness} (${awarC.length})`,data:[awarSpend,awarClicks],backgroundColor:C.forest,borderRadius:5},{label:`${tx.label_engagement} (${engC.length})`,data:[engSpend,engClicks],backgroundColor:C.gold,borderRadius:5}]},options:{responsive:true,plugins:{legend:{labels:{font:{size:12}}}},scales:{x:{ticks:{font:{size:12}},grid:{display:false}},y:{ticks:{font:{size:11}},grid:{color:'#f0e9dc'}}}}});
+/* ---------- PERFORMANCE ---------- */
+function renderPerformance(){
+  const T_=t(), m=cur();
+  $("heatTitle").textContent=T_.heatTitle;
+  $("heatSub").textContent=T_.heatSub;
+  $("heatCols").innerHTML = `<div></div>` + T_.heatCols.map(c=>`<div class="hc">${c}</div>`).join("");
+
+  $("heatRows").innerHTML = m.campaigns.map(c=>{
+    const cells=[
+      {v:thb(c.spend),         s:heatCell(c.spend,[800,2500],true)},
+      {v:"฿"+c.cpm.toFixed(1), s:heatCell(c.cpm,[12,25],true)},
+      {v:c.frequency.toFixed(2),s:heatCell(c.frequency,[2.0,2.8],true)},
+      {v:pctS(c.ctr),          s:heatCell(c.ctr,[0.5,3],false)},
+      {v:thb(c.costPerEng),    s:heatCell(c.costPerEng,[1.0,6],true)},
+    ];
+    return `<div class="heat-row">
+      <div class="hr-n" title="${c.name}">${c.name}<span class="hr-o ${c.obj}">${c.obj==="awareness"?T_.awareness:T_.engagement}</span></div>
+      ${cells.map(x=>`<div class="hcell" style="background:${x.s.bg};color:${x.s.fg}">${x.v}</div>`).join("")}
+    </div>`;
+  }).join("");
+  $("heatLegend").innerHTML = T_.heatLegend.map((l,i)=>{
+    const bg=["#e6f4ea","#fdf3dc","#fbe3e4"][i];
+    return `<div class="lg"><span style="background:${bg}"></span>${l.label}</div>`;
+  }).join("");
+
+  // campaign table — no ROAS/CPA
+  $("campTable").textContent=T_.campTable;
+  $("campHead").innerHTML =
+    `<div>${T_.campaign}</div><div>${T_.objective}</div>
+     <div class="r">${T_.spend}</div><div class="r">${T_.stReach}</div>
+     <div class="r">${T_.stEng}</div><div class="r">${T_.cpe}</div>
+     <div class="r">${T_.stCtr}</div>`;
+  $("campRows").innerHTML = [...m.campaigns].sort((a,b)=>b.spend-a.spend).map(c=>{
+    const good = c.obj==="engagement" ? c.costPerEng<1.0 : c.costPerEng<8;
+    return `<div class="camp-row">
+      <div class="c-n">${c.name}</div>
+      <div><span class="obj ${c.obj}">${c.obj==="awareness"?T_.awareness:T_.engagement}</span></div>
+      <div class="r">${thb(c.spend)}</div>
+      <div class="r">${kNum(c.reach)}</div>
+      <div class="r">${num(c.engagements)}</div>
+      <div class="r" style="font-weight:600;color:${good?GOOD:BAD}">${thb(c.costPerEng)}</div>
+      <div class="r">${pctS(c.ctr)}</div>
+    </div>`;
+  }).join("");
+
+  // platform donuts — cost per engagement instead of ROAS
+  const plats={};
+  m.placements.forEach(p=>{
+    if(!plats[p.platform]) plats[p.platform]={spend:0,eng:0,cpeSum:0,n:0};
+    plats[p.platform].spend+=p.spend;
+    plats[p.platform].cpeSum+=p.costPerEng; plats[p.platform].n++;
+  });
+  const totSpend=Object.values(plats).reduce((s,v)=>s+v.spend,0)||1;
+  const colors={Facebook:"#c40f15",Instagram:"#ffc045",Messenger:"#7d6f64"};
+  $("platformTitle").textContent=T_.platformTitle;
+  $("platformSub").textContent=T_.platformSub;
+  $("platforms").innerHTML=Object.entries(plats).map(([name,v])=>{
+    const pct=v.spend/totSpend*100, circ=2*Math.PI*50;
+    return `<div class="plat">
+      <div class="plat-ring">
+        <svg viewBox="0 0 120 120" style="transform:rotate(-90deg)">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="#f4ecdd" stroke-width="14"></circle>
+          <circle cx="60" cy="60" r="50" fill="none" stroke="${colors[name]||"#999"}" stroke-width="14"
+            stroke-linecap="round" stroke-dasharray="${(pct/100*circ).toFixed(1)} ${circ.toFixed(1)}"></circle>
+        </svg>
+        <div class="plat-pct">${pct.toFixed(0)}%</div>
+      </div>
+      <div class="plat-n">${name}</div>
+      <div class="plat-s">${thb(v.spend)}</div>
+      <div class="plat-s">${T_.cpe} ${thb(v.cpeSum/v.n)}</div>
+    </div>`;
+  }).join("");
+
+  // placement table — cost per engagement instead of ROAS
+  $("placementTitle").textContent=T_.placementTitle;
+  $("plHead").innerHTML=`<div>${T_.placement}</div><div class="r">${T_.spend}</div>
+    <div class="r">CTR</div><div class="r">CPM</div><div class="r">${T_.cpe}</div>`;
+  $("plRows").innerHTML=[...m.placements].sort((a,b)=>b.spend-a.spend).map(p=>{
+    const good=p.costPerEng<1.5;
+    return `<div class="pl-row">
+      <div>${p.name}</div>
+      <div class="r">${thb(p.spend)}</div>
+      <div class="r">${pctS(p.ctr)}</div>
+      <div class="r">฿${p.cpm.toFixed(1)}</div>
+      <div class="r" style="font-weight:600;color:${good?GOOD:NEU}">${thb(p.costPerEng)}</div>
+    </div>`;
+  }).join("");
 }
 
-function renderNextSteps(d){
-  const tx=t();
-  const camps=d.campaigns||[];
-  const best=[...camps].sort((a,b)=>+a.cpc-+b.cpc)[0];
-  const worstCreative=d.worstCreatives?.[0];
-  const cheapPl=(d.placements||[]).filter(p=>+p.spend>5).sort((a,b)=>+a.cpm-+b.cpm)[0];
-  const bestCreative=d.bestCreatives?.[0];
-  const awarSpend=camps.filter(c=>c.type==='awareness').reduce((s,c)=>s+(+c.spend||0),0);
-  const engSpend=camps.filter(c=>c.type==='engagement').reduce((s,c)=>s+(+c.spend||0),0);
-  const engRatio=(engSpend/(awarSpend+engSpend||1)*100).toFixed(0);
-  const steps=tx.step_fn(best,worstCreative,cheapPl,bestCreative,engRatio);
-  document.getElementById('stepsList').innerHTML=steps.map((s,i)=>`<div class="step-item"><div class="step-num">${i+1}</div><div class="step-txt"><strong>${s.t}</strong> ${s.b}</div></div>`).join('');
+/* ---------- CREATIVES ---------- */
+function renderCreatives(){
+  const T_=t(), m=cur(), cr=m.creatives;
+  $("creativeTitle").textContent=T_.creativeTitle;
+  $("creativeSub").textContent=T_.creativeSub;
+  const slots=[
+    {k:"bestEng",  lbl:T_.slotBestEng,  good:true},
+    {k:"bestVideo",lbl:T_.slotBestVid,  good:true},
+    {k:"worstEff", lbl:T_.slotWorstEff, good:false},
+    {k:"worstCost",lbl:T_.slotWorstCost,good:false},
+  ];
+  $("creatives").innerHTML=slots.map(s=>{
+    const c=cr[s.k]; if(!c) return "";
+    const url=`https://www.facebook.com/adsmanager/reporting/view?act=${AD_ACCOUNT}&selected_ad_ids=${c.adId}`;
+    const metrics=[
+      {k:T_.spend, v:thb(c.spend)},
+      {k:T_.stEng, v:num(c.engagements)},
+      {k:T_.cpe,   v:thb(c.costPerEng)},
+      {k:"CTR",    v:pctS(c.ctr)},
+      {k:"CPC",    v:thb(c.cpc)},
+    ];
+    if(c.thruplays>0){
+      metrics.push({k:LANG==="th"?"ดูวิดีโอจบ":"ThruPlays", v:num(c.thruplays)});
+      metrics.push({k:LANG==="th"?"ต้นทุน/ThruPlay":"Cost/ThruPlay", v:thb(c.costPerThruplay)});
+    }
+    if(c.reactions>0) metrics.push({k:LANG==="th"?"รีแอค":"Reactions", v:num(c.reactions)});
+    return `<div class="cr ${s.good?"good":"bad"}">
+      <div class="cr-head" style="background:${s.good?GOODBG:BADBG};color:${s.good?GOOD:BAD}">
+        <span class="cr-slot">${s.lbl}</span>
+        <span class="cr-fmt">${c.format==="video"?(LANG==="th"?"วิดีโอ":"Video"):(LANG==="th"?"รูปภาพ":"Image")}</span>
+      </div>
+      <div class="cr-body">
+        <div class="cr-name">${c.name}</div>
+        <div class="cr-id">Ad ID ${c.adId}</div>
+        <div class="cr-metrics">
+          ${metrics.map(x=>`<div class="crm"><span>${x.k}</span><b>${x.v}</b></div>`).join("")}
+        </div>
+        <a class="cr-link" href="${url}" target="_blank" rel="noopener">${T_.viewInMeta}</a>
+      </div>
+    </div>`;
+  }).join("");
 }
 
-function showPage(id,btn){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('page-'+id).classList.add('active');
-  btn.classList.add('active');
+/* ---------- BENCHMARK ---------- */
+function renderBenchmark(){
+  const T_=t(), a=cur().account;
+  $("benchTitle").textContent=T_.benchTitle;
+  $("benchSub").textContent=T_.benchSub;
+
+  const items=[
+    {k:"cpm",        lbl:T_.stCpm, you:a.cpm,        fmt:thb},
+    {k:"cpc",        lbl:T_.stCpc, you:a.cpc,        fmt:thb},
+    {k:"ctr",        lbl:T_.stCtr, you:a.ctr,        fmt:pctS},
+    {k:"costPerEng", lbl:T_.stCpe, you:a.costPerEng, fmt:thb},
+    {k:"frequency",  lbl:T_.stFreq,you:a.frequency,  fmt:v=>v.toFixed(2)+"×"},
+  ];
+  $("benchmarks").innerHTML=items.map(it=>{
+    const b=BENCH[it.k];
+    let good;
+    if(b.lower_better===null) good = it.you>=1.5 && it.you<=2.5;
+    else good = b.lower_better ? it.you<b.ind : it.you>b.ind;
+    const maxV=Math.max(it.you,b.ind)*1.15;
+    return `<div class="bm">
+      <div class="bm-l">${it.lbl}</div>
+      <div class="bm-bars">
+        <div class="bm-line"><span class="bm-tag">${T_.you}</span>
+          <div class="bm-track"><div style="width:${(it.you/maxV*100).toFixed(1)}%;background:${good?GOOD:BAD}"></div></div>
+          <b style="color:${good?GOOD:BAD}">${it.fmt(it.you)}</b></div>
+        <div class="bm-line"><span class="bm-tag">${T_.industry}</span>
+          <div class="bm-track"><div style="width:${(b.ind/maxV*100).toFixed(1)}%;background:#d9cbb2"></div></div>
+          <b style="color:#7d6f64">${b.range}</b></div>
+      </div>
+    </div>`;
+  }).join("");
+
+  const s=splitByObj(cur());
+  const verdicts = LANG==="th" ? [
+    {kicker:"CPM", title:a.cpm<12?"อยู่ในเกณฑ์":"สูงกว่าเกณฑ์", body:`CPM ${thb(a.cpm)} เทียบกับช่วง F&B อาเซียน ฿8–17`, good:a.cpm<12},
+    {kicker:"ต้นทุน/มีส่วนร่วม", title:a.costPerEng<1.5?"ดีกว่าเกณฑ์":"สูงกว่าเกณฑ์", body:`${thb(a.costPerEng)} ต่อการมีส่วนร่วม เทียบกับเกณฑ์ ~฿1.50`, good:a.costPerEng<1.5},
+    {kicker:"CTR", title:a.ctr>0.88?"สูงกว่าค่าเฉลี่ย":"ต่ำกว่าค่าเฉลี่ย", body:`${pctS(a.ctr)} เทียบกับค่าเฉลี่ย F&B 0.88% — แคมเปญ Engagement เป็นตัวขับเคลื่อนหลัก`, good:a.ctr>0.88},
+    {kicker:"วัตถุประสงค์", title:"ไม่มีการติดตามยอดขาย", body:"Alfredo ขายผ่านร้านสะดวกซื้อและหน้าร้าน จึงไม่ใช้ ROAS หรือ CPA ในการวัดผล ตัวชี้วัดทั้งหมดในรายงานนี้อิงกับ Awareness และ Engagement เท่านั้น", good:null},
+  ] : [
+    {kicker:"CPM", title:a.cpm<12?"Within range":"Above range", body:`${thb(a.cpm)} CPM against the ฿8–17 SEA food & beverage band.`, good:a.cpm<12},
+    {kicker:"Cost per engagement", title:a.costPerEng<1.5?"Beating benchmark":"Above benchmark", body:`${thb(a.costPerEng)} per engagement versus the ~฿1.50 category benchmark.`, good:a.costPerEng<1.5},
+    {kicker:"CTR", title:a.ctr>0.88?"Above average":"Below average", body:`${pctS(a.ctr)} against the 0.88% food & beverage average. Engagement campaigns carry this figure.`, good:a.ctr>0.88},
+    {kicker:"Measurement", title:"No conversion tracking", body:"Alfredo sells through convenience and offline retail, so ROAS and CPA are not measurable. Every metric here is an awareness or engagement metric.", good:null},
+  ];
+  $("verdicts").innerHTML=verdicts.map(v=>{
+    const c=v.good===null?NEU:v.good?GOOD:BAD;
+    const bg=v.good===null?NEUBG:v.good?GOODBG:BADBG;
+    return `<div class="vd" style="background:${bg};border-color:${c}33">
+      <div class="vd-k" style="color:${c}">${v.kicker}</div>
+      <div class="vd-t">${v.title}</div>
+      <div class="vd-b">${v.body}</div></div>`;
+  }).join("");
 }
 
-function switchPeriod(period,btn){
-  activePeriod=period;
-  document.querySelectorAll('.period-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderAll();
+/* ---------- STRATEGY ---------- */
+function renderStrategy(){
+  const T_=t();
+  $("stratTitle").textContent=T_.stratTitle;
+  $("stratSub").textContent=T_.stratSub;
+  $("nextTitle").textContent=T_.nextTitle;
+  $("nextSub").textContent=T_.nextSub;
+
+  const ins=buildInsights();
+  $("insights").innerHTML=ins.map((i,n)=>{
+    const pos=["Positive","ดี","High","สูง"].includes(i.impact);
+    const warn=["Watch","ติดตาม"].includes(i.impact);
+    const c=warn?BAD:pos?GOOD:NEU, bg=warn?BADBG:pos?GOODBG:NEUBG;
+    return `<div class="ins">
+      <div class="ins-top">
+        <span class="ins-n">${String(n+1).padStart(2,"0")}</span>
+        <span class="ins-tag" style="color:${c};background:${bg}">${i.tag}</span>
+      </div>
+      <div class="ins-t">${i.title}</div>
+      <div class="ins-b">${i.body}</div>
+    </div>`;
+  }).join("");
+
+  const steps=buildNextSteps();
+  $("nextSteps").innerHTML=steps.map((s,n)=>`
+    <div class="ns">
+      <div class="ns-n">${n+1}</div>
+      <div class="ns-c">
+        <div class="ns-t">${s.title}</div>
+        <div class="ns-b">${s.body}</div>
+        <div class="ns-m"><span>${s.when}</span><span>·</span><span>${s.owner}</span></div>
+      </div>
+    </div>`).join("");
 }
 
-// Period bar button IDs needed by renderAll
-document.getElementById('btnCurr') || document.querySelectorAll('.period-btn')[0].id || (() => {
-  const btns = document.querySelectorAll('.period-btn');
-  if(btns[0]) btns[0].id = 'btnCurr';
-  if(btns[1]) btns[1].id = 'btnPrev';
-})();
+/* ---------- MASTER ---------- */
+function renderAll(){
+  renderChrome();
+  if(TAB===0) renderOverview();
+  if(TAB===1) renderPerformance();
+  if(TAB===2) renderCreatives();
+  if(TAB===3) renderBenchmark();
+  if(TAB===4) renderStrategy();
+}
+function setTab(i){ TAB=i; renderAll(); window.scrollTo({top:0,behavior:"smooth"}); }
+function setLang(l){ LANG=l; renderAll(); }
+function onPeriod(v){ CUR=v; if(CMP===CUR){ CMP=MONTH_KEYS.find(k=>k!==CUR)||CUR; } renderAll(); }
+function onCompare(v){ CMP=v; renderAll(); }
 
+
+/* boot */
+document.documentElement.lang = LANG;
+const _setLang = setLang;
+setLang = function(l){ document.documentElement.lang=l; _setLang(l); };
 renderAll();
 </script>
 </body>
