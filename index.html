@@ -3,6 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'none';
+  script-src 'unsafe-inline';
+  style-src 'unsafe-inline' https://fonts.googleapis.com;
+  font-src https://fonts.gstatic.com;
+  img-src 'self' data:;
+  connect-src 'none';
+  form-action 'none';
+  base-uri 'none'">
 <title>Alfredo · Meta Ads Report</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -815,19 +824,19 @@ function buildInsights(){
     { tag:"Efficiency", title:`Cost per engagement ${cpeD.pct<0?"improved":"rose"} ${Math.abs(cpeD.pct).toFixed(0)}% to ${thb(a.costPerEng)}`,
       body:`Against the comparison period (${thb(pa.costPerEng)}), your blended cost per engagement is now ${thb(a.costPerEng)}. The F&B benchmark sits near ฿1.50, so you are ${a.costPerEng<1.5?"comfortably ahead":"running above the benchmark"}.`,
       impact:a.costPerEng<1.5?"Positive":"Watch" },
-    bestEng ? { tag:"Winner", title:`${bestEng.name} is your cheapest engagement at ${thb(bestEng.costPerEng)}`,
+    bestEng ? { tag:"Winner", title:`${esc(bestEng.name)} is your cheapest engagement at ${thb(bestEng.costPerEng)}`,
       body:`It delivered ${num(bestEng.engagements)} engagements and ${pctS(bestEng.ctr)} CTR on ${thb(bestEng.spend)}. This creative format and audience combination is your repeatable template.`,
       impact:"High" } : null,
-    worstAw ? { tag:"Drag", title:`${worstAw.name} costs ${thb(worstAw.costPerEng)} per engagement`,
+    worstAw ? { tag:"Drag", title:`${esc(worstAw.name)} costs ${thb(worstAw.costPerEng)} per engagement`,
       body:`It spent ${thb(worstAw.spend)} for only ${num(worstAw.engagements)} engagements at ${pctS(worstAw.ctr)} CTR. For an awareness campaign some of this is expected — but the gap versus your other awareness ads suggests a creative problem, not an objective one.`,
       impact:"High" } : null,
     { tag:"Reach", title:`CTR ${ctrD.pct>0?"climbed":"fell"} to ${pctS(a.ctr)} from ${pctS(pa.ctr)}`,
       body:`Link CTR moved ${ctrD.txt} period over period while CPC moved ${cpcD.txt}. ${a.ctr>0.88?"You are above the 0.88% F&B benchmark.":"You are below the 0.88% F&B benchmark — pull awareness creatives that drag the blended figure down."}`,
       impact:a.ctr>0.88?"Positive":"Watch" },
-    cheapPl ? { tag:"Placement", title:`${cheapPl.name} delivers the cheapest reach at ฿${cheapPl.cpm.toFixed(1)} CPM`,
+    cheapPl ? { tag:"Placement", title:`${esc(cheapPl.name)} delivers the cheapest reach at ฿${cheapPl.cpm.toFixed(1)} CPM`,
       body:`It is currently ${((cheapPl.spend/tot)*100).toFixed(0)}% of spend. For pure awareness objectives this is the most impressions per baht available in the account.`,
       impact:"Medium" } : null,
-    bestPl ? { tag:"Placement", title:`${bestPl.name} gives the cheapest engagement at ${thb(bestPl.costPerEng)}`,
+    bestPl ? { tag:"Placement", title:`${esc(bestPl.name)} gives the cheapest engagement at ${thb(bestPl.costPerEng)}`,
       body:`Engagement-objective campaigns should be weighted here. It converts attention into interaction more efficiently than any other placement this period.`,
       impact:"Medium" } : null,
     { tag:"Frequency", title:`Frequency at ${a.frequency.toFixed(2)}× — ${a.frequency>2.5?"fatigue territory":a.frequency<1.5?"room to push":"healthy"}`,
@@ -842,19 +851,19 @@ function buildInsights(){
     { tag:"ประสิทธิภาพ", title:`ต้นทุนต่อการมีส่วนร่วม${cpeD.pct<0?"ดีขึ้น":"เพิ่มขึ้น"} ${Math.abs(cpeD.pct).toFixed(0)}% เป็น ${thb(a.costPerEng)}`,
       body:`เทียบกับช่วงก่อน (${thb(pa.costPerEng)}) ต้นทุนต่อการมีส่วนร่วมรวมอยู่ที่ ${thb(a.costPerEng)} เกณฑ์อุตสาหกรรมอาหารอยู่ราว ฿1.50 ดังนั้นคุณ${a.costPerEng<1.5?"ดีกว่าเกณฑ์":"สูงกว่าเกณฑ์"}`,
       impact:a.costPerEng<1.5?"ดี":"ติดตาม" },
-    bestEng ? { tag:"ดีที่สุด", title:`${bestEng.name} ต้นทุนต่อการมีส่วนร่วมถูกที่สุด ${thb(bestEng.costPerEng)}`,
+    bestEng ? { tag:"ดีที่สุด", title:`${esc(bestEng.name)} ต้นทุนต่อการมีส่วนร่วมถูกที่สุด ${thb(bestEng.costPerEng)}`,
       body:`สร้างการมีส่วนร่วม ${num(bestEng.engagements)} ครั้ง CTR ${pctS(bestEng.ctr)} ด้วยงบ ${thb(bestEng.spend)} รูปแบบครีเอทีฟและกลุ่มเป้าหมายนี้คือแม่แบบที่ควรทำซ้ำ`,
       impact:"สูง" } : null,
-    worstAw ? { tag:"จุดอ่อน", title:`${worstAw.name} ต้นทุนต่อการมีส่วนร่วม ${thb(worstAw.costPerEng)}`,
+    worstAw ? { tag:"จุดอ่อน", title:`${esc(worstAw.name)} ต้นทุนต่อการมีส่วนร่วม ${thb(worstAw.costPerEng)}`,
       body:`ใช้งบ ${thb(worstAw.spend)} ได้การมีส่วนร่วมเพียง ${num(worstAw.engagements)} ครั้ง CTR ${pctS(worstAw.ctr)} สำหรับแคมเปญ Awareness เป็นเรื่องปกติบางส่วน แต่ช่องว่างเทียบกับ Awareness ตัวอื่นบ่งชี้ว่าเป็นปัญหาที่ครีเอทีฟ`,
       impact:"สูง" } : null,
     { tag:"การเข้าถึง", title:`CTR ${ctrD.pct>0?"เพิ่มขึ้น":"ลดลง"}เป็น ${pctS(a.ctr)} จาก ${pctS(pa.ctr)}`,
       body:`CTR เปลี่ยนแปลง ${ctrD.txt} ขณะที่ CPC เปลี่ยน ${cpcD.txt} ${a.ctr>0.88?"สูงกว่าเกณฑ์ F&B ที่ 0.88%":"ต่ำกว่าเกณฑ์ F&B ที่ 0.88% ควรตรวจสอบครีเอทีฟ Awareness ที่ฉุดค่าเฉลี่ย"}`,
       impact:a.ctr>0.88?"ดี":"ติดตาม" },
-    cheapPl ? { tag:"ตำแหน่ง", title:`${cheapPl.name} ให้การเข้าถึงถูกที่สุดที่ CPM ฿${cheapPl.cpm.toFixed(1)}`,
+    cheapPl ? { tag:"ตำแหน่ง", title:`${esc(cheapPl.name)} ให้การเข้าถึงถูกที่สุดที่ CPM ฿${cheapPl.cpm.toFixed(1)}`,
       body:`ปัจจุบันคิดเป็น ${((cheapPl.spend/tot)*100).toFixed(0)}% ของงบ สำหรับวัตถุประสงค์ Awareness ล้วน นี่คือการแสดงผลต่อบาทที่คุ้มที่สุดในบัญชี`,
       impact:"กลาง" } : null,
-    bestPl ? { tag:"ตำแหน่ง", title:`${bestPl.name} ให้ต้นทุนต่อการมีส่วนร่วมถูกที่สุด ${thb(bestPl.costPerEng)}`,
+    bestPl ? { tag:"ตำแหน่ง", title:`${esc(bestPl.name)} ให้ต้นทุนต่อการมีส่วนร่วมถูกที่สุด ${thb(bestPl.costPerEng)}`,
       body:`แคมเปญที่เน้น Engagement ควรถ่วงน้ำหนักมาที่นี่ เปลี่ยนความสนใจเป็นการมีส่วนร่วมได้คุ้มค่าที่สุดในช่วงนี้`,
       impact:"กลาง" } : null,
     { tag:"ความถี่", title:`ความถี่ ${a.frequency.toFixed(2)}× — ${a.frequency>2.5?"เสี่ยงโฆษณาซ้ำ":a.frequency<1.5?"ยังเพิ่มได้":"เหมาะสม"}`,
@@ -875,30 +884,30 @@ function buildNextSteps(){
   const deadPl=[...m.placements].filter(x=>x.spend<300 && x.ctr<0.05);
 
   const EN=[
-    bestEng && {title:`Scale ${bestEng.name}`, when:"This week", owner:"Media buyer",
+    bestEng && {title:`Scale ${esc(bestEng.name)}`, when:"This week", owner:"Media buyer",
       body:`At ${thb(bestEng.costPerEng)} per engagement and ${pctS(bestEng.ctr)} CTR this is your most efficient asset. Raise its daily budget 2–3× and reuse the same creative treatment on the next product post.`},
-    worstAny && {title:`Rebuild or pause ${worstAny.name}`, when:"Before next flight", owner:"Creative",
+    worstAny && {title:`Rebuild or pause ${esc(worstAny.name)}`, when:"Before next flight", owner:"Creative",
       body:`${thb(worstAny.costPerEng)} per engagement on ${thb(worstAny.spend)} spend is the biggest single drag on blended efficiency. Rework the opening frame and first-line copy, then re-test at a small budget before committing.`},
     {title:`Move engagement share toward 35–40%`, when:"Next cycle", owner:"Planning",
       body:`Engagement currently sits at ${engShare.toFixed(0)}% of budget. Since conversions cannot be tracked, engagement volume and cost per engagement are your clearest quality signals — weighting toward them gives you sharper feedback each month.`},
-    cheapPl && {title:`Shift awareness reach to ${cheapPl.name}`, when:"Next cycle", owner:"Media buyer",
+    cheapPl && {title:`Shift awareness reach to ${esc(cheapPl.name)}`, when:"Next cycle", owner:"Media buyer",
       body:`At ฿${cheapPl.cpm.toFixed(1)} CPM it is the cheapest impression source in the account. Route 15–20% more of the awareness budget here to lift reach without raising total spend.`},
-    deadPl.length ? {title:`Trim ${deadPl.map(p=>p.name).join(", ")}`, when:"Immediate", owner:"Media buyer",
+    deadPl.length ? {title:`Trim ${deadPl.map(p=>esc(p.name)).join(", ")}`, when:"Immediate", owner:"Media buyer",
       body:`These placements are absorbing budget with negligible CTR. Removing them lets Meta redistribute delivery to placements that are already performing.`} : null,
     {title:`Log ad recall lift alongside spend`, when:"Ongoing", owner:"Reporting",
       body:`With no conversion signal, estimated ad recall lift is the closest proxy for awareness effectiveness. Track it monthly so awareness campaigns are judged on their own objective rather than on click metrics they were never optimised for.`},
   ].filter(Boolean);
 
   const TH=[
-    bestEng && {title:`เพิ่มงบ ${bestEng.name}`, when:"สัปดาห์นี้", owner:"ทีมซื้อสื่อ",
+    bestEng && {title:`เพิ่มงบ ${esc(bestEng.name)}`, when:"สัปดาห์นี้", owner:"ทีมซื้อสื่อ",
       body:`ต้นทุนต่อการมีส่วนร่วม ${thb(bestEng.costPerEng)} และ CTR ${pctS(bestEng.ctr)} คือสินทรัพย์ที่มีประสิทธิภาพที่สุด เพิ่มงบรายวัน 2–3 เท่า และใช้แนวทางครีเอทีฟเดียวกันกับโพสต์สินค้าถัดไป`},
-    worstAny && {title:`ทำใหม่หรือหยุด ${worstAny.name}`, when:"ก่อนรอบถัดไป", owner:"ครีเอทีฟ",
+    worstAny && {title:`ทำใหม่หรือหยุด ${esc(worstAny.name)}`, when:"ก่อนรอบถัดไป", owner:"ครีเอทีฟ",
       body:`ต้นทุน ${thb(worstAny.costPerEng)} ต่อการมีส่วนร่วม บนงบ ${thb(worstAny.spend)} คือจุดที่ฉุดประสิทธิภาพรวมมากที่สุด ปรับเฟรมแรกและข้อความบรรทัดแรก แล้วทดสอบด้วยงบน้อยก่อน`},
     {title:`ปรับสัดส่วน Engagement ไปที่ 35–40%`, when:"รอบถัดไป", owner:"วางแผน",
       body:`ปัจจุบัน Engagement อยู่ที่ ${engShare.toFixed(0)}% ของงบ เนื่องจากไม่สามารถติดตามยอดขายได้ ปริมาณการมีส่วนร่วมและต้นทุนต่อการมีส่วนร่วมคือสัญญาณคุณภาพที่ชัดที่สุด`},
-    cheapPl && {title:`ย้ายงบ Awareness ไปที่ ${cheapPl.name}`, when:"รอบถัดไป", owner:"ทีมซื้อสื่อ",
+    cheapPl && {title:`ย้ายงบ Awareness ไปที่ ${esc(cheapPl.name)}`, when:"รอบถัดไป", owner:"ทีมซื้อสื่อ",
       body:`CPM ฿${cheapPl.cpm.toFixed(1)} คือแหล่งการแสดงผลที่ถูกที่สุดในบัญชี โยกงบ Awareness มาเพิ่ม 15–20% เพื่อเพิ่มการเข้าถึงโดยไม่เพิ่มงบรวม`},
-    deadPl.length ? {title:`ตัด ${deadPl.map(p=>p.name).join(", ")}`, when:"ทันที", owner:"ทีมซื้อสื่อ",
+    deadPl.length ? {title:`ตัด ${deadPl.map(p=>esc(p.name)).join(", ")}`, when:"ทันที", owner:"ทีมซื้อสื่อ",
       body:`ตำแหน่งเหล่านี้ใช้งบโดยมี CTR แทบเป็นศูนย์ การลบออกจะทำให้ Meta กระจายการแสดงผลไปยังตำแหน่งที่ทำได้ดีอยู่แล้ว`} : null,
     {title:`บันทึกการจดจำโฆษณาควบคู่กับค่าใช้จ่าย`, when:"ต่อเนื่อง", owner:"รายงาน",
       body:`เมื่อไม่มีสัญญาณยอดขาย การจดจำโฆษณา (ประมาณการ) คือตัวแทนที่ใกล้เคียงที่สุดของประสิทธิผล Awareness ควรติดตามทุกเดือนเพื่อวัดผลตามวัตถุประสงค์จริง`},
@@ -913,6 +922,15 @@ function buildNextSteps(){
    ============================================================ */
 const $ = id => document.getElementById(id);
 
+/* --- security: escape all data-derived strings before HTML interpolation --- */
+const esc = v => String(v==null?"":v)
+  .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+/* CSS class names: allow only safe characters */
+const escCls = v => String(v==null?"":v).replace(/[^a-zA-Z0-9_-]/g,"");
+/* URL path/query segment */
+const escUrl = v => encodeURIComponent(String(v==null?"":v));
+
 function renderChrome(){
   const T_=t();
   $("kicker").textContent = T_.kicker;
@@ -923,7 +941,7 @@ function renderChrome(){
 
   // month selectors
   const opts = k => MONTH_KEYS.map(mk =>
-    `<option value="${mk}" ${mk===k?"selected":""}>${MONTHS[mk].label[LANG]} · ${MONTHS[mk].range[LANG]}</option>`
+    `<option value="${esc(mk)}" ${mk===k?"selected":""}>${esc(MONTHS[mk].label[LANG])} · ${esc(MONTHS[mk].range[LANG])}</option>`
   ).join("");
   $("periodSel").innerHTML  = opts(CUR);
   $("compareSel").innerHTML = opts(CMP);
@@ -1113,7 +1131,7 @@ function renderPerformance(){
       {v:thb(c.costPerEng),    s:heatCell(c.costPerEng,[1.0,6],true)},
     ];
     return `<div class="heat-row">
-      <div class="hr-n" title="${c.name}">${c.name}<span class="hr-o ${c.obj}">${c.obj==="awareness"?T_.awareness:T_.engagement}</span></div>
+      <div class="hr-n" title="${esc(c.name)}">${esc(c.name)}<span class="hr-o ${escCls(c.obj)}">${c.obj==="awareness"?T_.awareness:T_.engagement}</span></div>
       ${cells.map(x=>`<div class="hcell" style="background:${x.s.bg};color:${x.s.fg}">${x.v}</div>`).join("")}
     </div>`;
   }).join("");
@@ -1132,8 +1150,8 @@ function renderPerformance(){
   $("campRows").innerHTML = [...m.campaigns].sort((a,b)=>b.spend-a.spend).map(c=>{
     const good = c.obj==="engagement" ? c.costPerEng<1.0 : c.costPerEng<8;
     return `<div class="camp-row">
-      <div class="c-n">${c.name}</div>
-      <div><span class="obj ${c.obj}">${c.obj==="awareness"?T_.awareness:T_.engagement}</span></div>
+      <div class="c-n">${esc(c.name)}</div>
+      <div><span class="obj ${escCls(c.obj)}">${c.obj==="awareness"?T_.awareness:T_.engagement}</span></div>
       <div class="r">${thb(c.spend)}</div>
       <div class="r">${kNum(c.reach)}</div>
       <div class="r">${num(c.engagements)}</div>
@@ -1164,7 +1182,7 @@ function renderPerformance(){
         </svg>
         <div class="plat-pct">${pct.toFixed(0)}%</div>
       </div>
-      <div class="plat-n">${name}</div>
+      <div class="plat-n">${esc(name)}</div>
       <div class="plat-s">${thb(v.spend)}</div>
       <div class="plat-s">${T_.cpe} ${thb(v.cpeSum/v.n)}</div>
     </div>`;
@@ -1177,7 +1195,7 @@ function renderPerformance(){
   $("plRows").innerHTML=[...m.placements].sort((a,b)=>b.spend-a.spend).map(p=>{
     const good=p.costPerEng<1.5;
     return `<div class="pl-row">
-      <div>${p.name}</div>
+      <div>${esc(p.name)}</div>
       <div class="r">${thb(p.spend)}</div>
       <div class="r">${pctS(p.ctr)}</div>
       <div class="r">฿${p.cpm.toFixed(1)}</div>
@@ -1199,7 +1217,7 @@ function renderCreatives(){
   ];
   $("creatives").innerHTML=slots.map(s=>{
     const c=cr[s.k]; if(!c) return "";
-    const url=`https://www.facebook.com/adsmanager/reporting/view?act=${AD_ACCOUNT}&selected_ad_ids=${c.adId}`;
+    const url=`https://www.facebook.com/adsmanager/reporting/view?act=${escUrl(AD_ACCOUNT)}&selected_ad_ids=${escUrl(c.adId)}`;
     const metrics=[
       {k:T_.spend, v:thb(c.spend)},
       {k:T_.stEng, v:num(c.engagements)},
@@ -1218,12 +1236,12 @@ function renderCreatives(){
         <span class="cr-fmt">${c.format==="video"?(LANG==="th"?"วิดีโอ":"Video"):(LANG==="th"?"รูปภาพ":"Image")}</span>
       </div>
       <div class="cr-body">
-        <div class="cr-name">${c.name}</div>
-        <div class="cr-id">Ad ID ${c.adId}</div>
+        <div class="cr-name">${esc(c.name)}</div>
+        <div class="cr-id">Ad ID ${esc(c.adId)}</div>
         <div class="cr-metrics">
-          ${metrics.map(x=>`<div class="crm"><span>${x.k}</span><b>${x.v}</b></div>`).join("")}
+          ${metrics.map(x=>`<div class="crm"><span>${esc(x.k)}</span><b>${esc(x.v)}</b></div>`).join("")}
         </div>
-        <a class="cr-link" href="${url}" target="_blank" rel="noopener">${T_.viewInMeta}</a>
+        <a class="cr-link" href="${esc(url)}" target="_blank" rel="noopener">${T_.viewInMeta}</a>
       </div>
     </div>`;
   }).join("");
@@ -1327,10 +1345,10 @@ function renderAll(){
   if(TAB===3) renderBenchmark();
   if(TAB===4) renderStrategy();
 }
-function setTab(i){ TAB=i; renderAll(); window.scrollTo({top:0,behavior:"smooth"}); }
-function setLang(l){ LANG=l; renderAll(); }
-function onPeriod(v){ CUR=v; if(CMP===CUR){ CMP=MONTH_KEYS.find(k=>k!==CUR)||CUR; } renderAll(); }
-function onCompare(v){ CMP=v; renderAll(); }
+function setTab(i){ i=Number(i); if(!Number.isInteger(i)||i<0||i>4)return; TAB=i; renderAll(); window.scrollTo({top:0,behavior:"smooth"}); }
+function setLang(l){ if(l!=='en'&&l!=='th')return; LANG=l; renderAll(); }
+function onPeriod(v){ if(!Object.prototype.hasOwnProperty.call(MONTHS,v))return; CUR=v; if(CMP===CUR){ CMP=MONTH_KEYS.find(k=>k!==CUR)||CUR; } renderAll(); }
+function onCompare(v){ if(!Object.prototype.hasOwnProperty.call(MONTHS,v))return; CMP=v; renderAll(); }
 
 
 /* boot */
