@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Alfredo · LINE Sign-up Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--red:#c40f15;--gold:#ffc045;--ink:#2a211c;--muted:#7d6f64;--line:#eadfcc;--bg:#f8f3eb;--card:#fff;--soft:#faf5ec;
+--hf:'Cormorant Garamond',Georgia,'Sarabun',serif;--bf:'DM Sans','Sarabun',system-ui,sans-serif;
+--font-anthropic-sans:var(--bf);--font-anthropic-serif:var(--hf);--color-fg:var(--ink);--color-fg-muted:var(--muted);--color-panel:var(--card);--color-border-line:var(--line);
+--color-ok:#2e7d4f;--color-warn:#a86500;--color-bad:var(--red);--cds-radius:12px;--cds-gap-xs:4px;--cds-gap-sm:10px;--cds-gap-md:16px;--cds-gap-lg:28px;--cds-pad-xs:6px;--cds-pad-sm:10px;--cds-pad-lg:20px;--cds-pad-xl:28px;
+--cds-font-size-caption:13px;--cds-font-size-body:15px;--cds-font-size-heading:24px;--cds-font-size-title:34px;--cds-font-weight-medium:600;--cds-chart-muted:#b9a993;--cds-chart-grid:#f2ead9;
+--cds-surface-popover:#fff;--cds-border:var(--line);--cds-shadow-popover:0 4px 14px rgba(42,33,28,.14);--cds-text-secondary:var(--muted)}
+html[lang=th]{--hf:'Sarabun',Georgia,serif;--bf:'Sarabun','DM Sans',system-ui,sans-serif;--cds-font-size-heading:21px;--cds-font-size-title:30px}
+body{background:var(--bg);color:var(--ink);font-family:var(--bf);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+@media(max-width:760px){.wrap{padding:0 18px}}
+.hdr{background:#fffdf9;border-bottom:1px solid var(--line)}
+.hdr-in{display:flex;align-items:center;gap:16px;padding:16px 0;flex-wrap:wrap}
+.logo{width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:600;flex:0 0 auto}
+.brand{font-family:'Cormorant Garamond',Georgia,serif;font-size:25px;line-height:1.1;font-weight:600}
+.kick{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.spacer{flex:1}
+.back{color:var(--red);font-size:13px;font-weight:600;text-decoration:none}
+.back:hover{text-decoration:underline}
+.langs{display:flex;padding:3px;gap:2px;background:#f2ead9;border-radius:9px}
+.lang{border:0;cursor:pointer;padding:8px 13px;border-radius:7px;font:inherit;font-size:12px;font-weight:600;letter-spacing:.06em;background:transparent;color:var(--muted)}
+.lang.on{background:var(--red);color:#fff}
+.lang:focus-visible,.back:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+main{padding:28px 0 64px}
+
+.al { --al-red:#c40f15; --al-red-line:#c40f15; --al-yellow:#ffc045; --al-on-red:#ffffff;  margin-inline:auto; display:grid; gap:var(--cds-gap-lg); font-family:var(--font-anthropic-sans); font-variant-numeric:tabular-nums; min-width:0; }
+.al:not(.al-th) [lang="th"] { display:none; }
+.al.al-th [lang="en"] { display:none; }
+.al * { box-sizing:border-box; min-width:0; }
+.al-hero { background:var(--al-red); color:var(--al-on-red); border-radius:var(--cds-radius); padding:var(--cds-pad-xl); display:grid; gap:var(--cds-gap-sm); }
+.al-hero-top { display:flex; flex-wrap:wrap; justify-content:space-between; gap:var(--cds-gap-sm); align-items:center; }
+.al-eyebrow { font-size:var(--cds-font-size-caption); letter-spacing:.04em; opacity:.92; }
+.al-hero h1 { font-family:var(--font-anthropic-serif); font-weight:400; font-size:var(--cds-font-size-title); margin:0; text-wrap:balance; color:var(--al-on-red); }
+.al-hero p { margin:0; font-size:var(--cds-font-size-body); line-height:1.6; max-width:72ch; color:var(--al-on-red); }
+.al .al-hero b { color:var(--al-yellow); font-weight:600; }
+.al-tiles { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap:var(--cds-gap-md); }
+.al-tile { background:var(--color-panel); border:1px solid var(--color-border-line); border-radius:var(--cds-radius); padding:var(--cds-pad-lg); display:grid; gap:var(--cds-gap-xs); align-content:start; }
+.al-tile-label { color:var(--color-fg-muted); font-size:var(--cds-font-size-caption); }
+.al-tile-value { font-family:var(--font-anthropic-serif); font-weight:400; font-size:var(--cds-font-size-title); line-height:1.15; color:var(--color-fg); }
+.al-tile-value.is-bad { color:var(--color-bad); }
+.al-tile-note { color:var(--color-fg-muted); font-size:var(--cds-font-size-caption); line-height:1.45; }
+.al-section { display:grid; gap:var(--cds-gap-md); }
+.al-section > h2 { margin:0; font-size:var(--cds-font-size-heading); font-weight:var(--cds-font-weight-medium); text-wrap:balance; }
+.al-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap:var(--cds-gap-md); }
+.al-card { background:var(--color-panel); border:1px solid var(--color-border-line); border-radius:var(--cds-radius); padding:var(--cds-pad-lg); display:grid; gap:var(--cds-gap-sm); align-content:start; }
+.al-card h3 { margin:0; font-size:var(--cds-font-size-body); font-weight:var(--cds-font-weight-medium); }
+.al-note { margin:0; color:var(--color-fg-muted); font-size:var(--cds-font-size-caption); line-height:1.5; }
+.al .al-note b { color:var(--color-fg); font-weight:600; }
+.al-chart { position:relative; min-height:240px; }
+.al-chart.tall { min-height:320px; }
+.al-chart svg { display:block; }
+.al-tip { position:absolute; z-index:2; background:var(--cds-surface-popover); border:1px solid var(--cds-border); border-radius:var(--cds-radius); box-shadow:var(--cds-shadow-popover); padding:var(--cds-pad-xs) var(--cds-pad-sm); font-size:var(--cds-font-size-caption); pointer-events:none; white-space:nowrap; }
+.al-tip div:first-child { color:var(--cds-text-secondary); }
+.al-scroll { overflow-x:auto; }
+.al-table { width:100%; border-collapse:collapse; font-size:var(--cds-font-size-caption); }
+.al-table th { text-align:right; font-weight:var(--cds-font-weight-medium); color:var(--color-fg-muted); padding:6px 8px; border-bottom:1px solid var(--color-border-line); white-space:nowrap; }
+.al-table td { text-align:right; padding:7px 8px; border-bottom:1px solid var(--color-border-line); white-space:nowrap; }
+.al-table th:first-child, .al-table td:first-child { text-align:left; padding-left:0; }
+.al-table td.left, .al-table th.left { text-align:left; }
+.al-table tr.is-key td { font-weight:600; }
+.al-pill { display:inline-block; padding:1px 8px; border-radius:999px; border:1px solid currentColor; }
+.al-pill.ok { color:var(--color-ok); } .al-pill.warn { color:var(--color-warn); } .al-pill.bad { color:var(--color-bad); }
+.al-funnel { display:grid; gap:var(--cds-gap-sm); }
+.al-step { display:grid; gap:2px; }
+.al-step-head { display:flex; justify-content:space-between; gap:var(--cds-gap-sm); font-size:var(--cds-font-size-caption); }
+.al-step-track { height:14px; border-radius:3px; background:var(--cds-chart-grid); overflow:hidden; }
+.al-step-bar { height:100%; background:var(--al-red-line); border-radius:3px; }
+.al-step-drop { color:var(--color-fg-muted); font-size:var(--cds-font-size-caption); }
+.al-step-drop.is-worst { color:var(--color-bad); font-weight:600; }
+.al-actions { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap:var(--cds-gap-md); }
+.al-action { background:var(--color-panel); border:1px solid var(--color-border-line); border-radius:var(--cds-radius); padding:var(--cds-pad-lg); display:grid; gap:var(--cds-gap-xs); align-content:start; }
+.al-action h3 { margin:0; font-size:var(--cds-font-size-body); font-weight:var(--cds-font-weight-medium); }
+.al-action p { margin:0; font-size:var(--cds-font-size-caption); line-height:1.55; color:var(--color-fg-muted); }
+.al .al-action b { color:var(--color-fg); font-weight:600; }
+.al-foot { color:var(--color-fg-muted); font-size:var(--cds-font-size-caption); line-height:1.6; display:grid; gap:var(--cds-gap-xs); }
+.al-foot p { margin:0; max-width:90ch; }
+[hidden]{display:none!important}
+.al{--al-red-line:#c40f15}
+.al-views{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
+.al-view{border:0;border-bottom:3px solid transparent;background:transparent;cursor:pointer;font:inherit;font-size:15px;font-weight:500;color:var(--muted);padding:10px 18px;white-space:nowrap}
+.al-view.on{border-bottom-color:var(--red);color:var(--red);font-weight:600}
+.al-view:focus-visible{outline:2px solid var(--red);outline-offset:-2px}
+.al-list{margin:0;padding-left:18px;display:grid;gap:8px;font-size:13px;line-height:1.55;color:var(--muted)}
+.al-share{display:grid;gap:4px}.al-share-name{font-size:13px;font-weight:600}
+.al-share-row{display:grid;grid-template-columns:72px 1fr 44px;gap:8px;align-items:center;font-size:12px;color:var(--muted)}
+.al-share-row b{text-align:right;color:var(--ink);font-weight:600}
+.al-share-bar{height:12px;border-radius:3px;background:var(--cds-chart-muted)}.al-share-bar.su{background:var(--al-red-line)}
+.al-hero h1{font-size:40px;line-height:1.15}
+@media(max-width:760px){.al-hero h1{font-size:30px}}
+</style>
+</head>
+<body>
+<header class="hdr"><div class="wrap"><div class="hdr-in">
+<div style="display:flex;align-items:center;gap:14px;min-width:0"><div class="logo">A</div><div><div class="brand">Alfredo</div><div class="kick" data-i18n-en="LINE sign-up report" data-i18n-th="รายงานยอดสมัคร LINE">LINE sign-up report</div></div></div>
+<div class="spacer"></div>
+<a class="back" href="./" data-i18n-en="← Monthly ads report" data-i18n-th="← รายงานโฆษณารายเดือน">← Monthly ads report</a>
+<div class="langs"><button class="lang on" data-lang="en" aria-pressed="true">EN</button><button class="lang" data-lang="th" aria-pressed="false">TH</button></div>
+</div></div></header>
+<main><div class="wrap">
+<div class="al">
+  <header class="al-hero" id="summary">
+    <div class="al-hero-top">
+      <span class="al-eyebrow"><span lang="en">Lucky draw on LINE · Facebook and TikTok traffic ads · Nov 1–5, 2026</span><span lang="th">ลุ้นโชคผ่าน LINE · โฆษณา Facebook และ TikTok · 1–5 พ.ย. 2026</span></span>
+      
+    </div>
+    <h1><span lang="en">Alfredo LINE sign-up report</span><span lang="th">รายงานยอดสมัคร Alfredo LINE</span></h1>
+    <p lang="en"><b data-draw="n-signups">—</b> people signed up against <b data-draw="n-spend">—</b> of ad spend, about <b data-draw="n-cost">—</b> per sign-up. The daily cost climbed from <b data-draw="n-first">—</b> to <b data-draw="n-latest">—</b> because spend held at about <b data-draw="n-pace">—</b> a day while sign-ups fell. If the latest day's pace holds, expect <b data-draw="n-exp">—</b> sign-ups by Nov 30.</p>
+    <p lang="th">มีผู้สมัคร <b data-draw="n-signups">—</b> คน จากงบโฆษณา <b data-draw="n-spend">—</b> เฉลี่ยประมาณ <b data-draw="n-cost">—</b> ต่อการสมัคร ต้นทุนรายวันเพิ่มจาก <b data-draw="n-first">—</b> เป็น <b data-draw="n-latest">—</b> เพราะใช้งบคงที่ราว <b data-draw="n-pace">—</b> ต่อวัน ขณะที่ยอดสมัครลดลง หากรักษาระดับของวันล่าสุดได้ คาดว่าจะมีผู้สมัคร <b data-draw="n-exp">—</b> คนภายใน 30 พ.ย.</p>
+  </header>
+
+  <div class="al-views" role="tablist" aria-label="Report view"><button type="button" class="al-view on" role="tab" data-show="summary"><span lang="en">Summary</span><span lang="th">สรุป</span></button><button type="button" class="al-view" role="tab" data-show="tiktok">TikTok</button><button type="button" class="al-view" role="tab" data-show="facebook">Facebook</button></div>
+
+  <section class="al-tiles" data-view="summary" aria-label="Headline figures">
+    <div class="al-tile">
+      <span class="al-tile-label"><span lang="en">Sign-ups, Nov 1–5</span><span lang="th">ยอดสมัคร 1–5 พ.ย.</span></span>
+      <span class="al-tile-value" data-draw="n-signups">—</span>
+      <span class="al-tile-note"><span lang="en"><span data-draw="n-before">—</span> came before ads started on Nov 2</span><span lang="th"><span data-draw="n-before">—</span> คนสมัครก่อนโฆษณาเริ่ม 2 พ.ย.</span></span>
+    </div>
+    <div class="al-tile">
+      <span class="al-tile-label"><span lang="en">Cost per sign-up</span><span lang="th">ต้นทุนต่อการสมัคร</span></span>
+      <span class="al-tile-value" data-draw="n-cost">—</span>
+      <span class="al-tile-note"><span lang="en">Spend ÷ <span data-draw="n-adsu">—</span> sign-ups since ads began</span><span lang="th">งบ ÷ ผู้สมัคร <span data-draw="n-adsu">—</span> คนนับจากเริ่มโฆษณา</span></span>
+    </div>
+    <div class="al-tile">
+      <span class="al-tile-label"><span lang="en">Cost per sign-up, Nov 5</span><span lang="th">ต้นทุนต่อการสมัคร 5 พ.ย.</span></span>
+      <span class="al-tile-value is-bad" data-draw="n-latest">—</span>
+      <span class="al-tile-note"><span lang="en">Up from <span data-draw="n-first">—</span> on Nov 2</span><span lang="th">เพิ่มจาก <span data-draw="n-first">—</span> เมื่อ 2 พ.ย.</span></span>
+    </div>
+    <div class="al-tile">
+      <span class="al-tile-label"><span lang="en">Ad spend, Nov 1–5</span><span lang="th">งบโฆษณา 1–5 พ.ย.</span></span>
+      <span class="al-tile-value" data-draw="n-spend">—</span>
+      <span class="al-tile-note">Facebook <span data-draw="n-meta">—</span> · TikTok <span data-draw="n-tt">—</span></span>
+    </div>
+    <div class="al-tile">
+      <span class="al-tile-label"><span lang="en">Expected by Nov 30</span><span lang="th">คาดการณ์ถึง 30 พ.ย.</span></span>
+      <span class="al-tile-value" data-draw="n-exp">—</span>
+      <span class="al-tile-note"><span lang="en">At <span data-draw="n-expd">—</span> sign-ups a day</span><span lang="th">ที่ <span data-draw="n-expd">—</span> คนต่อวัน</span></span>
+    </div>
+  </section>
+
+  <section class="al-section" id="trend" data-view="summary">
+    <h2><span lang="en">Sign-ups peaked on the first ad day, and each sign-up now costs about four times as much</span><span lang="th">ยอดสมัครสูงสุดในวันแรกของโฆษณา และตอนนี้ต้นทุนต่อการสมัครสูงขึ้นราว 4 เท่า</span></h2>
+    <div class="al-grid">
+      <div class="al-card" id="chart-signups">
+        <h3><span lang="en">Sign-ups per day</span><span lang="th">ยอดสมัครต่อวัน</span></h3>
+        <p class="al-note"><span lang="en">Google Analytics sign_up event. Nov 1 was before ads started.</span><span lang="th">จาก Google Analytics (sign_up) วันที่ 1 พ.ย. ยังไม่เริ่มโฆษณา</span></p>
+        <div class="al-chart" data-draw="c-signups"></div>
+      </div>
+      <div class="al-card" id="chart-cost">
+        <h3><span lang="en">Cost per sign-up per day</span><span lang="th">ต้นทุนต่อการสมัครรายวัน</span></h3>
+        <p class="al-note"><span lang="en">Facebook plus TikTok spend divided by that day's sign-ups, in baht.</span><span lang="th">งบ Facebook และ TikTok หารด้วยยอดสมัครของวันนั้น (บาท)</span></p>
+        <div class="al-chart" data-draw="c-cost"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="al-section" id="runrate" data-view="summary">
+    <h2><span lang="en">Run rate to Nov 30: about <span data-draw="n-spendm">—</span> of spend, and sign-ups depend on the trend</span><span lang="th">แนวโน้มถึง 30 พ.ย.: ใช้งบราว <span data-draw="n-spendm">—</span> ส่วนยอดสมัครขึ้นกับแนวโน้ม</span></h2>
+    <div class="al-card" id="chart-runrate">
+      <h3><span lang="en">Total sign-ups if we keep running</span><span lang="th">ยอดสมัครสะสมหากโฆษณาต่อ</span></h3>
+      <p class="al-note"><span lang="en">Solid line is actual. Dashed lines are the three cases in the table.</span><span lang="th">เส้นทึบคือยอดจริง เส้นประคือ 3 กรณีในตาราง</span></p>
+      <div class="al-chart tall" data-draw="c-run"></div>
+      <div class="al-scroll">
+        <table class="al-table">
+          <thead><tr>
+            <th><span lang="en">Case</span><span lang="th">กรณี</span></th>
+            <th><span lang="en">Sign-ups a day</span><span lang="th">สมัครต่อวัน</span></th>
+            <th><span lang="en">Total by Nov 30</span><span lang="th">รวมถึง 30 พ.ย.</span></th>
+            <th><span lang="en">Total spend</span><span lang="th">งบรวม</span></th>
+            <th><span lang="en">Cost per sign-up</span><span lang="th">ต้นทุนต่อการสมัคร</span></th>
+          </tr></thead>
+          <tbody data-draw="t-plan"></tbody>
+        </table>
+      </div>
+      <p class="al-note"><span lang="en">All cases keep the last three days' spend of <span data-draw="n-pace">—</span> a day for the 25 days left. That is above the two ฿600 daily budgets, which add up to ฿1,200. The falling case applies Nov 5's day-on-day drop every day.</span><span lang="th">ทุกกรณีใช้งบเฉลี่ย 3 วันล่าสุด <span data-draw="n-pace">—</span> ต่อวันใน 25 วันที่เหลือ ซึ่งสูงกว่างบรายวันรวม ฿1,200 (แพลตฟอร์มละ ฿600) กรณีลดลงต่อใช้อัตราลดของวันที่ 5 พ.ย. ทุกวัน</span></p>
+    </div>
+  </section>
+
+  <section class="al-section" id="funnel" data-view="summary">
+    <h2><span lang="en">Most people who log in finish signing up. Few have sent a receipt yet</span><span lang="th">คนที่ล็อกอินส่วนใหญ่สมัครสำเร็จ แต่ยังส่งใบเสร็จไม่มาก</span></h2>
+    <div class="al-grid">
+      <div class="al-card" id="chart-funnel">
+        <h3><span lang="en">People at each step, Nov 1–5</span><span lang="th">จำนวนคนในแต่ละขั้น 1–5 พ.ย.</span></h3>
+        <p class="al-note"><span lang="en">All traffic in Google Analytics, counted as users.</span><span lang="th">ทุกแหล่งที่มาใน Google Analytics นับเป็นผู้ใช้</span></p>
+        <div class="al-funnel" data-draw="c-funnel"></div>
+      </div>
+      <div class="al-card" id="chart-tracking">
+        <h3><span lang="en">Can GA split sign-ups by TikTok and Facebook? Not yet</span><span lang="th">GA แยกยอดสมัครตาม TikTok และ Facebook ได้ไหม ยังไม่ได้</span></h3>
+        <p class="al-note"><span lang="en">We checked GA at user level. People on the tagged ad link almost never log in under the same GA user, and no sign-up shows TikTok or Facebook as its referrer, so <b data-draw="n-direct">—</b> of sign-ups show as direct. The app is built to save the ad source on each customer, so we have asked the developer for the split from the app's database.</span><span lang="th">เราตรวจใน GA ระดับผู้ใช้แล้ว คนที่เข้าจากลิงก์โฆษณาที่ติดแท็กแทบไม่ล็อกอินภายใต้ผู้ใช้ GA คนเดิม และไม่มีการสมัครใดระบุที่มาเป็น TikTok หรือ Facebook <b data-draw="n-direct">—</b> ของยอดสมัครจึงแสดงเป็น direct แอปถูกออกแบบให้บันทึกแหล่งที่มาไว้กับลูกค้าแต่ละคน เราจึงขอตัวเลขแยกจากฐานข้อมูลของแอปกับนักพัฒนาแล้ว</span></p>
+        <div class="al-scroll">
+          <table class="al-table">
+            <thead><tr>
+              <th><span lang="en">Platform</span><span lang="th">แพลตฟอร์ม</span></th>
+              <th><span lang="en">Users on tagged links</span><span lang="th">ผู้ใช้จากลิงก์ติดแท็ก</span></th>
+              <th><span lang="en">Logged in</span><span lang="th">ล็อกอิน</span></th>
+              <th><span lang="en">Signed up in GA</span><span lang="th">สมัครใน GA</span></th>
+              <th><span lang="en">Platform reported</span><span lang="th">แพลตฟอร์มรายงาน</span></th>
+            </tr></thead>
+            <tbody data-draw="t-track"></tbody>
+          </table>
+        </div>
+        <p class="al-note"><span lang="en">So the blended cost counts every sign-up as if ads drove it. Sign-ups also arrive in short bursts around 10:00–12:00 most days, so another source such as LINE or a post may be helping. Until about Nov 4 TikTok ads went to lin.ee, which recorded no ad source. The developer is adding the source to sign_up and purchase in GA. Facebook's link also needs {{campaign.id}} and {{campaign.name}} in place of __CAMPAIGN_ID__ and __CAMPAIGN_NAME__.</span><span lang="th">ต้นทุนเฉลี่ยจึงนับทุกการสมัครว่ามาจากโฆษณา และการสมัครมักเข้ามาเป็นช่วงสั้น ๆ ราว 10:00–12:00 น. จึงอาจมีแหล่งอื่นช่วยด้วย เช่น LINE หรือโพสต์ ก่อนประมาณ 4 พ.ย. โฆษณา TikTok ไปที่ lin.ee ซึ่งไม่บันทึกแหล่งที่มา นักพัฒนากำลังเพิ่มแหล่งที่มาให้ sign_up และ purchase ใน GA นอกจากนี้ลิงก์ Facebook ต้องใช้ {{campaign.id}} และ {{campaign.name}} แทน __CAMPAIGN_ID__ และ __CAMPAIGN_NAME__</span></p>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section class="al-section" id="optimize" data-view="summary">
+    <h2><span lang="en">Both platforms are optimizing for traffic, not sign-ups</span><span lang="th">ทั้งสองแพลตฟอร์มกำลังเน้นทราฟฟิก ไม่ใช่ยอดสมัคร</span></h2>
+    <div class="al-grid">
+      <div class="al-card">
+        <h3><span lang="en">Today</span><span lang="th">ตอนนี้</span></h3>
+        <div class="al-scroll"><table class="al-table"><thead><tr><th><span lang="en">Platform</span><span lang="th">แพลตฟอร์ม</span></th><th class="left"><span lang="en">Optimizing for now</span><span lang="th">เน้นอยู่ตอนนี้</span></th><th class="left"><span lang="en">Recommended</span><span lang="th">แนะนำ</span></th></tr></thead>
+        <tbody><tr><td>TikTok</td><td class="left"><span lang="en">Clicks</span><span lang="th">คลิก</span></td><td class="left"><span lang="en">Lead</span><span lang="th">ลีด</span></td></tr>
+        <tr><td>Facebook</td><td class="left"><span lang="en">Landing page views</span><span lang="th">การดูหน้า Landing Page</span></td><td class="left"><span lang="en">Sign-up (complete registration)</span><span lang="th">การสมัคร (Complete Registration)</span></td></tr></tbody></table></div>
+      </div>
+      <div class="al-card">
+        <h3><span lang="en">Why changing this should bring more sign-ups</span><span lang="th">ทำไมการเปลี่ยนนี้น่าจะเพิ่มยอดสมัคร</span></h3>
+        <p class="al-note"><span lang="en">Each platform finds the people most likely to do the action we ask for. Asking for clicks and page views brings cheap visits. Asking for leads and sign-ups points the same budget at people likely to finish signing up. The cost per click may rise, and delivery can dip while the platforms relearn. TikTok's pixel can already optimize for Complete Registration, but the developer should first confirm its click ID is reaching TikTok.</span><span lang="th">แต่ละแพลตฟอร์มจะหาคนที่น่าจะทำสิ่งที่เราตั้งเป้าไว้ การตั้งเป้าเป็นคลิกและการดูหน้าได้ผู้เข้าชมราคาถูก ส่วนการตั้งเป้าเป็นลีดและการสมัครจะพางบเดิมไปหาคนที่น่าจะสมัครจนจบ ต้นทุนต่อคลิกอาจสูงขึ้น และการแสดงผลอาจลดลงช่วงที่ระบบเรียนรู้ใหม่ Pixel ของ TikTok ใช้ Complete Registration ได้แล้ว แต่นักพัฒนาควรยืนยันก่อนว่า click ID ส่งถึง TikTok</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="al-section" id="next" data-view="summary">
+    <h2><span lang="en">Recommended next steps</span><span lang="th">สิ่งที่แนะนำให้ทำต่อ</span></h2>
+    <div class="al-actions">
+      <div class="al-action"><h3><span lang="en">Optimize for sign-ups</span><span lang="th">ปรับเป้าเป็นยอดสมัคร</span></h3><p><span lang="en">Change TikTok to lead and Facebook to sign-up once the developer confirms the click IDs are arriving.</span><span lang="th">เปลี่ยน TikTok เป็นลีด และ Facebook เป็นการสมัคร เมื่อนักพัฒนายืนยันว่า click ID ส่งถึงแพลตฟอร์มแล้ว</span></p></div>
+      <div class="al-action"><h3><span lang="en">Move Facebook money to Album</span><span lang="th">ย้ายงบ Facebook ไป Album</span></h3><p><span lang="en">Album beats Reels on both landing page views and sign-ups. Give it its own budget so Facebook can't keep spending on Reels.</span><span lang="th">Album ดีกว่า Reels ทั้งการดูหน้า Landing Page และยอดสมัคร ควรแยกงบให้ Album เพื่อไม่ให้ Facebook ใช้งบกับ Reels ต่อ</span></p></div>
+      <div class="al-action"><h3><span lang="en">Fix ad source tracking</span><span lang="th">แก้การติดตามแหล่งที่มา</span></h3><p><span lang="en">Get the split from the app's database now, then send the ad source to GA so sign-ups and purchases report by platform.</span><span lang="th">ขอตัวเลขแยกจากฐานข้อมูลของแอปก่อน แล้วส่งแหล่งที่มาเข้า GA เพื่อรายงานยอดสมัครและยอดซื้อแยกตามแพลตฟอร์ม</span></p></div>
+      <div class="al-action"><h3><span lang="en">Replace the iPhone prize image on TikTok</span><span lang="th">เปลี่ยนภาพรางวัล iPhone บน TikTok</span></h3><p><span lang="en">TikTok rejected two ads in Thailand on Nov 4 under its Counterfeit Products policy, citing the iPhone imagery.</span><span lang="th">TikTok ปฏิเสธโฆษณา 2 ชิ้นในไทยเมื่อ 4 พ.ย. ภายใต้นโยบายสินค้าปลอมแปลง เนื่องจากภาพ iPhone</span></p></div>
+    </div>
+  </section>
+
+  <section class="al-section" id="tt" data-view="tiktok" hidden>
+    <h2><span lang="en">TikTok brings cheap clicks, but it isn't crediting sign-ups yet</span><span lang="th">TikTok ได้คลิกราคาถูก แต่ยังไม่นับยอดสมัครให้</span></h2>
+    <div class="al-tiles">
+      <div class="al-tile"><span class="al-tile-label"><span lang="en">Spend, Nov 1–5</span><span lang="th">งบ 1–5 พ.ย.</span></span><span class="al-tile-value" data-draw="n-tt">—</span><span class="al-tile-note"><span lang="en">Optimizing for clicks</span><span lang="th">เน้นคลิก</span></span></div>
+      <div class="al-tile"><span class="al-tile-label"><span lang="en">Clicks</span><span lang="th">คลิก</span></span><span class="al-tile-value" data-draw="tt-clicks">—</span><span class="al-tile-note"><span lang="en">CTR</span><span lang="th">CTR</span> <span data-draw="tt-ctr">—</span></span></div>
+      <div class="al-tile"><span class="al-tile-label"><span lang="en">Cost per click</span><span lang="th">ต้นทุนต่อคลิก</span></span><span class="al-tile-value" data-draw="tt-cpc">—</span><span class="al-tile-note">CPM <span data-draw="tt-cpm">—</span></span></div>
+      <div class="al-tile"><span class="al-tile-label"><span lang="en">Reported sign-ups</span><span lang="th">ยอดสมัครที่รายงาน</span></span><span class="al-tile-value is-bad">0</span><span class="al-tile-note"><span lang="en">Developer is checking the click ID</span><span lang="th">นักพัฒนากำลังตรวจ click ID</span></span></div>
+    </div>
+    <div class="al-grid">
+      <div class="al-card"><h3><span lang="en">Clicks per day</span><span lang="th">คลิกต่อวัน</span></h3><p class="al-note"><span lang="en">Destination clicks in TikTok Ads Manager.</span><span lang="th">คลิกไปยังปลายทางจาก TikTok Ads Manager</span></p><div class="al-chart" data-draw="c-tt"></div></div>
+      <div class="al-card"><h3><span lang="en">What to check</span><span lang="th">สิ่งที่ต้องตรวจ</span></h3><p class="al-note"><span lang="en">TikTok reports <b data-draw="tt-clicks">—</b> clicks, but GA found only <b data-draw="tt-users">—</b> users on the tagged link, about <b data-draw="n-ttrate">—</b>. The 12.5% click rate is unusually high, so check how many people get through the jump into LINE and whether clicks are accidental. Two ads were rejected in Thailand on Nov 4 because of the iPhone prize image.</span><span lang="th">TikTok รายงาน <b data-draw="tt-clicks">—</b> คลิก แต่ GA พบผู้ใช้จากลิงก์ติดแท็กเพียง <b data-draw="tt-users">—</b> คน หรือประมาณ <b data-draw="n-ttrate">—</b> อัตราคลิก 12.5% สูงผิดปกติ ควรตรวจว่ามีคนเปิดเข้า LINE สำเร็จเท่าไร และเป็นการคลิกโดยไม่ตั้งใจหรือไม่ นอกจากนี้โฆษณา 2 ชิ้นถูกปฏิเสธในไทยเมื่อ 4 พ.ย. เนื่องจากภาพรางวัล iPhone</span></p></div>
+    </div>
+    <div class="al-card"><h3><span lang="en">TikTok ads, Nov 1–5</span><span lang="th">โฆษณา TikTok 1–5 พ.ย.</span></h3><div class="al-scroll"><table class="al-table"><thead><tr><th><span lang="en">Ad</span><span lang="th">โฆษณา</span></th><th><span lang="en">Spend</span><span lang="th">งบ</span></th><th><span lang="en">Impressions</span><span lang="th">การแสดงผล</span></th><th><span lang="en">Clicks</span><span lang="th">คลิก</span></th><th><span lang="en">Cost per click</span><span lang="th">ต้นทุนต่อคลิก</span></th><th class="left"><span lang="en">Status</span><span lang="th">สถานะ</span></th></tr></thead><tbody data-draw="t-ttads"></tbody></table></div></div>
+    <div class="al-card"><h3><span lang="en">TikTok by day</span><span lang="th">TikTok รายวัน</span></h3><div class="al-scroll"><table class="al-table"><thead><tr><th><span lang="en">Day</span><span lang="th">วันที่</span></th><th><span lang="en">Spend</span><span lang="th">งบ</span></th><th><span lang="en">Impressions</span><span lang="th">การแสดงผล</span></th><th><span lang="en">Clicks</span><span lang="th">คลิก</span></th><th><span lang="en">Cost per click</span><span lang="th">ต้นทุนต่อคลิก</span></th><th>CPM</th></tr></thead><tbody data-draw="t-ttdays"></tbody></table></div></div>
+  </section>
+
+  <section class="al-section" id="fb" data-view="facebook" hidden>
+    <h2><span lang="en">Album is the best Facebook ad, but Reels gets the money</span><span lang="th">Album ดีที่สุดบน Facebook แต่ Reels ได้งบไปเกือบหมด</span></h2>
+    <div class="al-tiles">
+      <div class="al-tile"><span class="al-tile-label"><span lang="en">Spend, Nov 1–5</span><span lang="th">งบ 1–5 พ.ย.</span></span><span class="al-tile-value" data-draw="n-meta">—</span><span class="al-tile-note"><span lang="en">Optimizing for landing page views</span><span lang="th">เน้นการดูหน้า Landing Page</span></span></div>
+      <div class="al-tile"><span class="al-tile-label"><span lang="en">Landing page views</span><span lang="th">การดูหน้า Landing Page</span></span><span class="al-tile-value" data-draw="fb-lpv">—</span><span class="al-tile-note"><span data-draw="fb-cplpv">—</span> <span lang="en">each</span><span lang="th">ต่อครั้ง</span></span></div>
+      <div class="al-tile"><span class="al-tile-label"><span lang="en">Facebook-reported sign-ups</span><span lang="th">ยอดสมัครที่ Facebook รายงาน</span></span><span class="al-tile-value" data-draw="n-fbreg">—</span><span class="al-tile-note"><span data-draw="n-fbcost">—</span> <span lang="en">each</span><span lang="th">ต่อราย</span></span></div>
+      <div class="al-tile"><span class="al-tile-label">CPM</span><span class="al-tile-value" data-draw="fb-cpm">—</span><span class="al-tile-note"><span data-draw="n-cpm1">—</span> → <span data-draw="n-cpm2">—</span>, Nov 2–5</span></div>
+      <div class="al-tile"><span class="al-tile-label"><span lang="en">Facebook-reported purchases</span><span lang="th">ยอดซื้อที่ Facebook รายงาน</span></span><span class="al-tile-value" data-draw="fb-pur">—</span><span class="al-tile-note"><span data-draw="fb-cpp">—</span> <span lang="en">each</span><span lang="th">ต่อครั้ง</span></span></div>
+    </div>
+    <div class="al-grid">
+      <div class="al-card"><h3><span lang="en">Share of spend vs share of sign-ups</span><span lang="th">สัดส่วนงบเทียบกับสัดส่วนยอดสมัคร</span></h3><p class="al-note"><span lang="en">Each Facebook ad, Nov 2–5. Sign-ups are reported by Facebook.</span><span lang="th">โฆษณาแต่ละชิ้นบน Facebook 2–5 พ.ย. ยอดสมัครรายงานโดย Facebook</span></p><div data-draw="c-fbshare" class="al-funnel"></div></div>
+      <div class="al-card"><h3><span lang="en">Why Facebook keeps spending on Reels</span><span lang="th">ทำไม Facebook ยังใช้งบกับ Reels</span></h3>
+        <ul class="al-list"><li><span lang="en">The campaign asks for landing page views, so Facebook isn't judging ads on sign-ups.</span><span lang="th">แคมเปญตั้งเป้าเป็นการดูหน้า Landing Page ระบบจึงไม่ได้ตัดสินจากยอดสมัคร</span></li>
+        <li><span lang="en">Reels is video, so it can run almost everywhere: feed, stories, in-stream, rewarded video and Threads. Album ran almost only in feed (92% of its spend), which limits how much it can spend.</span><span lang="th">Reels เป็นวิดีโอ จึงแสดงได้เกือบทุกตำแหน่ง ทั้งฟีด สตอรี่ วิดีโอแบบ In-stream วิดีโอรับรางวัล และ Threads ส่วน Album แสดงในฟีดเป็นหลัก (92% ของงบ) จึงจำกัดการใช้งบ</span></li>
+        <li><span lang="en">Reels started about four hours earlier and took 83% of the first day's spend. Facebook rarely rebalances once one ad gets ahead, and it won't split budget evenly within an ad set.</span><span lang="th">Reels เริ่มก่อนราว 4 ชั่วโมงและได้งบ 83% ในวันแรก เมื่อโฆษณาชิ้นหนึ่งนำแล้ว Facebook มักไม่ปรับกลับ และไม่แบ่งงบเท่ากันภายในชุดโฆษณาเดียว</span></li></ul>
+        <p class="al-note"><span lang="en">This is our reading of the delivery data. Facebook doesn't publish the exact reason. Album's budget is still small, so its numbers may soften as spend grows. The fix is to give Album its own ad set and budget, or pause Reels, then switch the goal to sign-ups.</span><span lang="th">นี่คือการตีความจากข้อมูลการแสดงผล เพราะ Facebook ไม่เปิดเผยเหตุผลที่แน่ชัด Album ยังใช้งบน้อย ผลอาจลดลงเมื่อเพิ่มงบ วิธีแก้คือแยกชุดโฆษณาและงบให้ Album หรือหยุด Reels แล้วเปลี่ยนเป้าเป็นการสมัคร</span></p></div>
+    </div>
+    <div class="al-card"><h3><span lang="en">Facebook ads, Nov 2–5</span><span lang="th">โฆษณา Facebook 2–5 พ.ย.</span></h3><div class="al-scroll"><table class="al-table"><thead><tr><th><span lang="en">Ad</span><span lang="th">โฆษณา</span></th><th><span lang="en">Spend</span><span lang="th">งบ</span></th><th><span lang="en">Link clicks</span><span lang="th">คลิกลิงก์</span></th><th><span lang="en">Landing page views</span><span lang="th">ดูหน้า Landing Page</span></th><th><span lang="en">Cost per view</span><span lang="th">ต้นทุนต่อการดู</span></th><th><span lang="en">Sign-ups</span><span lang="th">ยอดสมัคร</span></th><th><span lang="en">Views → sign-up</span><span lang="th">ดู → สมัคร</span></th><th><span lang="en">Cost per sign-up</span><span lang="th">ต้นทุนต่อการสมัคร</span></th></tr></thead><tbody data-draw="t-fbads"></tbody></table></div></div>
+    <div class="al-card"><h3><span lang="en">Facebook by day</span><span lang="th">Facebook รายวัน</span></h3><div class="al-scroll"><table class="al-table"><thead><tr><th><span lang="en">Day</span><span lang="th">วันที่</span></th><th><span lang="en">Spend</span><span lang="th">งบ</span></th><th><span lang="en">Reach</span><span lang="th">การเข้าถึง</span></th><th>CPM</th><th><span lang="en">Link clicks</span><span lang="th">คลิกลิงก์</span></th><th><span lang="en">Landing page views</span><span lang="th">ดูหน้า Landing Page</span></th><th><span lang="en">Sign-ups</span><span lang="th">ยอดสมัคร</span></th></tr></thead><tbody data-draw="t-fbdays"></tbody></table></div></div>
+  </section>
+
+  <section class="al-section" id="days" data-view="summary">
+    <div class="al-card">
+      <h3><span lang="en">Day by day</span><span lang="th">รายวัน</span></h3>
+      <div class="al-scroll">
+        <table class="al-table">
+          <thead><tr>
+            <th><span lang="en">Day</span><span lang="th">วันที่</span></th>
+            <th>Facebook</th>
+            <th>TikTok</th>
+            <th><span lang="en">Total spend</span><span lang="th">งบรวม</span></th>
+            <th><span lang="en">Sign-ups</span><span lang="th">ยอดสมัคร</span></th>
+            <th><span lang="en">Cost per sign-up</span><span lang="th">ต้นทุนต่อการสมัคร</span></th>
+          </tr></thead>
+          <tbody data-draw="t-days"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <div class="al-foot">
+      <p><span lang="en">Data read around midnight on Nov 5–6, 2026 from Meta Ads, TikTok Ads Manager and Google Analytics (Alfredo App). A sign-up is the GA sign_up event. The funnel uses GA's later total of 623 while the daily split adds to 622, because GA was still processing. Reported as a fixed snapshot; projections are estimates, not commitments.</span><span lang="th">ข้อมูลอ่านช่วงเที่ยงคืนของวันที่ 5–6 พ.ย. 2026 จาก Meta Ads, TikTok Ads Manager และ Google Analytics (Alfredo App) ยอดสมัครคือเหตุการณ์ sign_up ใน GA กราฟขั้นตอนใช้ยอดล่าสุด 623 ส่วนรายวันรวมได้ 622 เพราะ GA ยังประมวลผลอยู่ ตัวเลขเป็นภาพ ณ เวลานั้น และการคาดการณ์เป็นเพียงการประมาณ</span></p>
+    </div>
+</div>
+
+</div></main>
+<script>
+const DAILY=[
+ {day:1,meta:0,tt:0,su:8,cpm:0,reach:0},
+ {day:2,meta:762.54,tt:208.61,su:266,cpm:23.51,reach:30673},
+ {day:3,meta:663.77,tt:708.37,su:147,cpm:26.08,reach:22802},
+ {day:4,meta:626.27,tt:737.57,su:110,cpm:72.48,reach:6246},
+ {day:5,meta:569.68,tt:744.09,su:91,cpm:76.93,reach:5383}];
+const ADS=[
+ ['Facebook','Reels',2344.11,1490,13,'Active'],['Facebook','Album',160.22,176,29,'Active'],['Facebook','White',119.49,55,3,'Active'],
+ ['TikTok','White',1243.60,6434,null,'Active'],['TikTok','Reels',490.83,4273,null,'Active'],
+ ['TikTok','Ad name 2026-11-01 11:55:19',568.24,2768,null,'Partial delivery'],['TikTok','Album',95.97,432,null,'Not delivered']];
+const FUNNEL=[['First visit','เข้าเว็บครั้งแรก',2973],['LINE login','ล็อกอิน LINE',657],['Signed up','สมัครสำเร็จ',623],['Started receipt upload','เริ่มอัปโหลดใบเสร็จ',110],['Receipt recorded','บันทึกใบเสร็จแล้ว',102]];
+const TRACK=[['TikTok',1624,1,0,0],['Facebook',410,0,0,45]];
+const TTD=[[2,208.61,13029,1897],[3,708.37,45056,4248],[4,737.57,27543,4000],[5,744.09,25630,3762]];
+const FBD=[[2,762.54,30673,23.51,617,482,18],[3,663.77,22802,26.08,517,428,13],[4,626.27,6246,72.48,304,224,9],[5,569.68,5383,76.93,283,159,5]];
+const TTA=[['White',1243.60,47571,6434,'Active'],['Reels',490.83,23197,4273,'Active'],['Ad name 2026-11-01 11:55:19',568.24,29444,2768,'Partial delivery'],['Album',95.97,11046,432,'Not delivered']];
+const FBA=[['Reels',2344.11,1490,1139,13],['Album',160.22,176,120,29],['White',119.49,55,34,3]];
+let view='summary';
+const DIRECT_SHARE=616/622, DAYS_LEFT=25;
+
+const sum=(a,f)=>a.reduce((n,x)=>n+f(x),0);
+const num=v=>Math.round(v).toLocaleString('en-US');
+const baht=(v,dp=2)=>'฿'+v.toLocaleString('en-US',{minimumFractionDigits:dp,maximumFractionDigits:dp});
+const pct=v=>Math.round(v*100)+'%';
+let lang='en';
+const T=(en,th)=>lang==='th'?th:en;
+const dayLabel=d=>T(`Nov ${d}`,`${d} พ.ย.`);
+
+const days=DAILY.map(d=>{const spend=d.meta+d.tt;return {...d,spend,cost:spend>0?spend/d.su:null}});
+const live=days.filter(d=>d.spend>0), last=days[4], prev=days[3], last3=days.slice(-3);
+const tot={signups:sum(days,d=>d.su),adSignups:sum(live,d=>d.su),meta:sum(days,d=>d.meta),tiktok:sum(days,d=>d.tt),spend:sum(days,d=>d.spend)};
+tot.before=tot.signups-tot.adSignups; tot.cost=tot.spend/tot.adSignups; tot.first=live[0].cost; tot.latest=last.cost; tot.pace=sum(last3,d=>d.spend)/3;
+const rate=last.su/prev.su, totalSpend=tot.spend+tot.pace*DAYS_LEFT;
+let fallAdded=0; for(let k=1;k<=DAYS_LEFT;k++) fallAdded+=last.su*rate**k;
+const avg3=sum(last3,d=>d.su)/3;
+const mk=(id,perDay,added)=>({id,perDay,added,total:tot.signups+Math.round(added),cost:totalSpend/(tot.adSignups+added)});
+const PLAN=[mk('recovers',avg3,avg3*DAYS_LEFT),mk('expected',last.su,last.su*DAYS_LEFT),mk('falling',fallAdded/DAYS_LEFT,fallAdded)];
+const byId=Object.fromEntries(PLAN.map(p=>[p.id,p]));
+const fbSpend=sum(ADS.filter(a=>a[0]==='Facebook'),a=>a[2]), fbRegs=sum(ADS.filter(a=>a[0]==='Facebook'),a=>a[4]);
+
+const VALUES={
+ 'n-signups':num(tot.signups),'n-spend':baht(tot.spend,0),'n-cost':baht(tot.cost),'n-first':baht(tot.first),'n-latest':baht(tot.latest),
+ 'n-pace':baht(tot.pace,0),'n-before':num(tot.before),'n-adsu':num(tot.adSignups),'n-meta':baht(tot.meta,0),'n-tt':baht(tot.tiktok,0),
+ 'n-exp':num(byId.expected.total),'n-expd':num(byId.expected.perDay),'n-spendm':baht(totalSpend,0),'n-direct':pct(DIRECT_SHARE),
+ 'n-ttrate':pct(1624/13907),'tt-clicks':num(13907),'tt-ctr':'12.50%','tt-cpc':baht(tot.tiktok/13907),'tt-cpm':baht(tot.tiktok/111258*1000),'tt-users':num(1624),'fb-pur':num(60),'fb-cpp':baht(tot.meta/60),'fb-lpv':num(1293),'fb-cplpv':baht(tot.meta/1293),'fb-cpm':baht(tot.meta/73933*1000),'n-fbreg':num(fbRegs),'n-fbcost':baht(tot.meta/fbRegs),
+ 'n-cpm1':baht(days[1].cpm),'n-cpm2':baht(days[4].cpm),'n-rch1':num(days[1].reach),'n-rch2':num(days[4].reach)};
+document.querySelectorAll('[data-draw]').forEach(el=>{if(VALUES[el.dataset.draw]!=null)el.textContent=VALUES[el.dataset.draw]});
+
+const NS='http://www.w3.org/2000/svg';
+const S=(tag,attrs,parent,text)=>{const e=document.createElementNS(NS,tag);for(const k in attrs)if(attrs[k]!=null)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;if(parent)parent.append(e);return e};
+const svgIn=(el,W,H,label)=>S('svg',{width:'100%',viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':label},el);
+const label=(p,x,y,t,o={})=>S('text',{x,y,'text-anchor':o.a||'middle',fill:o.c||'var(--color-fg-muted)','font-size':o.s||12,'font-weight':o.w},p,t);
+const makeTip=el=>{const t=document.createElement('div');t.className='al-tip';t.hidden=true;el.append(t);return{
+ show(ev,lines){const r=el.getBoundingClientRect();t.replaceChildren(...lines.map(s=>{const d=document.createElement('div');d.textContent=s;return d}));t.hidden=false;
+  t.style.left=Math.max(0,Math.min(ev.clientX-r.left+12,el.clientWidth-t.offsetWidth))+'px';t.style.top=Math.max(0,ev.clientY-r.top-t.offsetHeight-8)+'px'},
+ hide(){t.hidden=true}}};
+const q=s=>document.querySelector(`[data-draw="${s}"]`);
+const niceMax=v=>{const p=10**Math.floor(Math.log10(v));const c=[1,1.5,2,3,4,5,8,10].find(m=>m*p>=v);return c*p};
+
+function drawSignups(){const el=q('c-signups');el.replaceChildren();const W=el.clientWidth||480,H=240,t=26,b=26,tip=makeTip(el),svg=svgIn(el,W,H,'Sign-ups per day');
+ const max=Math.max(...days.map(d=>d.su)),step=W/days.length,bw=Math.min(step*.6,36),y=v=>H-b-(H-b-t)*v/max;
+ S('line',{x1:0,x2:W,y1:H-b,y2:H-b,stroke:'var(--line)'},svg);
+ days.forEach((d,i)=>{const cx=step*(i+.5);S('rect',{x:cx-bw/2,width:bw,y:y(d.su),height:H-b-y(d.su),rx:3,fill:d.spend>0?'var(--al-red-line)':'var(--cds-chart-muted)'},svg);
+  label(svg,cx,y(d.su)-7,num(d.su),{c:'var(--color-fg)',w:600});label(svg,cx,H-8,dayLabel(d.day));
+  const h=S('rect',{x:step*i,y:0,width:step,height:H,fill:'transparent'},svg);h.addEventListener('pointermove',e=>tip.show(e,[dayLabel(d.day),T(`${num(d.su)} sign-ups`,`สมัคร ${num(d.su)} คน`),T(`${baht(d.spend,0)} spend`,`งบ ${baht(d.spend,0)}`)]));h.addEventListener('pointerleave',tip.hide)})}
+
+function drawCost(){const el=q('c-cost');el.replaceChildren();const W=el.clientWidth||480,H=240,t=28,b=26,tip=makeTip(el),svg=svgIn(el,W,H,'Cost per sign-up per day');
+ const max=Math.max(...live.map(d=>d.cost)),step=W/live.length,x=i=>step*(i+.5),y=v=>H-b-(H-b-t)*v/max;
+ S('line',{x1:0,x2:W,y1:H-b,y2:H-b,stroke:'var(--line)'},svg);
+ S('polyline',{points:live.map((d,i)=>`${x(i)},${y(d.cost)}`).join(' '),fill:'none',stroke:'var(--al-red-line)','stroke-width':2.5,'stroke-linejoin':'round','stroke-linecap':'round'},svg);
+ live.forEach((d,i)=>{S('circle',{cx:x(i),cy:y(d.cost),r:4.5,fill:'var(--al-red-line)'},svg);label(svg,x(i),y(d.cost)-11,baht(d.cost),{c:'var(--color-fg)',w:600});label(svg,x(i),H-8,dayLabel(d.day));
+  const h=S('rect',{x:step*i,y:0,width:step,height:H,fill:'transparent'},svg);h.addEventListener('pointermove',e=>tip.show(e,[dayLabel(d.day),T(`${baht(d.cost)} per sign-up`,`${baht(d.cost)} ต่อการสมัคร`),`${baht(d.spend,0)} ÷ ${num(d.su)}`]));h.addEventListener('pointerleave',tip.hide)})}
+
+function paths(){const out=[];let cum=0;days.forEach(d=>{cum+=d.su;out.push({day:d.day,actual:cum})});const base=cum;Object.assign(out[4],{recovers:base,expected:base,falling:base});let f=base;
+ for(let k=1;k<=DAYS_LEFT;k++){f+=last.su*rate**k;out.push({day:5+k,recovers:base+avg3*k,expected:base+last.su*k,falling:f})}return out}
+function drawRun(){const el=q('c-run');el.replaceChildren();const W=el.clientWidth||800,H=320,rows=paths(),m={t:12,b:26,l:46,r:W<520?74:96},tip=makeTip(el),svg=svgIn(el,W,H,'Total sign-ups to Nov 30');
+ const names={recovers:T('Recovers','ฟื้นตัว'),expected:T('Expected','คาดการณ์'),falling:T('Keeps falling','ลดลงต่อ')};
+ const max=niceMax(byId.recovers.total),x=d=>m.l+(W-m.l-m.r)*(d-1)/29,y=v=>H-m.b-(H-m.b-m.t)*v/max;
+ for(let i=0;i<=4;i++){const v=max*i/4;S('line',{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v),stroke:i?'var(--cds-chart-grid)':'var(--line)'},svg);label(svg,m.l-8,y(v)+4,num(v),{a:'end'})}
+ (W<520?[1,10,20,30]:[1,5,10,15,20,25,30]).forEach(d=>label(svg,x(d),H-8,dayLabel(d)));
+ const line=(k,c,w,dash)=>S('polyline',{points:rows.filter(r=>r[k]!=null).map(r=>`${x(r.day)},${y(r[k])}`).join(' '),fill:'none',stroke:c,'stroke-width':w,'stroke-dasharray':dash,'stroke-linejoin':'round'},svg);
+ line('recovers','var(--cds-chart-muted)',2,'5 4');line('falling','var(--cds-chart-muted)',2,'5 4');line('expected','var(--al-red-line)',2,'5 4');line('actual','var(--al-red-line)',3);
+ const end=rows[rows.length-1];['recovers','expected','falling'].forEach(k=>{label(svg,W-m.r+8,y(end[k])-2,names[k],{a:'start',c:'var(--color-fg)',s:W<520?11:12});label(svg,W-m.r+8,y(end[k])+13,num(end[k]),{a:'start'})});
+ const rule=S('line',{y1:m.t,y2:H-m.b,stroke:'var(--muted)',opacity:0},svg);
+ const h=S('rect',{x:m.l,y:0,width:W-m.l-m.r,height:H,fill:'transparent'},svg);
+ h.addEventListener('pointermove',e=>{const r=svg.getBoundingClientRect(),sx=(e.clientX-r.left)*W/r.width,d=rows[Math.max(0,Math.min(29,Math.round((sx-m.l)/(W-m.l-m.r)*29)))];rule.setAttribute('x1',x(d.day));rule.setAttribute('x2',x(d.day));rule.setAttribute('opacity',1);
+  const l=[dayLabel(d.day)];if(d.actual!=null)l.push(T(`Actual ${num(d.actual)}`,`ยอดจริง ${num(d.actual)}`));else ['recovers','expected','falling'].forEach(k=>l.push(`${names[k]} ${num(d[k])}`));tip.show(e,l)});
+ h.addEventListener('pointerleave',()=>{rule.setAttribute('opacity',0);tip.hide()})}
+
+function drawFunnel(){const el=q('c-funnel');el.replaceChildren();const top=FUNNEL[0][2],kept=FUNNEL.map((f,i)=>i?f[2]/FUNNEL[i-1][2]:null),worst=Math.min(...kept.slice(1));
+ FUNNEL.forEach((f,i)=>{if(i){const p=document.createElement('div');p.className='al-step-drop'+(kept[i]===worst?' is-worst':'');p.textContent=T(`↓ ${pct(kept[i])} continue`,`↓ ไปต่อ ${pct(kept[i])}`);el.append(p)}
+  const s=document.createElement('div');s.className='al-step';const h=document.createElement('div');h.className='al-step-head';const a=document.createElement('span');a.textContent=T(f[0],f[1]);const b=document.createElement('span');b.textContent=num(f[2]);h.append(a,b);
+  const t=document.createElement('div');t.className='al-step-track';const bar=document.createElement('div');bar.className='al-step-bar';bar.style.width=(f[2]/top*100)+'%';t.append(bar);s.append(h,t);el.append(s)})}
+
+const fill=(name,rows)=>{const el=q(name);el.replaceChildren(...rows.map(({cells,key})=>{const tr=document.createElement('tr');if(key)tr.className='is-key';cells.forEach(c=>{const td=document.createElement('td');if(c instanceof Node){td.className='left';td.append(c)}else td.textContent=c;tr.append(td)});return tr}))};
+function drawTables(){
+ const nm={recovers:T('Recovers to 3-day average','ฟื้นตัวสู่ค่าเฉลี่ย 3 วัน'),expected:T('Holds at latest day (expected)','คงที่ตามวันล่าสุด (คาดการณ์)'),falling:T('Keeps falling','ลดลงต่อเนื่อง')};
+ fill('t-plan',PLAN.map(p=>({key:p.id==='expected',cells:[nm[p.id],(p.id==='falling'?T(`${num(p.perDay)} (avg)`,`${num(p.perDay)} (เฉลี่ย)`):num(p.perDay)),num(p.total),baht(totalSpend,0),baht(p.cost)]})));
+ fill('t-track',TRACK.map(t=>({cells:[t[0],num(t[1]),num(t[2]),num(t[3]),t[0]==='TikTok'?T('Not tracked','ไม่ได้วัด'):num(t[4])]})));
+ fill('t-ttdays',TTD.map(d=>({cells:[dayLabel(d[0]),baht(d[1]),num(d[2]),num(d[3]),baht(d[1]/d[3]),baht(d[1]/d[2]*1000)]})));
+ fill('t-fbdays',FBD.map(d=>({cells:[dayLabel(d[0]),baht(d[1]),num(d[2]),baht(d[3]),num(d[4]),num(d[5]),num(d[6])]})));
+ fill('t-fbads',FBA.map(a=>({key:a[0]==='Album',cells:[a[0],baht(a[1]),num(a[2]),num(a[3]),baht(a[1]/a[3]),num(a[4]),(a[4]/a[3]*100).toFixed(1)+'%',baht(a[1]/a[4])]})));
+ const st={'Active':['ok','ทำงานอยู่'],'Partial delivery':['warn','แสดงบางส่วน'],'Not delivered':['bad','ไม่แสดงผล']};
+ fill('t-ttads',TTA.map(a=>{const pill=document.createElement('span');pill.className='al-pill '+st[a[4]][0];pill.textContent=T(a[4],st[a[4]][1]);return{cells:[a[0],baht(a[1]),num(a[2]),num(a[3]),baht(a[1]/a[3]),pill]}}));
+ fill('t-days',days.map(d=>({cells:[dayLabel(d.day),baht(d.meta),baht(d.tt),baht(d.spend),num(d.su),d.cost==null?'—':baht(d.cost)]})));
+}
+function drawTT(){const el=q('c-tt');el.replaceChildren();const W=el.clientWidth||480,H=240,t=26,b=26,tip=makeTip(el),svg=svgIn(el,W,H,'TikTok clicks per day'),max=Math.max(...TTD.map(d=>d[3])),step=W/TTD.length,bw=Math.min(step*.6,36),y=v=>H-b-(H-b-t)*v/max;
+ S('line',{x1:0,x2:W,y1:H-b,y2:H-b,stroke:'var(--line)'},svg);
+ TTD.forEach((d,i)=>{const cx=step*(i+.5);S('rect',{x:cx-bw/2,width:bw,y:y(d[3]),height:H-b-y(d[3]),rx:3,fill:'var(--al-red-line)'},svg);label(svg,cx,y(d[3])-7,num(d[3]),{c:'var(--color-fg)',w:600});label(svg,cx,H-8,dayLabel(d[0]));
+  const h=S('rect',{x:step*i,y:0,width:step,height:H,fill:'transparent'},svg);h.addEventListener('pointermove',e=>tip.show(e,[dayLabel(d[0]),T(`${num(d[3])} clicks`,`${num(d[3])} คลิก`),T(`${baht(d[1]/d[3])} per click`,`${baht(d[1]/d[3])} ต่อคลิก`)]));h.addEventListener('pointerleave',tip.hide)})}
+function drawShare(){const el=q('c-fbshare');el.replaceChildren();const sp=sum(FBA,a=>a[1]),su=sum(FBA,a=>a[4]);FBA.forEach(a=>{const w=document.createElement('div');w.className='al-share';const n=document.createElement('div');n.className='al-share-name';n.textContent=a[0];w.append(n);
+ [[T('Spend','งบ'),a[1]/sp,''],[T('Sign-ups','สมัคร'),a[4]/su,' su']].forEach(([l,v,c])=>{const r=document.createElement('div');r.className='al-share-row';const x=document.createElement('span');x.textContent=l;const t=document.createElement('div');t.className='al-step-track';const b=document.createElement('div');b.className='al-share-bar'+c;b.style.width=(v*100)+'%';t.append(b);const p=document.createElement('b');p.textContent=pct(v);r.append(x,t,p);w.append(r)});el.append(w)})}
+const drawAll=()=>{drawTables();drawFunnel();if(view==='summary'){drawSignups();drawCost();drawRun()}if(view==='tiktok')drawTT();if(view==='facebook')drawShare()};
+function setView(v){view=v;document.querySelectorAll('[data-view]').forEach(e=>{e.hidden=e.dataset.view!==v});document.querySelectorAll('.al-view').forEach(b=>b.classList.toggle('on',b.dataset.show===v));drawAll()}
+document.querySelectorAll('.al-view').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.show)));
+function setLang(l){lang=l;document.documentElement.lang=l;document.querySelector('.al').classList.toggle('al-th',l==='th');
+ document.querySelectorAll('.lang').forEach(b=>{const on=b.dataset.lang===l;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
+ document.querySelectorAll('[data-i18n-en]').forEach(e=>{e.textContent=l==='th'?e.dataset.i18nTh:e.dataset.i18nEn});
+ document.title=T('Alfredo · LINE Sign-up Report','Alfredo · รายงานยอดสมัคร LINE');
+ try{history.replaceState(null,'',l==='th'?'#th':'#en')}catch(e){} drawAll()}
+document.querySelectorAll('.lang').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(drawAll,150)});
+addEventListener('hashchange',()=>setLang(location.hash==='#th'?'th':'en'));
+setLang(location.hash==='#th'?'th':'en');
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(drawAll);
+</script>
+</body>
+</html>
